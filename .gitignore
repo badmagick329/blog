@@ -1,0 +1,9 @@
+.env
+__pycache__/
+.pytest_cache/
+db/
+db.log
+nginx/conf.d/*
+!nginx/conf.d/main.conf.sample
+notes/
+deploy.sh
