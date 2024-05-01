@@ -3,7 +3,11 @@ __pycache__/
 .pytest_cache/
 db/
 db.log
+
 nginx/conf.d/*
 !nginx/conf.d/main.conf.sample
+logs/
+certbot/
 notes/
+
 deploy.sh
