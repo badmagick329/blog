@@ -2,8 +2,8 @@
 name = "backend"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
-readme = "README.md"
+authors = ["badmagick329"]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -12,6 +12,7 @@ djangorestframework = "^3.15.1"
 python-dotenv = "^1.0.1"
 django-rest-knox = "^4.2.0"
 psycopg2-binary = "^2.9.9"
+gunicorn = "^22.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
