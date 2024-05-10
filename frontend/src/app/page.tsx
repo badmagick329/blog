@@ -1,12 +1,6 @@
-import localFont from 'next/font/local';
 import Image from 'next/image';
 
 import BackgroundImage from '../../public/images/coffee-cup.png';
-
-const myFont = localFont({
-  src: '../../public/font/Thuressia.ttf',
-  display: 'swap',
-});
 
 export default function Home() {
   return (

@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { ModeToggle } from './mode-toggle';
+
 export default function Header() {
   return (
     <header className='container pt-4'>
@@ -8,6 +10,7 @@ export default function Header() {
         <Link href='/blog'>Blog</Link>
         <Link href='/about'>About</Link>
         <Link href='/contact'>Contact</Link>
+        <ModeToggle />
       </nav>
     </header>
   );
