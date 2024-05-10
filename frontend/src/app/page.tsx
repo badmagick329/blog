@@ -1,33 +1,72 @@
-import Image from "next/image";
-import BackgroundImage from "../../public/images/coffee-cup.png";
-import localFont from "next/font/local";
+import localFont from 'next/font/local';
+import Image from 'next/image';
+
+import BackgroundImage from '../../public/images/coffee-cup.png';
 
 const myFont = localFont({
-  src: "../../public/font/Thuressia.ttf",
-  display: "swap",
+  src: '../../public/font/Thuressia.ttf',
+  display: 'swap',
 });
 
 export default function Home() {
   return (
-    <main className="flex min-h-dvh w-full flex-col items-center justify-center">
-      <div
-        className={`flex gap-4 ${myFont.className} flex-wrap justify-center`}
-      >
-        <div className="flex flex-col gap-12 justify-center text-center md:pt-12 tracking-widest">
-          <span className="text-4xl sm:text-6xl md:text-8xl">
-            The site is brewing.
-          </span>
-          <span className="text-lg sm:text-2xl md:text-3xl">
-            We'll be back shortly.
-          </span>
-          <span className="text-lg sm:text-2xl font-light md:text-3xl">
-            Thank you for your patience!
-          </span>
-        </div>
-        <div className="w-[300px] sm:w-[400px]">
-        <Image src={BackgroundImage} alt="Coffee Cup" unoptimized />
-        </div>
-      </div>
+    <main className='flex w-full flex-1 flex-col items-center justify-center'>
+      <article className='prose dark:prose-invert lg:prose-xl flex h-full w-full flex-col items-center gap-16'>
+        <section className='flex flex-col items-center justify-center'>
+          <p className='text-3xl'>Name</p>
+          <p>
+            Lorem ipsum dolor sit amet, officia excepteur ex fugiat
+            reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
+            ex esse exercitation amet. Nisi anim cupidatat excepteur officia.
+            Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate
+            voluptate dolor minim nulla est proident. Nostrud officia pariatur
+            ut officia. Sit irure elit esse ea nulla sunt ex occaecat
+            reprehenderit commodo officia dolor Lorem duis laboris cupidatat
+            officia voluptate. Culpa proident adipisicing id nulla nisi laboris
+            ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo
+            ex non excepteur duis sunt velit enim. Voluptate laboris sint
+            cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+          </p>
+        </section>
+        <section className='grid grid-cols-3 gap-4'>
+          <section>
+            <Image
+              src={BackgroundImage}
+              alt='Coffee cup'
+              width={200}
+              height={200}
+            />
+            <p>
+              Lorem ipsum dolor sit amet, qui minim labore adipisicing minim
+              sint cillum sint consectetur cupidatat.
+            </p>
+          </section>
+          <section>
+            <Image
+              src={BackgroundImage}
+              alt='Coffee cup'
+              width={200}
+              height={200}
+            />
+            <p>
+              Lorem ipsum dolor sit amet, qui minim labore adipisicing minim
+              sint cillum sint consectetur cupidatat.
+            </p>
+          </section>
+          <section>
+            <Image
+              src={BackgroundImage}
+              alt='Coffee cup'
+              width={200}
+              height={200}
+            />
+            <p>
+              Lorem ipsum dolor sit amet, qui minim labore adipisicing minim
+              sint cillum sint consectetur cupidatat.
+            </p>
+          </section>
+        </section>
+      </article>
     </main>
   );
 }

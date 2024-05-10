@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ["latin"] });
+import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Under Construction",
+  title: 'Under Construction',
 };
 
 export default function RootLayout({
@@ -14,8 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang='en'>
+      <body
+        className={cn(
+          'text-foreground bg-background flex h-[calc(100dvh-30px)] flex-col px-1 font-sans',
+          inter.className
+        )}
+      >
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
