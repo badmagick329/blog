@@ -1,4 +1,5 @@
 import { posts } from '#site/content';
+import MainHeading from '@/components/main-heading';
 import PostItem from '@/components/post-item';
 
 export const revalidate = 60;
@@ -15,9 +16,7 @@ export default async function BlogPosts() {
   return (
     <main className='flex flex-1 flex-col'>
       <article className='flex w-full flex-col items-center'>
-        <div className='prose dark:prose-invert lg:prose-lg'>
-          <h1 className='py-4 text-center text-4xl font-bold'>Blog Posts</h1>
-        </div>
+        <MainHeading text='Blog Posts' withProse />
         <section className='container'>
           {displayPosts.length > 0 ? (
             displayPosts.map((post) => {

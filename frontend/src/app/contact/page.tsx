@@ -1,3 +1,4 @@
+import MainHeading from '@/components/main-heading';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,7 +9,7 @@ export default function Contact() {
   return (
     <main className='flex w-full flex-1 flex-col items-center'>
       <article className='container prose dark:prose-invert lg:prose-lg'>
-        <h1 className='py-4 text-center text-4xl font-bold'>Contact Me</h1>
+        <MainHeading text='Contact Me' />
         <section>
           <p>
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat

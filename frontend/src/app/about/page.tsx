@@ -1,3 +1,4 @@
+import MainHeading from '@/components/main-heading';
 import Image from 'next/image';
 
 import CoffeeCup from '../../../public/images/coffee-cup.png';
@@ -6,7 +7,7 @@ export default function About() {
   return (
     <main className='flex w-full flex-1 flex-col items-center'>
       <article className='container prose dark:prose-invert lg:prose-lg'>
-        <h1 className='py-4 text-center text-4xl font-bold'>About</h1>
+        <MainHeading text='About' />
         <section>
           <Image
             className='float-right ml-[15px]'

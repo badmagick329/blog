@@ -1,3 +1,4 @@
+import MainHeading from '@/components/main-heading';
 import Image from 'next/image';
 
 import BackgroundImage from '../../public/images/coffee-cup.png';
@@ -8,7 +9,7 @@ export default function Home() {
       <div className='prose dark:prose-invert lg:prose-lg'>
         <article className='flex h-full w-full flex-col items-center gap-16'>
           <section className='flex flex-col items-center justify-center'>
-            <h1 className='py-4 text-center text-4xl font-bold'>Home Page</h1>
+            <MainHeading text='Home Page' />
             <p>
               Lorem ipsum dolor sit amet, officia excepteur ex fugiat
               reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
