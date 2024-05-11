@@ -1,8 +1,16 @@
 import { posts } from '#site/content';
 import PostItem from '@/components/post-item';
 
+export const revalidate = 10;
+
 export default async function BlogPosts() {
-  const displayPosts = posts;
+  const displayPosts = posts
+    .filter((post) => {
+      const today = new Date();
+      const publishedAt = new Date(post.publishedAt);
+      return publishedAt <= today;
+    })
+    .toSorted((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (
     <section className='container mx-auto py-6'>

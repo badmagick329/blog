@@ -1,3 +1,4 @@
+import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
 type PostItemProps = {
@@ -18,7 +19,7 @@ export default function PostItem({
         <Link href={`/${slug}`}>{title}</Link>
       </h2>
       <p>{description}</p>
-      <p className='text-foreground'>{publishedAt}</p>
+      <p className='text-foreground'>{formatDate(publishedAt)}</p>
     </article>
   );
 }
