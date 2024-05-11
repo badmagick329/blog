@@ -27,6 +27,7 @@ export default defineConfig({
           slug: s.path(),
           description: s.string().max(999).optional(),
           publishedAt: s.isodate(),
+          coverImage: s.string().optional(),
           body: s.mdx(),
         })
         .transform(computedFields),

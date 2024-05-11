@@ -13,6 +13,16 @@ export default {
     },
   },
   output: 'standalone',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.pointgadget.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 class VeliteWebpackPlugin {
