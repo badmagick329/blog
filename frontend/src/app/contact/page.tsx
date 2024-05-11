@@ -8,7 +8,7 @@ import XLogo from '../../../public/images/x-logo.png';
 export default function Contact() {
   return (
     <main className='flex w-full flex-1 flex-col items-center'>
-      <article className='container prose dark:prose-invert lg:prose-lg'>
+      <article className='container prose pt-8 dark:prose-invert lg:prose-lg'>
         <MainHeading text='Contact Me' />
         <section>
           <p>
