@@ -14,12 +14,17 @@ export default function PostItem({
   publishedAt,
 }: PostItemProps) {
   return (
-    <article className='flex flex-col gap-2 py-6 hover:text-foreground/60 md:px-24'>
-      <Link href={`/${slug}`}>
-        <h2 className='text-xl font-bold'>{title}</h2>
-        <p>{description}</p>
-        <p>{formatDate(publishedAt)}</p>
-      </Link>
+    <article className='flex flex-col items-center gap-2 md:px-24'>
+      <div className='prose dark:prose-invert'>
+        <Link
+          className='no-underline hover:text-foreground/60'
+          href={`/${slug}`}
+        >
+          <h2>{title}</h2>
+          <p>{description}</p>
+          <p>{formatDate(publishedAt)}</p>
+        </Link>
+      </div>
     </article>
   );
 }

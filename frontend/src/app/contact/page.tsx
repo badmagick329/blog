@@ -1,20 +1,15 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
-import CoffeeCup from '../../../public/images/coffee-cup.png';
+import LinkedinLogo from '../../../public/images/linkedin-logo.png';
+import XLogo from '../../../public/images/x-logo.png';
 
-export default function About() {
+export default function Contact() {
   return (
     <main className='flex w-full flex-1 flex-col items-center'>
       <article className='container prose dark:prose-invert lg:prose-lg'>
-        <h1 className='py-4 text-center text-4xl font-bold'>About</h1>
+        <h1 className='py-4 text-center text-4xl font-bold'>Contact Me</h1>
         <section>
-          <Image
-            className='float-right ml-[15px]'
-            src={CoffeeCup}
-            alt='Coffee cup'
-            width={100}
-            height={100}
-          />
           <p>
             Lorem ipsum dolor sit amet, officia excepteur ex fugiat
             reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
@@ -28,6 +23,34 @@ export default function About() {
             ex non excepteur duis sunt velit enim. Voluptate laboris sint
             cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
           </p>
+          <section className='flex items-center justify-around gap-8'>
+            <Link
+              href='https://www.linkedin.com'
+              target='_blank'
+              aria-label='Link to Linkedin'
+            >
+              <Image
+                src={LinkedinLogo}
+                className='rounded-md'
+                width={50}
+                height={50}
+                alt='Linkedin Logo'
+              />
+            </Link>
+            <Link
+              href='https://www.x.com'
+              target='_blank'
+              aria-label='Link to X'
+            >
+              <Image
+                src={XLogo}
+                className='rounded-md'
+                width={50}
+                height={50}
+                alt='X Logo'
+              />
+            </Link>
+          </section>
         </section>
       </article>
     </main>

@@ -5,11 +5,19 @@ import { ModeToggle } from './mode-toggle';
 export default function Header() {
   return (
     <header className='container pt-4'>
-      <nav className='flex justify-center gap-4 text-2xl md:gap-12 lg:gap-24'>
-        <Link href='/'>Home</Link>
-        <Link href='/posts'>Blog</Link>
-        <Link href='/about'>About</Link>
-        <Link href='/contact'>Contact</Link>
+      <nav className='xs:text-xl flex justify-center gap-4 text-lg sm:gap-12 sm:text-2xl lg:gap-24'>
+        <Link className='hover:text-foreground/60' href='/'>
+          Home
+        </Link>
+        <Link className='hover:text-foreground/60' href='/posts'>
+          Blog
+        </Link>
+        <Link className='hover:text-foreground/60' href='/about'>
+          About
+        </Link>
+        <Link className='hover:text-foreground/60' href='/contact'>
+          Contact
+        </Link>
         <ModeToggle />
       </nav>
     </header>

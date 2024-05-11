@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang='en'>
       <body
         className={cn(
-          'text-foreground bg-background flex h-[calc(100dvh-30px)] flex-col px-1 font-sans',
+          'flex h-[calc(100dvh-30px)] flex-col bg-background px-1 font-sans text-foreground',
           inter.className
         )}
       >
