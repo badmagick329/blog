@@ -5,9 +5,9 @@ export default async function BlogPosts() {
   const displayPosts = posts;
 
   return (
-    <div className='container mx-auto'>
-      <h1 className='text-4xl font-bold'>Blog Posts</h1>
-      <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+    <section className='container mx-auto py-6'>
+      <h1 className='flex justify-center text-4xl font-bold'>Blog Posts</h1>
+      <article className='container gap-4'>
         {displayPosts.length > 0 ? (
           displayPosts.map((post) => {
             const { slug, title, description, publishedAt } = post;
@@ -24,7 +24,7 @@ export default async function BlogPosts() {
         ) : (
           <p>No posts found</p>
         )}
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }

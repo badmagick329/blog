@@ -13,7 +13,7 @@ export default function PostItem({
   publishedAt,
 }: PostItemProps) {
   return (
-    <article className='border-border flex flex-col gap-2 rounded-md border-2 py-3'>
+    <article className='flex flex-col gap-2 px-12 py-4'>
       <h2 className='text-xl font-bold'>
         <Link href={`/${slug}`}>{title}</Link>
       </h2>

@@ -31,7 +31,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
   }
 
   return (
-    <article className='prose lg:prose-xl container mx-auto max-w-3xl py-6'>
+    <article className='prose dark:prose-invert lg:prose-xl container mx-auto max-w-3xl py-6'>
       <h1 className='mb-2 text-2xl font-semibold'>{post.title}</h1>
       <p className='text-foreground'>{post.publishedAt}</p>
       {post.description ? (
