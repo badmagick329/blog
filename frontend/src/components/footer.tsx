@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className='bg-background flex justify-center'>
+    <footer className='flex justify-center bg-background py-4'>
       <p>
         Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint
         cillum sint consectetur cupidatat.

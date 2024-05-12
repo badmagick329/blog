@@ -2,6 +2,8 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import * as runtime from 'react/jsx-runtime';
 
+import ShareButtons from './share-buttons';
+
 const useMDXComponent = (code: string) => {
   const fn = new Function(code);
   return fn({ ...runtime }).default;
@@ -9,6 +11,7 @@ const useMDXComponent = (code: string) => {
 
 const components = {
   Image,
+  ShareButtons,
   h1: ({ className, ...props }: { className: string }) => (
     <h1
       className={cn(
