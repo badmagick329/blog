@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import * as runtime from 'react/jsx-runtime';
 
+import PostDate from './post-date';
 import ShareButtons from './share-buttons';
 
 const useMDXComponent = (code: string) => {
@@ -12,6 +13,7 @@ const useMDXComponent = (code: string) => {
 const components = {
   Image,
   ShareButtons,
+  PostDate,
   h1: ({ className, ...props }: { className: string }) => (
     <h1
       className={cn(

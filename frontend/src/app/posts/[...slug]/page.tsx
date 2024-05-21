@@ -32,7 +32,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
   }
 
   return (
-    <article className='container prose mx-auto max-w-3xl py-6 dark:prose-invert lg:prose-xl'>
+    <article className='container prose mx-auto max-w-3xl py-6 text-justify dark:prose-invert lg:prose-xl'>
       <div className='flex w-full justify-center'>
         <Image
           src={post.coverImage || ''}

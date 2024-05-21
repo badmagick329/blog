@@ -37,3 +37,7 @@
 .subheading-anchor {
   @apply no-underline hover:underline;
 }
+
+h1:has(> a.subheading-anchor) {
+  @apply mb-0;
+}
