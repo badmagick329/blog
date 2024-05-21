@@ -7,7 +7,7 @@ export const revalidate = 60;
 
 export default async function BlogPosts() {
   const displayPosts = posts
-    .filter(post =>  postIsPublished(post))
+    .filter((post) => postIsPublished(post))
     .toSorted((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (
