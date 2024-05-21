@@ -32,13 +32,15 @@ export default async function PostSlug({ params }: PostSlugProps) {
   }
 
   return (
-    <article className='prose dark:prose-invert lg:prose-xl container mx-auto max-w-3xl py-6'>
-      <Image
-        src={post.coverImage || ''}
-        alt='coverImage'
-        width={600}
-        height={600}
-      />
+    <article className='container prose mx-auto max-w-3xl py-6 dark:prose-invert lg:prose-xl'>
+      <div className='flex w-full justify-center'>
+        <Image
+          src={post.coverImage || ''}
+          alt='coverImage'
+          width={800}
+          height={800}
+        />
+      </div>
       <MDXContent code={post.body} />
     </article>
   );
