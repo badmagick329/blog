@@ -1,5 +1,6 @@
 import { posts } from '#site/content';
 import { MDXContent } from '@/components/mdx-components';
+import { postIsPublished } from '@/lib/utils';
 import '@/styles/mdx.css';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -26,8 +27,7 @@ export async function generateStaticParams(): Promise<
 
 export default async function PostSlug({ params }: PostSlugProps) {
   const post = await getPostFromParams(params);
-  // TODO: Add logic for handling publishedAt
-  if (!post || !post.publishedAt) {
+  if (!post || !postIsPublished(post)) {
     return notFound();
   }
 

@@ -1,16 +1,13 @@
 import { posts } from '#site/content';
 import MainHeading from '@/components/main-heading';
 import PostItem from '@/components/post-item';
+import { postIsPublished } from '@/lib/utils';
 
 export const revalidate = 60;
 
 export default async function BlogPosts() {
   const displayPosts = posts
-    .filter((post) => {
-      const today = new Date();
-      const publishedAt = new Date(post.publishedAt);
-      return publishedAt <= today;
-    })
+    .filter(post =>  postIsPublished(post))
     .toSorted((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (

@@ -1,4 +1,4 @@
-import { type ClassValue, clsx } from 'clsx';
+import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -32,4 +32,13 @@ export async function copyToClipboard(text: string) {
     textArea.remove();
   }
   return Promise.resolve();
+}
+
+export function postIsPublished(post: any): boolean {
+  if (!post.publishedAt) {
+    return false;
+  }
+  const today = new Date();
+  const publishedAt = new Date(post.publishedAt);
+  return publishedAt <= today;
 }
