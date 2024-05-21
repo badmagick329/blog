@@ -2,8 +2,10 @@ import MainHeading from '@/components/main-heading';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import LinkedinLogo from '../../../public/images/linkedin-logo.png';
-import XLogo from '../../../public/images/x-logo.png';
+import EmailIcon from '../../../public/images/email-icon.png';
+import LinkedinLogo from '../../../public/images/linkedin-icon.png';
+
+const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
 
 export default function Contact() {
   return (
@@ -28,27 +30,27 @@ export default function Contact() {
             <Link
               href='https://www.linkedin.com'
               target='_blank'
-              aria-label='Link to Linkedin'
+              aria-label='Linkedin Link'
             >
               <Image
                 src={LinkedinLogo}
-                className='rounded-md'
+                className='rounded-full'
                 width={50}
                 height={50}
-                alt='Linkedin Logo'
+                alt='Linkedin Icon'
               />
             </Link>
             <Link
-              href='https://www.x.com'
+              href={`mailto:${EMAIL_ADDRESS}`}
               target='_blank'
-              aria-label='Link to X'
+              aria-label='Email Link'
             >
               <Image
-                src={XLogo}
-                className='rounded-md'
+                src={EmailIcon}
+                className='rounded-full'
                 width={50}
                 height={50}
-                alt='X Logo'
+                alt='Email Icon'
               />
             </Link>
           </section>
