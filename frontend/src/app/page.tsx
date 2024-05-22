@@ -6,7 +6,7 @@ import BackgroundImage from '../../public/images/coffee-cup.png';
 export default function Home() {
   return (
     <main className='flex flex-1 flex-col items-center'>
-      <div className='prose dark:prose-invert lg:prose-lg'>
+      <div className='prose text-foreground dark:prose-invert lg:prose-lg'>
         <article className='flex h-full w-full flex-col items-center gap-16 pt-8'>
           <section className='flex flex-col items-center justify-center'>
             <MainHeading text='Home Page' />

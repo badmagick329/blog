@@ -6,7 +6,7 @@ import CoffeeCup from '../../../public/images/coffee-cup.png';
 export default function About() {
   return (
     <main className='flex w-full flex-1 flex-col items-center'>
-      <article className='container prose pt-8 dark:prose-invert lg:prose-lg'>
+      <article className='container prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
         <MainHeading text='About' />
         <section>
           <Image

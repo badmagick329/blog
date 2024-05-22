@@ -4,13 +4,12 @@
 
 @layer base {
   :root {
-    --gradient: linear-gradient(to top left, #ff9966, #ff5e62);
 
-    --background: 21 65% 85%;
-    --foreground: 21 10% 30%;
+    --background: 39 30% 85%;
+    --foreground: 39 10% 8%;
 
-    --muted: 21 50% 21%;
-    --muted-foreground: 21 10% 57%;
+    --muted: 39 65% 21%;
+    --muted-foreground: 39 10% 13%;
 
     --popover: 21 45% 9.1%;
     --popover-foreground: 21 10% 98.5%;
@@ -21,14 +20,14 @@
     --border: 21 50% 21%;
     --input: 21 50% 21%;
 
-    --primary: 21 100% 70%;
-    --primary-foreground: 21 10% 7%;
+    --primary: 14 84% 78%;
+    --primary-foreground: 14 84% 5%;
 
-    --secondary: 21 50% 21%;
-    --secondary-foreground: 21 10% 98.5%;
+    --secondary: 334 31% 60%;
+    --secondary-foreground: 334 31% 8%;
 
-    --accent: 21 50% 21%;
-    --accent-foreground: 21 10% 98.5%;
+    --accent: 247 7% 47%;
+    --accent-foreground: 247 7% 8%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 21 10% 98.5%;
@@ -37,7 +36,6 @@
   }
 
   .dark {
-    --gradient: linear-gradient(to top left, #ff9966, #ff5e62);
 
     --background: 21 65% 5.6%;
     --foreground: 21 10% 98.5%;

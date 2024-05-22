@@ -26,9 +26,6 @@ export default function NavbarLink({
 }) {
   const hrefAsValidPath = pathText(href);
   const isActive = pathIsActive(pathname, hrefAsValidPath);
-  console.log(
-    `pathname: ${pathname}, pathText: ${hrefAsValidPath} isActive: ${isActive}`
-  );
   return (
     <Link className='flex hover:text-foreground/60' href={href}>
       {!isActive ? (
@@ -54,6 +51,5 @@ function ValidIcon(path: string): JSX.Element {
 }
 
 function pathIsActive(path: string, validPath: ValidPath): boolean {
-  console.log('Returning pathIsActive: ', pathText(path) === validPath);
   return pathText(path) === validPath;
 }

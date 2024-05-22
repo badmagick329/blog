@@ -14,7 +14,7 @@ export default async function BlogPosts() {
     <main className='flex flex-1 flex-col'>
       <article className='flex w-full flex-col items-center gap-12 pt-8'>
         <MainHeading text='Blog Posts' withProse />
-        <section className='flex flex-col items-center gap-12'>
+        <section className='flex flex-col items-center gap-12 font-normal'>
           {displayPosts.length > 0 ? (
             displayPosts.map((post) => {
               const { slug, title, description, publishedAt } = post;
