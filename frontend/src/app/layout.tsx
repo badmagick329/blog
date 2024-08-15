@@ -1,30 +1,63 @@
+'use client';
+
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import {
+  Allura,
+  Buda,
+  Comforter,
+  Euphoria_Script,
+  Forum,
+  Inter,
+  Linden_Hill,
+  Sedan,
+} from 'next/font/google';
+import { useState } from 'react';
 
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
+const buda = Buda({ weight: '300', subsets: ['latin'] });
+const forum = Forum({ weight: '400', subsets: ['latin'] });
+const sedan = Sedan({ weight: '400', subsets: ['latin'] });
+const linden_hill = Linden_Hill({ weight: '400', subsets: ['latin'] });
+const allura = Allura({ weight: '400', subsets: ['latin'] });
+const comforter = Comforter({ weight: '400', subsets: ['latin'] });
+const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Under Construction',
+const fonts = {
+  inter,
+  buda,
+  forum,
+  sedan,
+  linden_hill,
+  allura,
+  comforter,
+  euphoria_script,
 };
+
+export type FontsType = typeof fonts;
+
+// export const metadata: Metadata = {
+//   title: 'Under Construction',
+// };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [chosenFont, setChosenFont] = useState<keyof FontsType>('inter');
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body
         className={cn(
           'flex h-[calc(100dvh-30px)] flex-col bg-background px-1 font-sans text-foreground',
-          inter.className
+          fonts[chosenFont].className
         )}
       >
         <ThemeProvider
@@ -33,7 +66,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
+          <Header
+            fonts={fonts}
+            chosenFont={chosenFont}
+            setChosenFont={setChosenFont}
+          />
           {children}
           <Footer />
         </ThemeProvider>

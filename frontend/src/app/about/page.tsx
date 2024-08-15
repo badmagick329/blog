@@ -17,17 +17,23 @@ export default function About() {
             height={100}
           />
           <p>
-            Lorem ipsum dolor sit amet, officia excepteur ex fugiat
-            reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit
-            ex esse exercitation amet. Nisi anim cupidatat excepteur officia.
-            Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate
-            voluptate dolor minim nulla est proident. Nostrud officia pariatur
-            ut officia. Sit irure elit esse ea nulla sunt ex occaecat
-            reprehenderit commodo officia dolor Lorem duis laboris cupidatat
-            officia voluptate. Culpa proident adipisicing id nulla nisi laboris
-            ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo
-            ex non excepteur duis sunt velit enim. Voluptate laboris sint
-            cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+            Hi. I’m thrilled you’ve found your way to my little corner of the
+            web. I’m happy to see you find your way to my little website. I’m
+            Krista, a copywriter based in the vibrant city of London. For years
+            now, I’ve been freelancing as a content writer, fuelled by copious
+            amounts of coffee and an unending love for words. Since I was a
+            child, I’ve loved to write and read; words remain magical to me,
+            even after all these years. Through my professional writing, I’ve
+            worked with fantastic companies, from multinationals to smaller
+            startups and solo entrepreneurs. My work has allowed me to explore a
+            diverse range of topics, from finance and HR to travel and personal
+            development. What drives me most is my curiosity — I love exploring
+            new projects and ideas and supporting remarkable people and teams in
+            achieving their goals. I’ve connected with wonderful people and am
+            excited about the new experiences I’ve yet to discover. Thank you
+            for visiting my website and spending a few of your precious moments
+            with me. I hope you enjoy what you find and come visit again. Until
+            next time, Krista Psst. You can find my contact details here.
           </p>
         </section>
       </article>
