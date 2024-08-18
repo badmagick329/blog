@@ -50,13 +50,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [chosenFont, setChosenFont] = useState<keyof FontsType>('inter');
+  const [chosenFont, setChosenFont] = useState<keyof FontsType>('buda');
 
   return (
     <html lang='en' suppressHydrationWarning>
       <body
         className={cn(
-          'flex h-[calc(100dvh-30px)] flex-col bg-background px-1 font-sans text-foreground',
+          'flex min-h-dvh flex-col bg-background px-1 font-sans text-foreground',
           fonts[chosenFont].className
         )}
       >

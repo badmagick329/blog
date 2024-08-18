@@ -27,7 +27,7 @@ export default function NavbarLink({
   const hrefAsValidPath = pathText(href);
   const isActive = pathIsActive(pathname, hrefAsValidPath);
   return (
-    <Link className='flex hover:text-foreground/60' href={href}>
+    <Link className='flex items-center hover:text-foreground/60' href={href}>
       {!isActive ? (
         <Button className='sm:hidden' size='icon'>
           {ValidIcon(href)}

@@ -27,7 +27,7 @@ export default function Header({ fonts, chosenFont, setChosenFont }: Props) {
           <ModeToggle />
         </nav>
       </header>
-      <section className='flex justify-center gap-4 pt-4'>
+      {/* <section className='flex justify-center gap-4 pt-4'>
         <select
           value={chosenFont}
           onChange={(e) => {
@@ -42,7 +42,7 @@ export default function Header({ fonts, chosenFont, setChosenFont }: Props) {
             );
           })}
         </select>
-      </section>
+      </section> */}
     </div>
   );
 }
