@@ -20,9 +20,8 @@ import { useState } from 'react';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
-const buda = Buda({ weight: '300', subsets: ['latin'] });
+const buda = Buda({ weight: '300', subsets: ['latin'], display:'swap', adjustFontFallback: false});
 const forum = Forum({ weight: '400', subsets: ['latin'] });
-const sedan = Sedan({ weight: '400', subsets: ['latin'] });
 const linden_hill = Linden_Hill({ weight: '400', subsets: ['latin'] });
 const allura = Allura({ weight: '400', subsets: ['latin'] });
 const comforter = Comforter({ weight: '400', subsets: ['latin'] });
@@ -32,7 +31,6 @@ const fonts = {
   inter,
   buda,
   forum,
-  sedan,
   linden_hill,
   allura,
   comforter,
