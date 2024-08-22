@@ -4,9 +4,12 @@
 
 @layer base {
   :root {
-
     --background: 39 30% 85%;
+    --background-dark: 280 46% 5%;
+    --background-light: 39 30% 85%;
     --foreground: 39 10% 8%;
+    --foreground-light: 39 10% 8%;
+    --foreground-dark: 21 10% 98.5%;
 
     --muted: 39 65% 21%;
     --muted-foreground: 39 10% 13%;
@@ -36,9 +39,12 @@
   }
 
   .dark {
-
-    --background: 21 65% 5.6%;
+    --background: 280 46% 5%;
+    --background-dark: 280 46% 5%;
+    --background-light: 39 30% 85%;
     --foreground: 21 10% 98.5%;
+    --foreground-light: 39 10% 8%;
+    --foreground-dark: 21 10% 98.5%;
 
     --muted: 21 50% 21%;
     --muted-foreground: 21 10% 57%;

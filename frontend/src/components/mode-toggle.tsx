@@ -15,10 +15,18 @@ export function ModeToggle() {
   }
 
   const isDark = resolvedTheme === 'dark';
+  const buttonBgColor = isDark ? 'bg-background-light' : 'bg-background-dark';
+  const buttonForegroundColor = isDark
+    ? 'text-foreground-light'
+    : 'text-foreground-dark';
+  const hoverColor = isDark
+    ? 'hover:bg-background-light/80'
+    : 'hover:bg-background-dark/80';
 
   return (
     <Button
       size='icon'
+      className={`${buttonBgColor} ${buttonForegroundColor} ${hoverColor}`}
       onClick={() => (isDark ? setTheme('light') : setTheme('dark'))}
     >
       {isDark ? <Moon /> : <Sun />}

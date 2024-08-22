@@ -1,4 +1,6 @@
 import MainHeading from '@/components/main-heading';
+import { cn } from '@/lib/utils';
+import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,24 +8,27 @@ import EmailIcon from '../../../public/images/email-icon.png';
 import LinkedinLogo from '../../../public/images/linkedin-icon.png';
 
 const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
+const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
 
 export default function Contact() {
   return (
     <main className='flex w-full flex-1 flex-col items-center'>
       <article className='container prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
-        <MainHeading text='Contact Me' />
+        <MainHeading text='Would I like to get in touch?' />
         <section>
-          <p>
-            Would I like to get in touch? Thank you for asking and yes — I’m
-            always ready for new connections and would love to hear from you!
+          <p className='text-justify'>
+            Thank you for asking and yes — I’m always ready for new connections
+            and would love to hear from you!
+          </p>
+          <p className='text-justify'>
             Whether you’re looking for a copywriter for your project, want to
             collaborate on a personal project or just have a great suggestion to
             share (book recommendations are especially welcome!), you can get in
-            touch via: My email. My LinkedIn. I hope to hear from you!
+            touch via:
           </p>
           <section className='flex items-center justify-around gap-8'>
             <Link
-              href='https://www.linkedin.com'
+              href='https://www.linkedin.com/in/kristalomu'
               target='_blank'
               aria-label='Linkedin Link'
             >
@@ -48,6 +53,11 @@ export default function Contact() {
                 alt='Email Icon'
               />
             </Link>
+          </section>
+          <section
+            className={cn('text-center text-4xl', euphoria_script.className)}
+          >
+            <p> I hope to hear from you!</p>
           </section>
         </section>
       </article>
