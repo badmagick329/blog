@@ -7,24 +7,28 @@ import { useEffect, useState } from 'react';
 
 export function ModeToggle() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const { setTheme, resolvedTheme } = useTheme();
 
+  const buttonClasses =
+    'bg-background-dark text-foreground-dark hover:bg-accent dark:bg-background-light dark:text-foreground-light';
+
   if (!mounted) {
-    return <Button size='icon'>...</Button>;
+    return (
+      <Button className={buttonClasses} size='icon'>
+        ...
+      </Button>
+    );
   }
 
   const isDark = resolvedTheme === 'dark';
-  const buttonBgColor = isDark ? 'bg-background-light' : 'bg-background-dark';
-  const buttonForegroundColor = isDark
-    ? 'text-foreground-light'
-    : 'text-foreground-dark';
-  const hoverColor = 'hover:bg-accent';
 
   return (
     <Button
       size='icon'
-      className={`${buttonBgColor} ${buttonForegroundColor} ${hoverColor}`}
+      className={buttonClasses}
       onClick={() => (isDark ? setTheme('light') : setTheme('dark'))}
     >
       {isDark ? <Moon /> : <Sun />}
