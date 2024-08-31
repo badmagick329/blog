@@ -2,9 +2,9 @@ export default function Footer() {
   return (
     <footer className='flex justify-center bg-background pb-4 pt-8'>
       <p>
-        © Krista Lomu, 2024 - Made by{' '}
+        © Krista Lomu, {currentYear()} - Made by{' '}
         <a
-          className='underline hover:font-semibold'
+          className='underline hover:text-accent'
           href='https://github.com/badmagick329'
           target='_blank'
         >
@@ -13,4 +13,8 @@ export default function Footer() {
       </p>
     </footer>
   );
+}
+
+function currentYear(): number {
+  return new Date().getFullYear();
 }

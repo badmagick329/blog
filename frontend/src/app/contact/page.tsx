@@ -21,10 +21,9 @@ export default function Contact() {
             and would love to hear from you!
           </p>
           <p className='text-justify'>
-            Whether you’re looking for a copywriter for your project, want to
-            collaborate on a personal project or just have a great suggestion to
-            share (book recommendations are especially welcome!), you can get in
-            touch via:
+            Whether you’re looking for a content writer for your project, want
+            to collaborate on a project or just have a great (book) suggestion
+            to share, you can get in touch via:
           </p>
           <section className='flex items-center justify-around gap-8'>
             <Link

@@ -19,9 +19,7 @@ export function ModeToggle() {
   const buttonForegroundColor = isDark
     ? 'text-foreground-light'
     : 'text-foreground-dark';
-  const hoverColor = isDark
-    ? 'hover:bg-background-light/80'
-    : 'hover:bg-background-dark/80';
+  const hoverColor = 'hover:bg-accent';
 
   return (
     <Button

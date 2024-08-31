@@ -16,7 +16,7 @@ export default function About() {
           <p>I’m happy to see you find your way to my little website.</p>
           <p>
             I’m Krista, a copywriter based in the vibrant city of London. For
-            years now, I’ve been freelancing as a content writer, fuelled by
+            years now, I’ve been freelancing as a content writer, fueled by
             copious amounts of coffee and an unending love for words.
           </p>
           <p>
@@ -42,8 +42,15 @@ export default function About() {
           </p>
           <p>Until next time,</p>
           <p className={cn('text-4xl', euphoria_script.className)}>Krista</p>
-          <p className={cn('text-xl', euphoria_script.className)}>
-            Psst. You can find my contact details here.
+          <p className={cn('text-2xl', euphoria_script.className)}>
+            Psst. Check out{' '}
+            <a
+              className='hover:text-accent'
+              href='/contact'
+              aria-label='my contact details'
+            >
+              my contact details
+            </a>
           </p>
         </section>
       </article>

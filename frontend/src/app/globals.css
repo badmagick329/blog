@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --background: 39 30% 85%;
-    --background-dark: 280 46% 5%;
-    --background-light: 39 30% 85%;
+    --background: 280 25% 90%;
+    --background-dark: 280 46% 15%;
+    --background-light: 280 25% 90%;
     --foreground: 39 10% 8%;
     --foreground-light: 39 10% 8%;
     --foreground-dark: 21 10% 98.5%;
@@ -29,7 +29,7 @@
     --secondary: 334 31% 60%;
     --secondary-foreground: 334 31% 8%;
 
-    --accent: 247 7% 47%;
+    --accent: 152 43% 40%;
     --accent-foreground: 247 7% 8%;
 
     --destructive: 0 62.8% 30.6%;
@@ -39,9 +39,9 @@
   }
 
   .dark {
-    --background: 280 46% 5%;
-    --background-dark: 280 46% 5%;
-    --background-light: 39 30% 85%;
+    --background: 280 46% 15%;
+    --background-dark: 280 46% 15%;
+    --background-light: 280 25% 90%;
     --foreground: 21 10% 98.5%;
     --foreground-light: 39 10% 8%;
     --foreground-dark: 21 10% 98.5%;
@@ -64,7 +64,7 @@
     --secondary: 21 50% 21%;
     --secondary-foreground: 21 10% 98.5%;
 
-    --accent: 21 50% 21%;
+    --accent: 152 43% 60%;
     --accent-foreground: 21 10% 98.5%;
 
     --destructive: 0 62.8% 30.6%;
