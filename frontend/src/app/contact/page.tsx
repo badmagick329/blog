@@ -1,4 +1,5 @@
 import MainHeading from '@/components/main-heading';
+import PageTime from '@/components/page-time';
 import { cn } from '@/lib/utils';
 import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
@@ -60,6 +61,7 @@ export default function Contact() {
           </section>
         </section>
       </article>
+      <PageTime route='contact' />
     </main>
   );
 }

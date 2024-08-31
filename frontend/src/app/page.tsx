@@ -1,4 +1,5 @@
 import MainHeading from '@/components/main-heading';
+import PageTime from '@/components/page-time';
 import { cn } from '@/lib/utils';
 import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
@@ -46,6 +47,7 @@ export default function Home() {
           </section>
         </article>
       </div>
+      <PageTime route='home' />
     </main>
   );
 }
