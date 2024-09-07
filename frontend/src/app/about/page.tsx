@@ -1,5 +1,4 @@
 import MainHeading from '@/components/main-heading';
-import PageTime from '@/components/page-time';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Euphoria_Script } from 'next/font/google';
@@ -60,7 +59,6 @@ export default function About() {
           </p>
         </section>
       </article>
-      <PageTime route='about' />
     </main>
   );
 }
