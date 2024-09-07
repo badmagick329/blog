@@ -21,14 +21,12 @@ export default function About() {
             copious amounts of coffee and an unending love for words.
           </p>
           <p>
-            Since I was a child, I’ve loved to write and read; words remain
-            magical to me, even after all these years.
-          </p>
-          <p>
             Through my professional writing, I’ve worked with fantastic
             companies, from multinationals to smaller startups and solo
             entrepreneurs. My work has allowed me to explore a diverse range of
-            topics, from finance and HR to travel and personal development.
+            topics, from finance and HR to travel and personal development. I’ve
+            written blogs, newsletters, white papers, emails and social media
+            content — all sorts of materials to support business growth.
           </p>
           <p>
             What drives me most is my curiosity — I love exploring new projects

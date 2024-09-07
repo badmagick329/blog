@@ -5,8 +5,8 @@ import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import EmailImage from '../../public/images/email.png';
 import IDImage from '../../public/images/id-card.png';
-import EmailImage from '../../public/images/open-email.png';
 
 const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
 
@@ -20,29 +20,33 @@ export default function Home() {
               Lovely to see you.
             </p>
             <MainHeading
-              text={'I’m Krista, a copywriter and content writer.'}
+              text={'I’m Krista, a freelance content and copywriter.'}
               withProse
             />
             <p className='text-2xl'>Go ahead and explore my little website.</p>
           </section>
           <section className='flex w-full justify-around'>
             <Link href={`/about`} aria-label='About page link'>
-              <Image
-                className='hover:animate-wiggle dark:invert'
-                src={IDImage}
-                width={50}
-                height={50}
-                alt='ID Card Icon'
-              />
+              <abbr title='About'>
+                <Image
+                  className='hover:animate-wiggle dark:invert'
+                  src={IDImage}
+                  width={50}
+                  height={50}
+                  alt='ID Card Icon'
+                />
+              </abbr>
             </Link>
             <Link href={`/contact`} aria-label='Contact page link'>
-              <Image
-                className='hover:animate-wiggle dark:invert'
-                src={EmailImage}
-                width={50}
-                height={50}
-                alt='Email Icon'
-              />
+              <abbr title='Contact'>
+                <Image
+                  className='hover:animate-wiggle dark:invert'
+                  src={EmailImage}
+                  width={50}
+                  height={50}
+                  alt='Email Icon'
+                />
+              </abbr>
             </Link>
           </section>
         </article>

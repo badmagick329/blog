@@ -22,7 +22,7 @@ export default function Contact() {
             and would love to hear from you!
           </p>
           <p className='text-justify'>
-            Whether you’re looking for a content writer for your project, want
+            Whether you’re looking for a content writer for your business, want
             to collaborate on a project or just have a great (book) suggestion
             to share, you can get in touch via:
           </p>
@@ -32,26 +32,30 @@ export default function Contact() {
               target='_blank'
               aria-label='Linkedin Link'
             >
-              <Image
-                src={LinkedinLogo}
-                className='rounded-full'
-                width={50}
-                height={50}
-                alt='Linkedin Icon'
-              />
+              <abbr title='Linkedin'>
+                <Image
+                  src={LinkedinLogo}
+                  className='rounded-full'
+                  width={50}
+                  height={50}
+                  alt='Linkedin Icon'
+                />
+              </abbr>
             </Link>
             <Link
               href={`mailto:${EMAIL_ADDRESS}`}
               target='_blank'
               aria-label='Email Link'
             >
-              <Image
-                src={EmailIcon}
-                className='rounded-full'
-                width={50}
-                height={50}
-                alt='Email Icon'
-              />
+              <abbr title='Email'>
+                <Image
+                  src={EmailIcon}
+                  className='rounded-full'
+                  width={50}
+                  height={50}
+                  alt='Email Icon'
+                />
+              </abbr>
             </Link>
           </section>
           <section

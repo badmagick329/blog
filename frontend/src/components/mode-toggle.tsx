@@ -17,21 +17,25 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <Button className={buttonClasses} size='icon'>
-        ...
-      </Button>
+      <abbr title='Toggle Theme'>
+        <Button className={buttonClasses} size='icon'>
+          ...
+        </Button>
+      </abbr>
     );
   }
 
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <Button
-      size='icon'
-      className={buttonClasses}
-      onClick={() => (isDark ? setTheme('light') : setTheme('dark'))}
-    >
-      {isDark ? <Moon /> : <Sun />}
-    </Button>
+    <abbr title='Toggle Theme'>
+      <Button
+        size='icon'
+        className={buttonClasses}
+        onClick={() => (isDark ? setTheme('light') : setTheme('dark'))}
+      >
+        {isDark ? <Moon /> : <Sun />}
+      </Button>
+    </abbr>
   );
 }
