@@ -1,9 +1,16 @@
 import MainHeading from '@/components/main-heading';
 import PageTime from '@/components/page-time';
 import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
 import { Euphoria_Script } from 'next/font/google';
 
 const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'A professional content and copywriter from London, with experience in finance, Human Resources, taxation, investing, personal development and travel. ',
+};
 
 export default function About() {
   return (

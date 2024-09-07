@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Terms of Use',
-  description: '...',
 };
 
 export default function TermsOfUse() {

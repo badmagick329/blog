@@ -1,6 +1,7 @@
 import MainHeading from '@/components/main-heading';
 import PageTime from '@/components/page-time';
 import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
 import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,6 +10,12 @@ import EmailImage from '../../public/images/email.png';
 import IDImage from '../../public/images/id-card.png';
 
 const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description:
+    'Explore the world of a professional freelance content and copywriter. Get in touch to transform your next writing or marketing project.',
+};
 
 export default function Home() {
   return (

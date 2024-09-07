@@ -1,6 +1,7 @@
 import MainHeading from '@/components/main-heading';
 import PageTime from '@/components/page-time';
 import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
 import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +11,12 @@ import LinkedinLogo from '../../../public/images/linkedin-icon.png';
 
 const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
 const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description:
+    'Need a content writer for business or personal projects? Contact a professional copywriter to get results with your blog, newsletters, emails and social media.',
+};
 
 export default function Contact() {
   return (
