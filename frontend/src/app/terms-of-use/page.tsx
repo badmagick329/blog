@@ -8,8 +8,9 @@ export default function TermsOfUse() {
   return (
     <main className='mx-auto w-full'>
       <article className='container prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
-        <h1 className='text-center'>Website Terms of Use</h1>
+        <h1 className='text-center pt-4'>Website Terms of Use</h1>
         <h2>Terms of Use</h2>
+        <p className='italic text-foreground/60'>Last updated: <span>September, 2024</span></p>
         <p>
           Please read these Terms of Use carefully before using this website.
           Using this website indicates your agreement with these Terms of Use.
