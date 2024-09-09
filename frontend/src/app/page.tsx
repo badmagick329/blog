@@ -40,6 +40,7 @@ export default function Home() {
                   width={50}
                   height={50}
                   alt='ID Card Icon'
+                  unoptimized
                 />
               </abbr>
             </Link>
@@ -51,6 +52,7 @@ export default function Home() {
                   width={50}
                   height={50}
                   alt='Email Icon'
+                  unoptimized
                 />
               </abbr>
             </Link>
