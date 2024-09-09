@@ -13,7 +13,7 @@ export function ModeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
 
   const buttonClasses =
-    'bg-background-dark text-foreground-dark hover:bg-accent dark:bg-background-light dark:text-foreground-light';
+    'bg-background-dark text-foreground-dark hover:bg-accent dark:bg-background-light dark:text-foreground-light dark:hover:bg-accent';
 
   if (!mounted) {
     return (
