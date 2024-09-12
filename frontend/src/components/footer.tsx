@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Footer() {
@@ -8,28 +9,28 @@ export default function Footer() {
     <footer className='flex flex-col items-center bg-background pb-4 pt-8'>
       <section className='flex items-center justify-center gap-1 text-center'>
         © Krista Lomu, {currentYear()} - Made by
-        <a
+        <Link
           className='underline hover:text-accent'
           href='https://github.com/badmagick329'
           target='_blank'
         >
           badmagick
-        </a>
+        </Link>
         <p>-</p>
-        <a className='underline hover:text-accent' href='/terms-of-use'>
+        <Link className='underline hover:text-accent' href='/terms-of-use'>
           Terms of Use
-        </a>
+        </Link>
       </section>
       {pathname === '/' && (
         <section>
           Icons by{' '}
-          <a
+          <Link
             className='underline hover:text-accent'
             href='https://www.flaticon.com/authors/smashingstocks'
             target='_blank'
           >
             smashingstocks
-          </a>{' '}
+          </Link>{' '}
           from Flaticon
         </section>
       )}

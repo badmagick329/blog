@@ -7,10 +7,20 @@ export default function MainHeading({
 }) {
   if (withProse) {
     return (
-      <div className='prose dark:prose-invert lg:prose-lg'>
-        <h1 className='py-4 text-center text-4xl font-bold'>{text}</h1>
-      </div>
+      <h1
+        className='prose py-4 text-center text-4xl font-bold dark:prose-invert lg:prose-lg'
+        aria-label='Main Heading'
+      >
+        {text}
+      </h1>
     );
   }
-  return <h1 className='py-4 text-center text-4xl font-bold'>{text}</h1>;
+  return (
+    <h1
+      className='py-4 text-center text-4xl font-bold'
+      aria-label='Main Heading'
+    >
+      {text}
+    </h1>
+  );
 }

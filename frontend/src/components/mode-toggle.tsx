@@ -18,7 +18,11 @@ export function ModeToggle() {
   if (!mounted) {
     return (
       <abbr title='Toggle Theme'>
-        <Button className={buttonClasses} size='icon'>
+        <Button
+          className={buttonClasses}
+          size='icon'
+          aria-label='Theme Toggle Button'
+        >
           ...
         </Button>
       </abbr>
@@ -33,8 +37,13 @@ export function ModeToggle() {
         size='icon'
         className={buttonClasses}
         onClick={() => (isDark ? setTheme('light') : setTheme('dark'))}
+        aria-label='Theme Toggle Button'
       >
-        {isDark ? <Moon /> : <Sun />}
+        {isDark ? (
+          <Moon aria-label='Moon Icon' />
+        ) : (
+          <Sun aria-label='Sun Icon' />
+        )}
       </Button>
     </abbr>
   );

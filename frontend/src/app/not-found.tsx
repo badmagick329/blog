@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import NotFoundImage from '../../public/images/unicorn-surprised-375.png';
 
@@ -15,12 +16,12 @@ export default function NotFound() {
       />
       <p>
         If this wasn’t intentional, please return to the{' '}
-        <a
+        <Link
           className='font-semibold hover:cursor-pointer hover:text-foreground/60'
           href='/'
         >
           home page
-        </a>{' '}
+        </Link>{' '}
         and try again.
       </p>
     </div>

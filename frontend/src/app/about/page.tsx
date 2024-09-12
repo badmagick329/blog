@@ -2,6 +2,7 @@ import MainHeading from '@/components/main-heading';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Euphoria_Script } from 'next/font/google';
+import Link from 'next/link';
 
 const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
 
@@ -49,13 +50,13 @@ export default function About() {
           <p className={cn('text-4xl', euphoria_script.className)}>Krista</p>
           <p className={cn('text-2xl', euphoria_script.className)}>
             Psst. Check out{' '}
-            <a
+            <Link
               className='hover:text-accent'
               href='/contact'
               aria-label='my contact details'
             >
               my contact details
-            </a>
+            </Link>
           </p>
         </section>
       </article>
