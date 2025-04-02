@@ -12,6 +12,8 @@ export default function Footer() {
         <Link
           className='underline hover:text-accent'
           href='https://github.com/badmagick329'
+          rel='noopener noreferrer'
+          aria-label='Opens in new tab'
           target='_blank'
         >
           badmagick
@@ -27,6 +29,8 @@ export default function Footer() {
           <Link
             className='underline hover:text-accent'
             href='https://www.flaticon.com/authors/smashingstocks'
+            rel='noopener noreferrer'
+            aria-label='Opens in new tab'
             target='_blank'
           >
             smashingstocks

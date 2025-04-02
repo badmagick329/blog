@@ -36,12 +36,13 @@ export default function Contact() {
             <Link
               href='https://www.linkedin.com/in/kristalomu'
               target='_blank'
-              aria-label='Linkedin Link'
+              rel='noopener noreferrer'
+              aria-label='Linkedin Link, Opens in new tab'
             >
               <abbr title='Linkedin'>
                 <Image
                   src={LinkedinLogo}
-                  className='rounded-full'
+                  className='rounded-full transition-all hover:scale-110'
                   width={50}
                   height={50}
                   alt='Linkedin Icon'
@@ -51,12 +52,13 @@ export default function Contact() {
             <Link
               href={`mailto:${EMAIL_ADDRESS}`}
               target='_blank'
-              aria-label='Email Link'
+              rel='noopener noreferrer'
+              aria-label='Email Link, Opens in new tab'
             >
               <abbr title='Email'>
                 <Image
                   src={EmailIcon}
-                  className='rounded-full'
+                  className='rounded-full transition-all hover:scale-110'
                   width={50}
                   height={50}
                   alt='Email Icon'
