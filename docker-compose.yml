@@ -1,15 +1,10 @@
 services:
   nextapp:
-    image: nextjs
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      target: deploy
+    image: blogfrontend:prod
     restart: "always"
 
   nginx:
-    build:
-      context: ./nginx
+    image: blognginx:prod
     restart: "always"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
