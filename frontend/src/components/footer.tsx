@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 export default function Footer() {
   const pathname = usePathname();
   return (
-    <footer className='flex flex-col items-center bg-background pb-4 pt-8 text-sm sm:text-base'>
+    <footer className='flex flex-col items-center pb-4 pt-8 text-sm sm:text-base'>
       <section className='flex items-center justify-center gap-1 text-center'>
         <span>© Krista Lomu, {currentYear()}</span>
         <p>-</p>

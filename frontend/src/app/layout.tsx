@@ -28,7 +28,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'flex min-h-dvh flex-col bg-background font-sans text-foreground',
+          'from-background-start to-background-end flex min-h-dvh flex-col bg-gradient-to-br font-sans text-foreground',
           forum.className
         )}
       >

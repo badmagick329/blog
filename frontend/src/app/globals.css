@@ -5,6 +5,8 @@
 @layer base {
   :root {
     --background: 280 25% 90%;
+    --background-start: 280 25% 80%;
+    --background-end: 280 25% 95%;
     --background-dark: 280 46% 15%;
     --background-light: 280 25% 90%;
     --foreground: 39 10% 8%;
@@ -40,6 +42,8 @@
 
   .dark {
     --background: 280 46% 15%;
+    --background-start: 280 46% 5%;
+    --background-end: 280 46% 20%;
     --background-dark: 280 46% 15%;
     --background-light: 280 25% 90%;
     --foreground: 21 10% 98.5%;
