@@ -9,8 +9,8 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div className='flex flex-col'>
-      <header className='flex justify-center gap-4 pt-4'>
+    <div className='sticky top-0 z-10 flex flex-col'>
+      <header className='flex justify-center gap-4 py-4'>
         <nav className='xs:text-xl flex justify-center gap-4 text-lg sm:gap-12 sm:text-2xl lg:gap-24'>
           <NavbarLink href='/' pathname={pathname} />
           {/* <NavbarLink href='/posts' pathname={pathname} /> */}
