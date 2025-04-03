@@ -8,7 +8,12 @@ import Link from 'next/link';
 import EmailImage from '../../public/images/email.png';
 import IDImage from '../../public/images/id-card.png';
 
-const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
+const euphoria_script = Euphoria_Script({
+  weight: '400',
+  display: 'swap',
+  adjustFontFallback: false,
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'Home',

@@ -4,7 +4,12 @@ import type { Metadata } from 'next';
 import { Euphoria_Script } from 'next/font/google';
 import Link from 'next/link';
 
-const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
+const euphoria_script = Euphoria_Script({
+  weight: '400',
+  display: 'swap',
+  adjustFontFallback: false,
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'About',

@@ -10,7 +10,12 @@ import Script from 'next/script';
 
 import './globals.css';
 
-const forum = Forum({ weight: '400', subsets: ['latin'] });
+const forum = Forum({
+  weight: '400',
+  display: 'swap',
+  adjustFontFallback: false,
+  subsets: ['latin'],
+});
 
 export default function RootLayout({
   children,
@@ -28,7 +33,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'from-background-start to-background-end flex min-h-dvh flex-col bg-gradient-to-br font-sans text-foreground',
+          'flex min-h-dvh flex-col bg-gradient-to-br from-background-start to-background-end font-sans text-foreground',
           forum.className
         )}
       >

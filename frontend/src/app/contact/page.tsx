@@ -9,7 +9,12 @@ import EmailIcon from '../../../public/images/email-icon.png';
 import LinkedinLogo from '../../../public/images/linkedin-icon.png';
 
 const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
-const euphoria_script = Euphoria_Script({ weight: '400', subsets: ['latin'] });
+const euphoria_script = Euphoria_Script({
+  weight: '400',
+  display: 'swap',
+  adjustFontFallback: false,
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'Contact',
