@@ -14,36 +14,29 @@ export default {
   },
   output: 'standalone',
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'www.pointgadget.com',
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    unoptimized: true,
   },
   async headers() {
-      return [
-        {
-        source: "/api/:path*",
+    return [
+      {
+        source: '/api/:path*',
         headers: [
           {
-            key: "Access-Control-Allow-Origin",
-            value: "https://analytics.mgck.ink",
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://analytics.mgck.ink',
           },
           {
-            key: "Access-Control-Allow-Methods",
-            value: "GET, POST, PUT, DELETE, OPTIONS",
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
           },
           {
-            key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization',
           },
         ],
       },
-      ]
-  }
+    ];
+  },
 };
 
 class VeliteWebpackPlugin {
