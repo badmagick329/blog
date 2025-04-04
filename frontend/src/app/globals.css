@@ -38,6 +38,7 @@
     --destructive-foreground: 21 10% 98.5%;
 
     --ring: 21 100% 70%;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -75,6 +76,7 @@
     --destructive-foreground: 21 10% 98.5%;
 
     --ring: 21 100% 70%;
+    --radius: 0.5rem;
   }
 }
 
@@ -90,4 +92,12 @@
 
 body {
   box-sizing: border-box;
+}
+
+.mdx-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* adjust number of lines */
+  line-clamp: 3; /* standard property for compatibility */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

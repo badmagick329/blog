@@ -12,18 +12,18 @@ export default async function BlogPosts() {
 
   return (
     <main className='flex flex-1 flex-col'>
-      <article className='flex w-full flex-col items-center gap-12 pt-8'>
-        <MainHeading text='Blog Posts' withProse />
-        <section className='flex flex-col items-center gap-12 font-normal'>
+      <article className='container prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
+        <MainHeading text='Blog Posts' />
+        <section className='flex flex-col items-start gap-12 font-normal'>
           {displayPosts.length > 0 ? (
             displayPosts.map((post) => {
-              const { slug, title, description, publishedAt } = post;
+              const { slug, title, publishedAt, body } = post;
               return (
                 <PostItem
                   key={slug}
                   slug={slug}
                   title={title}
-                  description={description}
+                  description={body}
                   publishedAt={publishedAt}
                 />
               );

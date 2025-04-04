@@ -1,5 +1,7 @@
 import { posts } from '#site/content';
+import MainHeading from '@/components/main-heading';
 import { MDXContent } from '@/components/mdx-components';
+import PostDate from '@/components/post-date';
 import { postIsPublished } from '@/lib/utils';
 import '@/styles/mdx.css';
 import Image from 'next/image';
@@ -41,6 +43,11 @@ export default async function PostSlug({ params }: PostSlugProps) {
           height={800}
         />
       </div>
+      <MainHeading
+        text={post.title}
+        className='!mb-0 text-start font-normal tracking-tight'
+      />
+      <PostDate date={post.publishedAt.split('T')[0]} />
       <MDXContent code={post.body} />
     </article>
   );

@@ -5,8 +5,8 @@ import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import EmailIcon from '../../../public/images/email-icon.png';
-import LinkedinLogo from '../../../public/images/linkedin-icon.png';
+import EmailIcon from '../../../public/images/email-icon.webp';
+import LinkedinLogo from '../../../public/images/linkedin-icon.webp';
 
 const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
 const euphoria_script = Euphoria_Script({

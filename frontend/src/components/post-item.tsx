@@ -1,10 +1,12 @@
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
+import PostExcerpt from './post-excerpt';
+
 type PostItemProps = {
   slug: string;
   title: string;
-  description?: string;
+  description: string;
   publishedAt: string;
 };
 export default function PostItem({
@@ -14,21 +16,14 @@ export default function PostItem({
   publishedAt,
 }: PostItemProps) {
   return (
-    <article className='flex flex-col items-center'>
-      <div className='prose dark:prose-invert'>
-        <Link
-          className='no-underline hover:text-foreground/60'
-          href={`/${slug}`}
-        >
-          <section className='flex flex-col gap-4'>
-            <h2 className='m-0'>{title}</h2>
-            <p className='m-0 text-sm font-semibold'>
-              {formatDate(publishedAt)}
-            </p>
-            <p className='m-0'>{description}</p>
-          </section>
-        </Link>
-      </div>
+    <article className='not-prose flex flex-col items-center overflow-hidden rounded-sm border-2 border-solid border-primary'>
+      <Link className='no-underline hover:text-foreground/60' href={`/${slug}`}>
+        <section className='flex flex-col gap-2'>
+          <h2 className='bg-primary p-2 text-2xl font-semibold'>{title}</h2>
+          <p className='p-2 text-sm font-semibold'>{formatDate(publishedAt)}</p>
+          <PostExcerpt body={description} />
+        </section>
+      </Link>
     </article>
   );
 }

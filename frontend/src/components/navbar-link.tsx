@@ -1,19 +1,19 @@
 import { Button } from '@/components/ui/button';
-import { Home, Mail, User } from 'lucide-react';
+import { Home, Mail, NotebookPen, User } from 'lucide-react';
 import Link from 'next/link';
 
-// type ValidPath = 'Home' | 'Blog' | 'About' | 'Contact';
-type ValidPath = 'Home' | 'About' | 'Contact';
+type ValidPath = 'Home' | 'Blog' | 'About' | 'Contact';
+// type ValidPath = 'Home' | 'About' | 'Contact';
 const pathToPathName = new Map<string, ValidPath>([
   ['/', 'Home'],
-  // ['/posts', 'Blog'],
+  ['/posts', 'Blog'],
   ['/about', 'About'],
   ['/contact', 'Contact'],
 ]);
 
 const pathToIcon = new Map<ValidPath, JSX.Element>([
   ['Home', <Home />],
-  // ['Blog', <NotebookPen />],
+  ['Blog', <NotebookPen />],
   ['About', <User />],
   ['Contact', <Mail />],
 ]);

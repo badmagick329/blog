@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import NotFoundImage from '../../public/images/unicorn-surprised-375.png';
+import NotFoundImage from '../../public/images/unicorn-surprised-375.webp';
 
 export default function NotFound() {
   return (

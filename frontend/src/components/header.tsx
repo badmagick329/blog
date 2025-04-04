@@ -14,6 +14,7 @@ export default function Header() {
         <nav className='xs:text-xl flex justify-center gap-4 text-lg sm:gap-12 sm:text-2xl lg:gap-24'>
           <NavbarLink href='/' pathname={pathname} />
           <NavbarLink href='/about' pathname={pathname} />
+          <NavbarLink href='/posts' pathname={pathname} />
           <NavbarLink href='/contact' pathname={pathname} />
           <ModeToggle />
         </nav>

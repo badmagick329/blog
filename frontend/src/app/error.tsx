@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import ErrorImage from '../../public/images/unicorn-confused-416.png';
+import ErrorImage from '../../public/images/unicorn-confused-416.webp';
 
 export default function GlobalError({
   error,

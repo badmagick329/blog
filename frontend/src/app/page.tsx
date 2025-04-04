@@ -5,8 +5,8 @@ import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import EmailImage from '../../public/images/email.png';
-import IDImage from '../../public/images/id-card.png';
+import EmailImage from '../../public/images/email.webp';
+import IDImage from '../../public/images/id-card.webp';
 
 const euphoria_script = Euphoria_Script({
   weight: '400',
