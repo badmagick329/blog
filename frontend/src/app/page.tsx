@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 import EmailImage from '../../public/images/email.webp';
 import IDImage from '../../public/images/id-card.webp';
+import LetterImage from '../../public/images/letter.webp';
 
 const euphoria_script = Euphoria_Script({
   weight: '400',
@@ -45,6 +46,18 @@ export default function Home() {
                   width={50}
                   height={50}
                   alt='ID Card Icon'
+                  unoptimized
+                />
+              </abbr>
+            </Link>
+            <Link href={`/posts`} aria-label='Blog page link'>
+              <abbr title='Blog'>
+                <Image
+                  className='hover:animate-wiggle dark:invert'
+                  src={LetterImage}
+                  width={50}
+                  height={50}
+                  alt='Blog Icon'
                   unoptimized
                 />
               </abbr>
