@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { Home, Mail, NotebookPen, User } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 type ValidPath = 'Home' | 'Blog' | 'About' | 'Contact';
 // type ValidPath = 'Home' | 'About' | 'Contact';
@@ -29,10 +28,21 @@ export default function NavbarLink({
   pathname: string;
 }) {
   const hrefAsValidPath = pathText(href);
+
+  if (hrefAsValidPath === undefined) {
+    return (
+      <LinkWrapper href={href} isActive>
+        <LinkContent
+          href={href}
+          hrefAsValidPath={hrefAsValidPath}
+          pathname={pathname}
+          isActive
+        />
+      </LinkWrapper>
+    );
+  }
+
   const isActive = pathIsActive(pathname, hrefAsValidPath);
-  useEffect(() => {
-    console.log(`${hrefAsValidPath} is active ${isActive}`);
-  }, [pathname]);
 
   return (
     <LinkWrapper isActive={isActive} href={href}>
@@ -77,7 +87,7 @@ function LinkContent({
 }: {
   isActive: boolean;
   href: string;
-  hrefAsValidPath: ValidPath;
+  hrefAsValidPath: ValidPath | undefined;
   pathname: string;
 }) {
   return (
@@ -96,12 +106,13 @@ function LinkContent({
   );
 }
 
-function pathText(path: string): ValidPath {
-  return pathToPathName.get(path) ?? 'Home';
+function pathText(path: string): ValidPath | undefined {
+  return pathToPathName.get(path);
 }
 
 function ValidIcon(path: string): JSX.Element {
-  return pathToIcon.get(pathText(path)) ?? <Home />;
+  const text = pathText(path);
+  return text ? (pathToIcon.get(text) ?? <Home />) : <></>;
 }
 
 function pathIsActive(path: string, validPath: ValidPath): boolean {
