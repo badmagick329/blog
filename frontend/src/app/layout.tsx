@@ -26,9 +26,9 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <head>
         <Script
-          src='https://analytics.mgck.ink/js/script.js'
+          src='/ingest/js/script.js'
           data-domain='kristalomu.com'
-          strategy='afterInteractive'
+          data-api='/ingest/api/event'
         />
       </head>
       <body

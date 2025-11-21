@@ -37,6 +37,18 @@ export default {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/ingest/js/script.js',
+        destination: 'https://analytics.mgck.ink/js/script.js',
+      },
+      {
+        source: '/ingest/api/event',
+        destination: 'https://analytics.mgck.ink/api/event',
+      },
+    ];
+  },
 };
 
 class VeliteWebpackPlugin {
