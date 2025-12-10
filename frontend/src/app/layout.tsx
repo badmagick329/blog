@@ -33,7 +33,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'flex min-h-dvh flex-col bg-gradient-to-br from-background-start to-background-end font-sans text-foreground',
+          'flex min-h-dvh flex-col bg-gradient-to-br from-background-start to-background-end bg-fixed font-sans text-foreground',
           forum.className
         )}
       >
