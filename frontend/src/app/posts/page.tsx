@@ -11,8 +11,8 @@ export default async function BlogPosts() {
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (
-    <main className='flex flex-1 flex-col'>
-      <article className='container prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
+    <main className='container flex flex-1 flex-col items-center px-4 sm:px-6 md:px-8'>
+      <article className='prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
         <MainHeading text='Blog Posts' />
         <section className='flex flex-col items-start gap-12 font-normal'>
           {displayPosts.length > 0 ? (

@@ -18,11 +18,11 @@ export default function PostNavButton({
   }, []);
 
   if (!isMounted) {
-    return <button className='hover:text-foreground/60'>{children}</button>;
+    return <button className='hover:text-foreground'>{children}</button>;
   }
   return (
     <button
-      className='hover:text-foreground/60'
+      className='hover:text-foreground'
       onClick={() => router.push(`/${slug}`)}
     >
       {children}

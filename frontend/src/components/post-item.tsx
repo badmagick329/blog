@@ -1,6 +1,5 @@
 import PostNavButton from '@/components/post-nav-button';
 import { formatDate } from '@/lib/utils';
-import Link from 'next/link';
 
 import PostExcerpt from './post-excerpt';
 
@@ -17,10 +16,10 @@ export default function PostItem({
   publishedAt,
 }: PostItemProps) {
   return (
-    <article className='not-prose flex flex-col items-center overflow-hidden rounded-sm border-2 border-solid border-primary'>
+    <article className='not-prose flex flex-col items-center overflow-hidden rounded-sm text-foreground/70 shadow-card'>
       <PostNavButton slug={slug}>
         <section className='flex flex-col gap-2'>
-          <h2 className='bg-primary p-2 text-xl font-bold sm:text-2xl'>
+          <h2 className='shadow-header bg-primary p-2 text-xl font-bold sm:text-2xl'>
             {title}
           </h2>
           <p className='p-2 text-sm font-semibold'>{formatDate(publishedAt)}</p>

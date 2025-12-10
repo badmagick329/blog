@@ -93,12 +93,12 @@ function LinkContent({
   return (
     <>
       {!isActive ? (
-        <Button className='sm:hidden' size='icon'>
+        <Button className='font-bold sm:hidden' size='icon'>
           {ValidIcon(href)}
           <span className='sr-only'>{hrefAsValidPath}</span>
         </Button>
       ) : null}
-      <span className='hidden sm:block'>{hrefAsValidPath}</span>
+      <span className='hidden font-bold sm:block'>{hrefAsValidPath}</span>
       {isActive ? (
         <span className='py-1 sm:hidden sm:py-0'>{pathText(pathname)}</span>
       ) : null}
