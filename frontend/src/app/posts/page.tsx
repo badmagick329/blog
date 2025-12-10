@@ -8,7 +8,7 @@ export const revalidate = 60;
 export default async function BlogPosts() {
   const displayPosts = posts
     .filter((post) => postIsPublished(post))
-    .toSorted((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (
     <main className='flex flex-1 flex-col'>
