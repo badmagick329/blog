@@ -11,3 +11,4 @@ certbot/
 notes/
 
 deploy.sh
+**/covers/*.webp
