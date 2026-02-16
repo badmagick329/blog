@@ -9,9 +9,9 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div className='sticky top-0 z-10 flex flex-col border-b border-border/40 bg-background/80 shadow-sm backdrop-blur-md'>
-      <header className='flex justify-center gap-4 py-4'>
-        <nav className='xs:text-xl flex justify-center gap-4 text-lg sm:gap-12 sm:text-2xl lg:gap-24'>
+    <div className='sticky top-0 z-10 flex flex-col border-b border-border/40 bg-background/75 backdrop-blur-md'>
+      <header className='content-shell flex items-center justify-center py-3 sm:py-4'>
+        <nav className='flex w-full items-center justify-center gap-1 text-lg sm:gap-4 sm:text-xl md:gap-6'>
           <NavbarLink href='/' pathname={pathname} />
           <NavbarLink href='/about' pathname={pathname} />
           <NavbarLink href='/posts' pathname={pathname} />

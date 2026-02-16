@@ -9,27 +9,21 @@ export default function MainHeading({
   className?: string;
   withProse?: boolean;
 }) {
+  const headingClass = clsx(
+    'py-2 text-center text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl',
+    withProse ? 'mx-auto max-w-[22ch] text-balance' : '',
+    className || ''
+  );
+
   if (withProse) {
     return (
-      <h1
-        className={clsx(
-          'prose py-4 text-center text-4xl font-bold dark:prose-invert lg:prose-lg',
-          className || ''
-        )}
-        aria-label='Main Heading'
-      >
+      <h1 className={headingClass} aria-label='Main Heading'>
         {text}
       </h1>
     );
   }
   return (
-    <h1
-      className={clsx(
-        'prose py-4 text-center text-4xl font-bold dark:prose-invert lg:prose-lg',
-        className || ''
-      )}
-      aria-label='Main Heading'
-    >
+    <h1 className={headingClass} aria-label='Main Heading'>
       {text}
     </h1>
   );

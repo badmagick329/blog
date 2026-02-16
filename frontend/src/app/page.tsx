@@ -23,60 +23,68 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const quickLinks = [
+    {
+      href: '/about',
+      label: 'About',
+      image: IDImage,
+      alt: 'ID Card Icon',
+    },
+    {
+      href: '/posts',
+      label: 'Blog',
+      image: LetterImage,
+      alt: 'Blog Icon',
+    },
+    {
+      href: '/contact',
+      label: 'Contact',
+      image: EmailImage,
+      alt: 'Email Icon',
+    },
+  ];
+
   return (
-    <main className='mx-4 flex flex-1 flex-col items-center'>
-      <div className='prose text-foreground dark:prose-invert lg:prose-lg'>
-        <article className='flex h-full w-full flex-col items-center gap-16 pt-8'>
-          <section className='flex flex-col items-center justify-center'>
-            <p className={cn('mb-2 mt-6 text-4xl', euphoria_script.className)}>
-              Lovely to see you.
-            </p>
-            <MainHeading
-              text={'I’m Krista, a freelance content and copywriter.'}
-              withProse
-            />
-            <p className='text-2xl'>Go ahead and explore my little website.</p>
-          </section>
-          <section className='flex w-full justify-around'>
-            <Link href={`/about`} aria-label='About page link'>
-              <abbr title='About'>
-                <Image
-                  className='hover:animate-wiggle dark:invert'
-                  src={IDImage}
-                  width={50}
-                  height={50}
-                  alt='ID Card Icon'
-                  unoptimized
-                />
-              </abbr>
-            </Link>
-            <Link href={`/posts`} aria-label='Blog page link'>
-              <abbr title='Blog'>
-                <Image
-                  className='hover:animate-wiggle dark:invert'
-                  src={LetterImage}
-                  width={50}
-                  height={50}
-                  alt='Blog Icon'
-                  unoptimized
-                />
-              </abbr>
-            </Link>
-            <Link href={`/contact`} aria-label='Contact page link'>
-              <abbr title='Contact'>
-                <Image
-                  className='hover:animate-wiggle dark:invert'
-                  src={EmailImage}
-                  width={50}
-                  height={50}
-                  alt='Email Icon'
-                  unoptimized
-                />
-              </abbr>
-            </Link>
-          </section>
-        </article>
-      </div>
+    <main className='page-shell'>
+      <article className='content-shell motion-fade-in flex h-full w-full flex-col items-center gap-8'>
+        <section className='section-card readable-prose flex w-full max-w-3xl flex-col items-center gap-4 px-6 py-10 text-center sm:px-10'>
+          <p className={cn('text-3xl sm:text-4xl', euphoria_script.className)}>
+            Lovely to see you.
+          </p>
+          <MainHeading
+            text={'I’m Krista, a freelance content and copywriter.'}
+            withProse
+            className='max-w-[18ch] text-4xl sm:text-5xl'
+          />
+          <p className='readable-prose text-base text-foreground/85 sm:text-lg'>
+            Go ahead and explore my little website.
+          </p>
+        </section>
+        <section className='w-full max-w-3xl'>
+          <div className='subtle-divider mb-10 mt-6' />
+          <ul className='grid gap-3 sm:grid-cols-3'>
+            {quickLinks.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-label={`${item.label} page link`}
+                  className='section-card motion-lift flex items-center justify-center gap-3 px-4 py-4 text-sm font-medium text-foreground/90 hover:-translate-y-1 hover:border-accent/50 hover:text-foreground hover:shadow-[0_16px_32px_hsl(0_0%_0%/0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:flex-col sm:gap-2 sm:text-base'
+                >
+                  <Image
+                    className='motion-lift dark:invert'
+                    src={item.image}
+                    width={36}
+                    height={36}
+                    alt={item.alt}
+                    unoptimized
+                  />
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </article>
     </main>
   );
 }

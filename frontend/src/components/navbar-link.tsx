@@ -67,13 +67,17 @@ function LinkWrapper({
 }) {
   if (isActive) {
     return (
-      <div className='flex select-none items-center text-foreground/70'>
+      <div className='relative flex select-none items-center text-foreground'>
+        <span className='absolute -bottom-2 left-1/2 hidden h-0.5 w-6 -translate-x-1/2 rounded-full bg-accent sm:block' />
         {children}
       </div>
     );
   }
   return (
-    <Link className='flex items-center hover:text-accent' href={href}>
+    <Link
+      className='relative flex items-center rounded-sm text-foreground/75 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+      href={href}
+    >
       {children}
     </Link>
   );
@@ -93,14 +97,22 @@ function LinkContent({
   return (
     <>
       {!isActive ? (
-        <Button className='font-bold sm:hidden' size='icon'>
+        <Button
+          className='motion-lift hover:bg-foreground/1 dark:hover:bg-foreground/1 h-9 w-9 font-semibold hover:text-accent'
+          variant='ghost'
+          size='icon'
+        >
           {ValidIcon(href)}
           <span className='sr-only'>{hrefAsValidPath}</span>
         </Button>
       ) : null}
-      <span className='hidden font-bold sm:block'>{hrefAsValidPath}</span>
+      <span className='hidden text-center font-semibold tracking-wide sm:block'>
+        {hrefAsValidPath}
+      </span>
       {isActive ? (
-        <span className='py-1 sm:hidden sm:py-0'>{pathText(pathname)}</span>
+        <span className='px-2 py-1 text-center text-lg font-semibold sm:hidden sm:py-0'>
+          {pathText(pathname)}
+        </span>
       ) : null}
     </>
   );
