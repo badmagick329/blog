@@ -98,7 +98,7 @@ function LinkContent({
     <>
       {!isActive ? (
         <Button
-          className='motion-lift hover:bg-foreground/1 dark:hover:bg-foreground/1 h-9 w-9 font-semibold hover:text-accent'
+          className='motion-lift hover:bg-foreground/1 dark:hover:bg-foreground/1 block h-9 w-9 font-semibold hover:text-accent sm:hidden'
           variant='ghost'
           size='icon'
         >
