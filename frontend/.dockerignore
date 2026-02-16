@@ -1,4 +1,13 @@
-**/.next/
-.dockerignore
-**/Dockerfile
-**/node_modules/
+.next
+node_modules
+.git
+*.log
+.env*
+!.env.local
+coverage
+dist
+.turbo
+.DS_Store
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
