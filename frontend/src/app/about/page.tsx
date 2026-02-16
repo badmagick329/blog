@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <main className='flex w-full flex-1 flex-col items-center'>
-      <article className='container prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
+    <main className='page-shell'>
+      <article className='content-shell motion-fade-in prose readable-prose text-foreground dark:prose-invert lg:prose-lg'>
         <MainHeading text='About' />
-        <section className='text-justify'>
+        <section className='space-y-6 text-justify'>
           <p className={cn('text-justify text-4xl', euphoria_script.className)}>
             Hi.
           </p>
@@ -56,7 +56,7 @@ export default function About() {
           <p className={cn('text-2xl', euphoria_script.className)}>
             Psst. Check out{' '}
             <Link
-              className='hover:text-accent'
+              className='underline decoration-accent/60 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
               href='/contact'
               aria-label='my contact details'
             >
