@@ -106,11 +106,11 @@ function LinkContent({
           <span className='sr-only'>{hrefAsValidPath}</span>
         </Button>
       ) : null}
-      <span className='hidden text-center font-semibold tracking-wide sm:block'>
+      <span className='hidden text-center font-semibold tracking-wide sm:block sm:px-4'>
         {hrefAsValidPath}
       </span>
       {isActive ? (
-        <span className='px-2 py-1 text-center text-lg font-semibold sm:hidden sm:py-0'>
+        <span className='px-2 py-1 text-center text-lg font-semibold sm:hidden sm:px-4 sm:py-0'>
           {pathText(pathname)}
         </span>
       ) : null}
