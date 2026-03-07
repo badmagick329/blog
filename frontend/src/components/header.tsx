@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <div className='sticky top-0 z-10 flex flex-col border-b border-border/40 bg-background/75 backdrop-blur-md'>
       <header className='content-shell flex items-center justify-center py-3 sm:py-4'>
-        <nav className='flex w-full items-center justify-center gap-1 text-lg sm:gap-4 sm:text-xl md:gap-6'>
+        <nav className='2xs:gap-4 flex w-full items-center justify-center text-lg sm:gap-6 sm:text-xl'>
           <NavbarLink href='/' pathname={pathname} />
           <NavbarLink href='/about' pathname={pathname} />
           <NavbarLink href='/posts' pathname={pathname} />

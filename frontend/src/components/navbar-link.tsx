@@ -1,23 +1,16 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Home, Mail, NotebookPen, User } from 'lucide-react';
+import { type NavLabel, navIconConfig } from '@/lib/nav-icons';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import Link from 'next/link';
 
-type ValidPath = 'Home' | 'Blog' | 'About' | 'Contact';
-// type ValidPath = 'Home' | 'About' | 'Contact';
-const pathToPathName = new Map<string, ValidPath>([
+const pathToPathName = new Map<string, NavLabel>([
   ['/', 'Home'],
   ['/posts', 'Blog'],
   ['/about', 'About'],
   ['/contact', 'Contact'],
-]);
-
-const pathToIcon = new Map<ValidPath, JSX.Element>([
-  ['Home', <Home />],
-  ['Blog', <NotebookPen />],
-  ['About', <User />],
-  ['Contact', <Mail />],
 ]);
 
 export default function NavbarLink({
@@ -32,12 +25,7 @@ export default function NavbarLink({
   if (hrefAsValidPath === undefined) {
     return (
       <LinkWrapper href={href} isActive>
-        <LinkContent
-          href={href}
-          hrefAsValidPath={hrefAsValidPath}
-          pathname={pathname}
-          isActive
-        />
+        <LinkContent href={href} hrefAsValidPath={hrefAsValidPath} isActive />
       </LinkWrapper>
     );
   }
@@ -50,7 +38,6 @@ export default function NavbarLink({
         isActive={isActive}
         href={href}
         hrefAsValidPath={hrefAsValidPath}
-        pathname={pathname}
       />
     </LinkWrapper>
   );
@@ -87,46 +74,72 @@ function LinkContent({
   isActive,
   href,
   hrefAsValidPath,
-  pathname,
 }: {
   isActive: boolean;
   href: string;
-  hrefAsValidPath: ValidPath | undefined;
-  pathname: string;
+  hrefAsValidPath: NavLabel | undefined;
 }) {
   return (
     <>
-      {!isActive ? (
+      <span className='relative block sm:hidden'>
         <Button
-          className='motion-lift hover:bg-foreground/1 dark:hover:bg-foreground/1 block h-9 w-9 font-semibold hover:text-accent sm:hidden'
+          className={cn(
+            'motion-lift block h-9 w-9 font-semibold',
+            isActive
+              ? 'text-foreground hover:bg-transparent dark:hover:bg-transparent'
+              : 'hover:bg-foreground/1 dark:hover:bg-foreground/1 hover:text-accent'
+          )}
           variant='ghost'
           size='icon'
         >
-          {ValidIcon(href)}
+          <MobileNavIcon path={href} isActive={isActive} />
           <span className='sr-only'>{hrefAsValidPath}</span>
         </Button>
-      ) : null}
+      </span>
       <span className='hidden text-center font-semibold tracking-wide sm:block sm:px-4'>
         {hrefAsValidPath}
       </span>
-      {isActive ? (
-        <span className='px-2 py-1 text-center text-lg font-semibold sm:hidden sm:px-4 sm:py-0'>
-          {pathText(pathname)}
-        </span>
-      ) : null}
     </>
   );
 }
 
-function pathText(path: string): ValidPath | undefined {
+function pathText(path: string): NavLabel | undefined {
   return pathToPathName.get(path);
 }
 
-function ValidIcon(path: string): JSX.Element {
-  const text = pathText(path);
-  return text ? (pathToIcon.get(text) ?? <Home />) : <></>;
+function MobileNavIcon({
+  path,
+  isActive,
+}: {
+  path: string;
+  isActive: boolean;
+}) {
+  const label = pathText(path);
+
+  if (!label) {
+    return null;
+  }
+
+  const icon = navIconConfig[label];
+
+  return (
+    <span className='flex h-6 w-6 items-center justify-center'>
+      <Image
+        className={cn(
+          'h-auto w-auto object-contain transition-transform dark:invert',
+          isActive ? 'scale-150' : 'scale-100',
+          icon.mobileSizeClassName
+        )}
+        src={icon.image}
+        width={24}
+        height={24}
+        alt={icon.alt}
+        unoptimized
+      />
+    </span>
+  );
 }
 
-function pathIsActive(path: string, validPath: ValidPath): boolean {
+function pathIsActive(path: string, validPath: NavLabel): boolean {
   return pathText(path) === validPath;
 }

@@ -1,13 +1,10 @@
 import MainHeading from '@/components/main-heading';
+import { homeQuickLinkLabels, navIconConfig } from '@/lib/nav-icons';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Euphoria_Script } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import EmailImage from '../../public/images/email.webp';
-import IDImage from '../../public/images/id-card.webp';
-import LetterImage from '../../public/images/letter.webp';
 
 const euphoria_script = Euphoria_Script({
   weight: '400',
@@ -23,26 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const quickLinks = [
-    {
-      href: '/about',
-      label: 'About',
-      image: IDImage,
-      alt: 'ID Card Icon',
-    },
-    {
-      href: '/posts',
-      label: 'Blog',
-      image: LetterImage,
-      alt: 'Blog Icon',
-    },
-    {
-      href: '/contact',
-      label: 'Contact',
-      image: EmailImage,
-      alt: 'Email Icon',
-    },
-  ];
+  const quickLinks = homeQuickLinkLabels.map((label) => navIconConfig[label]);
 
   return (
     <main className='page-shell'>
