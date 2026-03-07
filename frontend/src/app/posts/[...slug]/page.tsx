@@ -1,10 +1,10 @@
 import { posts } from '#site/content';
 import MainHeading from '@/components/main-heading';
+import BlogCoverImage from '@/components/blog-cover-image';
 import { MDXContent } from '@/components/mdx-components';
 import PostDate from '@/components/post-date';
 import { postIsPublished } from '@/lib/utils';
 import '@/styles/mdx.css';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 type PostSlugProps = {
@@ -36,11 +36,12 @@ export default async function PostSlug({ params }: PostSlugProps) {
   return (
     <article className='container prose mx-auto max-w-3xl py-6 text-justify dark:prose-invert lg:prose-xl'>
       <div className='flex w-full justify-center'>
-        <Image
+        <BlogCoverImage
           src={post.coverImage || ''}
-          alt='coverImage'
+          alt={post.title}
           width={800}
           height={800}
+          priority
         />
       </div>
       <MainHeading

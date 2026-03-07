@@ -199,3 +199,102 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.blog-cover-frame {
+  --polaroid-rotate: -1.4deg;
+  position: relative;
+  display: inline-block;
+  width: min(100%, 48rem);
+  padding: 1rem 1rem 2.25rem;
+  border: 1px solid hsl(34 30% 78%);
+  border-radius: 0.35rem;
+  background: linear-gradient(180deg, hsl(42 35% 96%) 0%, hsl(34 28% 90%) 100%);
+  box-shadow:
+    0 12px 28px hsl(18 18% 20% / 0.14),
+    0 3px 8px hsl(18 18% 20% / 0.08);
+  transform: rotate(var(--polaroid-rotate));
+}
+
+.blog-cover-frame::before,
+.blog-cover-frame::after {
+  content: '';
+  position: absolute;
+  width: 5.2rem;
+  height: 1.35rem;
+  border-radius: 0.2rem;
+  background:
+    linear-gradient(135deg, hsl(56 46% 83% / 0.88), hsl(50 36% 76% / 0.64)),
+    repeating-linear-gradient(
+      90deg,
+      hsl(52 34% 82% / 0.18) 0,
+      hsl(52 34% 82% / 0.18) 2px,
+      transparent 2px,
+      transparent 5px
+    );
+  box-shadow: 0 2px 6px hsl(25 12% 12% / 0.12);
+  opacity: 0.95;
+}
+
+.blog-cover-frame::before {
+  top: -0.75rem;
+  right: 1.25rem;
+  transform: rotate(37deg);
+}
+
+.blog-cover-frame::after {
+  bottom: 0.85rem;
+  left: -1.55rem;
+  transform: rotate(48deg);
+}
+
+.blog-cover-photo {
+  overflow: hidden;
+}
+
+.blog-cover-frame--compact {
+  --polaroid-rotate: 1.1deg;
+  width: 100%;
+  padding: 0.85rem 0.85rem 1.75rem;
+}
+
+.blog-cover-frame--compact::before {
+  right: 0.8rem;
+}
+
+.blog-cover-frame--compact::after {
+  left: -1.1rem;
+  bottom: 0.5rem;
+}
+
+.dark .blog-cover-frame {
+  border-color: hsl(30 24% 42%);
+  background: linear-gradient(180deg, hsl(28 18% 86%) 0%, hsl(27 14% 72%) 100%);
+  box-shadow:
+    0 14px 30px hsl(0 0% 0% / 0.28),
+    0 4px 10px hsl(0 0% 0% / 0.16);
+}
+
+.dark .blog-cover-photo {
+}
+
+@media (max-width: 640px) {
+  .blog-cover-frame {
+    width: 100%;
+    padding: 0.85rem 0.85rem 1.5rem;
+    box-shadow:
+      0 8px 18px hsl(18 18% 20% / 0.12),
+      0 2px 5px hsl(18 18% 20% / 0.07);
+    transform: rotate(-0.4deg);
+  }
+
+  .blog-cover-frame::before {
+    width: 4.2rem;
+    right: 0.65rem;
+  }
+
+  .blog-cover-frame::after {
+    left: -0.9rem;
+    bottom: 0.4rem;
+    width: 4.2rem;
+  }
+}
