@@ -21,8 +21,8 @@ export default function About() {
   return (
     <main className='page-shell'>
       <article className='content-shell motion-fade-in prose readable-prose text-foreground dark:prose-invert lg:prose-lg'>
-        <MainHeading text='About' />
-        <section className='space-y-6 text-justify'>
+        <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
+          <MainHeading text='About' />
           <p className={cn('text-justify text-4xl', euphoria_script.className)}>
             Hi.
           </p>
