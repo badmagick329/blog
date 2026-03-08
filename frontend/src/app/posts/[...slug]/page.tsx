@@ -13,6 +13,8 @@ type PostSlugProps = {
   };
 };
 
+export const revalidate = 60;
+
 async function getPostFromParams(params: PostSlugProps['params']) {
   const slug = params?.slug?.join('/');
   const post = posts.find((post) => post.slugAsParams === slug);
@@ -22,9 +24,11 @@ async function getPostFromParams(params: PostSlugProps['params']) {
 export async function generateStaticParams(): Promise<
   PostSlugProps['params'][]
 > {
-  return posts.map((post) => ({
-    slug: post.slugAsParams.split('/'),
-  }));
+  return posts
+    .filter((post) => postIsPublished(post))
+    .map((post) => ({
+      slug: post.slugAsParams.split('/'),
+    }));
 }
 
 export default async function PostSlug({ params }: PostSlugProps) {
