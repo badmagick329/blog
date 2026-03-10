@@ -45,6 +45,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
           alt={post.title}
           width={800}
           height={800}
+          seed={post.slugAsParams}
           priority
         />
       </div>
