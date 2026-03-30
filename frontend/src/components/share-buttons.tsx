@@ -26,30 +26,34 @@ export default function ShareButtons() {
   const { toast } = useToast();
 
   return (
-    <article className='flex flex-col items-center'>
-      <p>Share this post:</p>
-      <section className='flex gap-4'>
-        <FacebookShareButton url={shareURL}>
-          <FacebookIcon size={ICON_MD} round />
+    <section
+      className='flex flex-col items-center'
+      aria-labelledby='share-buttons-heading'
+    >
+      <p id='share-buttons-heading'>Share this post:</p>
+      <div className='flex gap-4'>
+        <FacebookShareButton url={shareURL} aria-label='Share on Facebook'>
+          <FacebookIcon size={ICON_MD} round aria-hidden='true' />
         </FacebookShareButton>
-        <TwitterShareButton url={shareURL}>
-          <TwitterIcon size={ICON_MD} round />
+        <TwitterShareButton url={shareURL} aria-label='Share on X'>
+          <TwitterIcon size={ICON_MD} round aria-hidden='true' />
         </TwitterShareButton>
-        <LinkedinShareButton url={shareURL}>
-          <LinkedinIcon size={ICON_MD} round />
+        <LinkedinShareButton url={shareURL} aria-label='Share on LinkedIn'>
+          <LinkedinIcon size={ICON_MD} round aria-hidden='true' />
         </LinkedinShareButton>
         <Button
           onClick={() => handleCopy(shareURL, toast)}
+          aria-label='Copy share link'
           className={cn(
             'h-[32px] w-[32px] rounded-full',
             'hover:bg-accent hover:text-accent-foreground'
           )}
           size='icon'
         >
-          <Clipboard size={18} />
+          <Clipboard size={18} aria-hidden='true' />
         </Button>
-      </section>
-    </article>
+      </div>
+    </section>
   );
 }
 

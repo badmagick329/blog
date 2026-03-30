@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <main className='page-shell'>
+    <main id='main-content' tabIndex={-1} className='page-shell'>
       <article className='content-shell motion-fade-in prose readable-prose text-foreground dark:prose-invert lg:prose-lg'>
         <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
           <MainHeading text='About' />
@@ -58,7 +58,6 @@ export default function About() {
             <Link
               className='underline decoration-accent/60 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
               href='/contact'
-              aria-label='my contact details'
             >
               my contact details
             </Link>

@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { type NavLabel, navIconConfig } from '@/lib/nav-icons';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
@@ -52,19 +51,21 @@ function LinkWrapper({
   href: string;
   children: React.ReactNode;
 }) {
-  if (isActive) {
-    return (
-      <div className='relative flex select-none items-center text-foreground'>
-        <span className='absolute -bottom-2 left-1/2 hidden h-0.5 w-6 -translate-x-1/2 rounded-full bg-accent sm:block' />
-        {children}
-      </div>
-    );
-  }
   return (
     <Link
-      className='relative flex items-center rounded-sm text-foreground/75 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+      className={cn(
+        'relative flex items-center rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        isActive ? 'text-foreground' : 'text-foreground/75 hover:text-accent'
+      )}
       href={href}
+      aria-current={isActive ? 'page' : undefined}
     >
+      {isActive && (
+        <span
+          aria-hidden='true'
+          className='absolute -bottom-2 left-1/2 hidden h-0.5 w-6 -translate-x-1/2 rounded-full bg-accent sm:block'
+        />
+      )}
       {children}
     </Link>
   );
@@ -82,19 +83,17 @@ function LinkContent({
   return (
     <>
       <span className='relative block sm:hidden'>
-        <Button
+        <span
           className={cn(
-            'motion-lift block h-9 w-9 font-semibold',
+            'motion-lift inline-flex h-9 w-9 items-center justify-center rounded-md font-semibold',
             isActive
               ? 'text-foreground hover:bg-transparent dark:hover:bg-transparent'
               : 'hover:bg-foreground/1 dark:hover:bg-foreground/1 hover:text-accent'
           )}
-          variant='ghost'
-          size='icon'
         >
           <MobileNavIcon path={href} isActive={isActive} />
           <span className='sr-only'>{hrefAsValidPath}</span>
-        </Button>
+        </span>
       </span>
       <span className='hidden text-center font-semibold tracking-wide sm:block sm:px-4'>
         {hrefAsValidPath}
@@ -133,7 +132,8 @@ function MobileNavIcon({
         src={icon.image}
         width={24}
         height={24}
-        alt={icon.alt}
+        alt=''
+        aria-hidden='true'
         unoptimized
       />
     </span>

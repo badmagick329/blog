@@ -38,23 +38,25 @@ export default async function PostSlug({ params }: PostSlugProps) {
   }
 
   return (
-    <article className='container prose mx-auto max-w-3xl py-6 text-justify dark:prose-invert lg:prose-xl'>
-      <div className='flex w-full justify-center'>
-        <BlogCoverImage
-          src={post.coverImage || ''}
-          alt={post.title}
-          width={800}
-          height={800}
-          seed={post.slugAsParams}
-          priority
+    <main id='main-content' tabIndex={-1}>
+      <article className='container prose mx-auto max-w-3xl py-6 text-justify dark:prose-invert lg:prose-xl'>
+        <div className='flex w-full justify-center'>
+          <BlogCoverImage
+            src={post.coverImage || ''}
+            alt={post.title}
+            width={800}
+            height={800}
+            seed={post.slugAsParams}
+            priority
+          />
+        </div>
+        <MainHeading
+          text={post.title}
+          className='!mb-0 text-start font-normal tracking-tight'
         />
-      </div>
-      <MainHeading
-        text={post.title}
-        className='!mb-0 text-start font-normal tracking-tight'
-      />
-      <PostDate date={post.publishedAt.split('T')[0]} />
-      <MDXContent code={post.body} />
-    </article>
+        <PostDate date={post.publishedAt.split('T')[0]} />
+        <MDXContent code={post.body} />
+      </article>
+    </main>
   );
 }

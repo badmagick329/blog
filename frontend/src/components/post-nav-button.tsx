@@ -1,7 +1,4 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function PostNavButton({
   slug,
@@ -10,22 +7,12 @@ export default function PostNavButton({
   slug: string;
   children: React.ReactNode;
 }) {
-  const [isMounted, setIsMounted] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return <button className='hover:text-foreground'>{children}</button>;
-  }
   return (
-    <button
+    <Link
       className='hover:text-foreground'
-      onClick={() => router.push(`/${slug}`)}
+      href={`/${slug}`}
     >
       {children}
-    </button>
+    </Link>
   );
 }

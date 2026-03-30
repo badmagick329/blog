@@ -37,6 +37,9 @@ export default function RootLayout({
           forum.className
         )}
       >
+        <a href='#main-content' className='skip-link'>
+          Skip to main content
+        </a>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'

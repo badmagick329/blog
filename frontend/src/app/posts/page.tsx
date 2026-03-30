@@ -11,7 +11,11 @@ export default async function BlogPosts() {
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 
   return (
-    <main className='container flex flex-1 flex-col items-center px-4 sm:px-6 md:px-8'>
+    <main
+      id='main-content'
+      tabIndex={-1}
+      className='container flex flex-1 flex-col items-center px-4 sm:px-6 md:px-8'
+    >
       <article className='motion-fade-in prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
         <MainHeading text='Blog Posts' />
         <section className='flex flex-col items-start gap-12 font-normal'>

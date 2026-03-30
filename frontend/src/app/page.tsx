@@ -23,7 +23,7 @@ export default function Home() {
   const quickLinks = homeQuickLinkLabels.map((label) => navIconConfig[label]);
 
   return (
-    <main className='page-shell'>
+    <main id='main-content' tabIndex={-1} className='page-shell'>
       <article className='content-shell motion-fade-in flex h-full w-full flex-col items-center gap-8'>
         <section className='section-card readable-prose flex w-full max-w-3xl flex-col items-center gap-4 px-6 py-10 text-center sm:px-10'>
           <p className={cn('text-3xl sm:text-4xl', euphoria_script.className)}>
@@ -45,7 +45,6 @@ export default function Home() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  aria-label={`${item.label} page link`}
                   className='section-card motion-lift flex items-center justify-center gap-3 px-4 py-4 text-sm font-medium text-foreground/90 hover:-translate-y-1 hover:border-accent/50 hover:text-foreground hover:shadow-[0_16px_32px_hsl(0_0%_0%/0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:flex-col sm:gap-2 sm:text-base'
                 >
                   <Image
@@ -53,7 +52,8 @@ export default function Home() {
                     src={item.image}
                     width={36}
                     height={36}
-                    alt={item.alt}
+                    alt=''
+                    aria-hidden='true'
                     unoptimized
                   />
                   <span>{item.label}</span>

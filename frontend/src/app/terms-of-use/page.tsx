@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function TermsOfUse() {
   return (
-    <main className='mx-auto w-full'>
+    <main id='main-content' tabIndex={-1} className='mx-auto w-full'>
       <article className='container prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
         <h1 className='text-center pt-4'>Website Terms of Use</h1>
         <h2>Terms of Use</h2>

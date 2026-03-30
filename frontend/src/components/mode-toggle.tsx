@@ -17,34 +17,30 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <abbr title='Toggle Theme'>
+      <span aria-hidden='true'>
         <Button
           className={buttonClasses}
           size='icon'
-          aria-label='Theme Toggle Button'
+          disabled
+          tabIndex={-1}
         >
           ...
         </Button>
-      </abbr>
+      </span>
     );
   }
 
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <abbr title='Toggle Theme'>
-      <Button
-        size='icon'
-        className={buttonClasses}
-        onClick={() => (isDark ? setTheme('light') : setTheme('dark'))}
-        aria-label='Theme Toggle Button'
-      >
-        {isDark ? (
-          <Moon aria-label='Moon Icon' />
-        ) : (
-          <Sun aria-label='Sun Icon' />
-        )}
-      </Button>
-    </abbr>
+    <Button
+      type='button'
+      size='icon'
+      className={buttonClasses}
+      onClick={() => (isDark ? setTheme('light') : setTheme('dark'))}
+      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+    >
+      {isDark ? <Moon aria-hidden='true' /> : <Sun aria-hidden='true' />}
+    </Button>
   );
 }

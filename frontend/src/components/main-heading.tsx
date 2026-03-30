@@ -16,15 +16,7 @@ export default function MainHeading({
   );
 
   if (withProse) {
-    return (
-      <h1 className={headingClass} aria-label='Main Heading'>
-        {text}
-      </h1>
-    );
+    return <h1 className={headingClass}>{text}</h1>;
   }
-  return (
-    <h1 className={headingClass} aria-label='Main Heading'>
-      {text}
-    </h1>
-  );
+  return <h1 className={headingClass}>{text}</h1>;
 }

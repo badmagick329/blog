@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <main className='page-shell'>
+    <main id='main-content' tabIndex={-1} className='page-shell'>
       <article className='content-shell readable-prose motion-fade-in prose text-foreground dark:prose-invert lg:prose-lg'>
         <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
           <MainHeading text='Would I like to get in touch?' />
@@ -42,33 +42,31 @@ export default function Contact() {
               href='https://www.linkedin.com/in/kristalomu'
               target='_blank'
               rel='noopener noreferrer'
-              aria-label='Linkedin Link, Opens in new tab'
+              aria-label='LinkedIn profile'
             >
-              <abbr title='Linkedin'>
-                <Image
-                  src={LinkedinLogo}
-                  className='rounded-full transition-all hover:scale-110'
-                  width={50}
-                  height={50}
-                  alt='Linkedin Icon'
-                />
-              </abbr>
+              <Image
+                src={LinkedinLogo}
+                className='rounded-full transition-all hover:scale-110'
+                width={50}
+                height={50}
+                alt=''
+                aria-hidden='true'
+              />
             </Link>
             <Link
               href={`mailto:${EMAIL_ADDRESS}`}
               target='_blank'
               rel='noopener noreferrer'
-              aria-label='Email Link, Opens in new tab'
+              aria-label='Send email'
             >
-              <abbr title='Email'>
-                <Image
-                  src={EmailIcon}
-                  className='rounded-full transition-all hover:scale-110'
-                  width={50}
-                  height={50}
-                  alt='Email Icon'
-                />
-              </abbr>
+              <Image
+                src={EmailIcon}
+                className='rounded-full transition-all hover:scale-110'
+                width={50}
+                height={50}
+                alt=''
+                aria-hidden='true'
+              />
             </Link>
           </section>
           <section
