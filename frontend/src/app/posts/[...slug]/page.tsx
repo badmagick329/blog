@@ -33,7 +33,6 @@ export async function generateMetadata({
   }
 
   const postUrl = `${siteUrl}/posts/${post.slugAsParams}`;
-  const socialImageUrl = `${siteUrl}/og/${post.slugAsParams}`;
   const description = post.description === 'none' ? undefined : post.description;
 
   return {
@@ -49,20 +48,15 @@ export async function generateMetadata({
       title: post.title,
       description,
       publishedTime: post.publishedAt,
-      images: [
-        {
-          url: socialImageUrl,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
+      images: post.coverImage
+        ? [{ url: post.coverImage, alt: post.title }]
+        : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description,
-      images: [socialImageUrl],
+      images: post.coverImage ? [post.coverImage] : undefined,
     },
   };
 }
