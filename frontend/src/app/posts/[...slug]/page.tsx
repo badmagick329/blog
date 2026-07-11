@@ -1,4 +1,5 @@
 import { posts } from '#site/content';
+import type { Metadata } from 'next';
 import MainHeading from '@/components/main-heading';
 import BlogCoverImage from '@/components/blog-cover-image';
 import { MDXContent } from '@/components/mdx-components';
@@ -6,6 +7,8 @@ import PostDate from '@/components/post-date';
 import { postIsPublished } from '@/lib/utils';
 import '@/styles/mdx.css';
 import { notFound } from 'next/navigation';
+
+const siteUrl = 'https://kristalomu.com';
 
 type PostSlugProps = {
   params: {
@@ -19,6 +22,49 @@ async function getPostFromParams(params: PostSlugProps['params']) {
   const slug = params?.slug?.join('/');
   const post = posts.find((post) => post.slugAsParams === slug);
   return post;
+}
+
+export async function generateMetadata({
+  params,
+}: PostSlugProps): Promise<Metadata> {
+  const post = await getPostFromParams(params);
+  if (!post || !postIsPublished(post)) {
+    return {};
+  }
+
+  const postUrl = `${siteUrl}/posts/${post.slugAsParams}`;
+  const socialImageUrl = `${siteUrl}/og/${post.slugAsParams}`;
+  const description = post.description === 'none' ? undefined : post.description;
+
+  return {
+    title: post.title,
+    description,
+    alternates: {
+      canonical: postUrl,
+    },
+    openGraph: {
+      type: 'article',
+      siteName: 'Krista Lomu',
+      url: postUrl,
+      title: post.title,
+      description,
+      publishedTime: post.publishedAt,
+      images: [
+        {
+          url: socialImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+      images: [socialImageUrl],
+    },
+  };
 }
 
 export async function generateStaticParams(): Promise<
