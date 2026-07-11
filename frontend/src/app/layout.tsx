@@ -5,16 +5,16 @@ import Header from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
-import { Forum } from 'next/font/google';
+import localFont from 'next/font/local';
 import Script from 'next/script';
 
 import './globals.css';
 
-const forum = Forum({
+const forum = localFont({
+  src: '../fonts/Forum-Regular.ttf',
   weight: '400',
   display: 'swap',
   adjustFontFallback: false,
-  subsets: ['latin'],
 });
 
 export default function RootLayout({

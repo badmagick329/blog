@@ -1,7 +1,7 @@
 import MainHeading from '@/components/main-heading';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { Euphoria_Script } from 'next/font/google';
+import localFont from 'next/font/local';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,11 +9,11 @@ import EmailIcon from '../../../public/images/email-icon.webp';
 import LinkedinLogo from '../../../public/images/linkedin-icon.webp';
 
 const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
-const euphoria_script = Euphoria_Script({
+const euphoria_script = localFont({
+  src: '../../fonts/EuphoriaScript-Regular.ttf',
   weight: '400',
   display: 'swap',
   adjustFontFallback: false,
-  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {

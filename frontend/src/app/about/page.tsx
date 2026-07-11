@@ -1,14 +1,14 @@
 import MainHeading from '@/components/main-heading';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { Euphoria_Script } from 'next/font/google';
+import localFont from 'next/font/local';
 import Link from 'next/link';
 
-const euphoria_script = Euphoria_Script({
+const euphoria_script = localFont({
+  src: '../../fonts/EuphoriaScript-Regular.ttf',
   weight: '400',
   display: 'swap',
   adjustFontFallback: false,
-  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
