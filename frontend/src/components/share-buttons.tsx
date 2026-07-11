@@ -1,58 +1,57 @@
 'use client';
 
-import { ICON_MD } from '@/lib/consts';
 import { cn, copyToClipboard } from '@/lib/utils';
-import { Clipboard } from 'lucide-react';
-import {
-  FacebookIcon,
-  FacebookShareButton,
-  LinkedinIcon,
-  LinkedinShareButton,
-  TwitterIcon,
-  TwitterShareButton,
-} from 'next-share';
-import { usePathname } from 'next/navigation';
+import { Share2 } from 'lucide-react';
 
 import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
 type ToastType = ReturnType<typeof useToast>['toast'];
 
-export default function ShareButtons() {
-  const pathname = usePathname();
-  const shareURL = `${BASE_URL}${pathname}`;
+declare global {
+  interface Window {
+    plausible?: (
+      eventName: string,
+      options?: { props?: Record<string, string> }
+    ) => void;
+  }
+}
+
+type ShareButtonsProps = {
+  title: string;
+};
+
+export default function ShareButtons({ title }: ShareButtonsProps) {
   const { toast } = useToast();
+
+  const handleShare = async () => {
+    const shareURL = new URL(
+      window.location.pathname,
+      window.location.origin
+    ).toString();
+
+    if (navigator.share) {
+      window.plausible?.('Share', { props: { method: 'native' } });
+      try {
+        await navigator.share({ title, url: shareURL });
+      } catch {
+        // The user may dismiss the native share sheet.
+      }
+      return;
+    }
+
+    await handleCopy(shareURL, toast);
+  };
 
   return (
     <section
-      className='flex flex-col items-center'
-      aria-labelledby='share-buttons-heading'
+      className='not-prose mt-10 flex flex-col items-end gap-3 border-t border-border pt-6'
+      aria-label='Share post'
     >
-      <p id='share-buttons-heading'>Share this post:</p>
-      <div className='flex gap-4'>
-        <FacebookShareButton url={shareURL} aria-label='Share on Facebook'>
-          <FacebookIcon size={ICON_MD} round aria-hidden='true' />
-        </FacebookShareButton>
-        <TwitterShareButton url={shareURL} aria-label='Share on X'>
-          <TwitterIcon size={ICON_MD} round aria-hidden='true' />
-        </TwitterShareButton>
-        <LinkedinShareButton url={shareURL} aria-label='Share on LinkedIn'>
-          <LinkedinIcon size={ICON_MD} round aria-hidden='true' />
-        </LinkedinShareButton>
-        <Button
-          onClick={() => handleCopy(shareURL, toast)}
-          aria-label='Copy share link'
-          className={cn(
-            'h-[32px] w-[32px] rounded-full',
-            'hover:bg-accent hover:text-accent-foreground'
-          )}
-          size='icon'
-        >
-          <Clipboard size={18} aria-hidden='true' />
-        </Button>
-      </div>
+      <Button onClick={handleShare} variant='outline'>
+        <Share2 className='mr-2 h-4 w-4' aria-hidden='true' />
+        Share
+      </Button>
     </section>
   );
 }
@@ -60,6 +59,7 @@ export default function ShareButtons() {
 async function handleCopy(text: string, toast: ToastType) {
   try {
     await copyToClipboard(text);
+    window.plausible?.('Share', { props: { method: 'copy' } });
     toast({
       className: cn(
         'fixed right-0 top-0 flex md:right-4 md:top-4 md:max-w-[420px]'
@@ -68,7 +68,7 @@ async function handleCopy(text: string, toast: ToastType) {
       description: `Copied to clipboard`,
       duration: 1000,
     });
-  } catch (error) {
+  } catch {
     toast({
       className: cn(
         'fixed right-0 top-0 flex md:right-4 md:top-4 md:max-w-[420px]'

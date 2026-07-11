@@ -4,6 +4,7 @@ import MainHeading from '@/components/main-heading';
 import BlogCoverImage from '@/components/blog-cover-image';
 import { MDXContent } from '@/components/mdx-components';
 import PostDate from '@/components/post-date';
+import ShareButtons from '@/components/share-buttons';
 import { postIsPublished } from '@/lib/utils';
 import '@/styles/mdx.css';
 import { notFound } from 'next/navigation';
@@ -96,6 +97,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
         />
         <PostDate date={post.publishedAt.split('T')[0]} />
         <MDXContent code={post.body} />
+        <ShareButtons title={post.title} />
       </article>
     </main>
   );
