@@ -45,7 +45,7 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
 
   return (
     <section
-      className='not-prose mt-10 flex flex-col items-end gap-3 border-t border-border pt-6'
+      className='not-prose mt-10 flex flex-col items-end gap-3'
       aria-label='Share post'
     >
       <Button onClick={handleShare} variant='outline'>
