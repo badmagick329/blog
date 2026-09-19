@@ -1,9 +1,27 @@
 import { posts } from '#site/content';
+import type { Metadata } from 'next';
 import MainHeading from '@/components/main-heading';
 import PostItem from '@/components/post-item';
 import { postIsPublished } from '@/lib/utils';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: 'Blog Posts',
+  description:
+    'Thoughts on words, creativity and the everyday moments that inspire my writing.',
+  alternates: {
+    canonical: 'https://kristalomu.com/posts',
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'Krista Lomu',
+    url: 'https://kristalomu.com/posts',
+    title: 'Blog Posts',
+    description:
+      'Thoughts on words, creativity and the everyday moments that inspire my writing.',
+  },
+};
 
 export default async function BlogPosts() {
   const displayPosts = posts
