@@ -52,9 +52,31 @@ export default function Home() {
             <h1 className='max-w-[16ch] text-balance py-2 text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl'>
               I’m Krista, a freelance content and copywriter.
             </h1>
-            <p className='readable-prose text-base text-foreground/85 sm:text-lg'>
-              Go ahead and explore my little website.
-            </p>
+            <div className='readable-prose flex flex-col gap-3 text-base text-foreground/85 sm:text-lg'>
+              <p>
+                Give me a tricky topic, a complicated problem and a strong
+                coffee, and I’m happy.
+              </p>
+              <p>
+                I turn ideas, thoughts and data into content strategies,
+                campaigns and words that give people a reason to pay attention.
+              </p>
+            </div>
+            {/* About is the primary action; contact stays a quieter link. */}
+            <div className='flex flex-wrap items-center gap-x-6 gap-y-3 pt-2'>
+              <Link
+                href='/about'
+                className='motion-lift rounded-md bg-accent px-5 py-2 font-semibold text-accent-foreground shadow-sm hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-lg'
+              >
+                About me
+              </Link>
+              <Link
+                href='/contact'
+                className='rounded-sm font-semibold text-foreground underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-lg'
+              >
+                Let’s talk
+              </Link>
+            </div>
           </div>
           {latestPost && (
             <div className='relative mx-auto w-full max-w-xs px-4 pt-6 md:max-w-none md:px-0'>
