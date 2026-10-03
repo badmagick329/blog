@@ -1,16 +1,8 @@
 import ContactForm from '@/components/contact-form';
 import ContactNote from '@/components/contact-note';
 import MainHeading from '@/components/main-heading';
-import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 
-const euphoria_script = localFont({
-  src: '../../fonts/EuphoriaScript-Regular.ttf',
-  weight: '400',
-  display: 'swap',
-  adjustFontFallback: false,
-});
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -37,7 +29,7 @@ export default function Contact() {
           </p>
           <ContactForm />
           <section
-            className={cn('text-center text-4xl', euphoria_script.className, 'display-script')}
+            className='text-center text-4xl display-script'
           >
             <p> I hope to hear from you!</p>
           </section>

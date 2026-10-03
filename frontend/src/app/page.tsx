@@ -1,20 +1,13 @@
 import { posts } from '#site/content';
 import BlogCoverImage from '@/components/blog-cover-image';
-import { cn, postIsPublished } from '@/lib/utils';
+import { postIsPublished } from '@/lib/utils';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import Link from 'next/link';
 
 // The latest post depends on today's date (scheduled posts), so re-render
 // periodically like the posts list does.
 export const revalidate = 60;
 
-const euphoria_script = localFont({
-  src: '../fonts/EuphoriaScript-Regular.ttf',
-  weight: '400',
-  display: 'swap',
-  adjustFontFallback: false,
-});
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -41,11 +34,7 @@ export default function Home() {
         <section className='home-hero grid w-full items-center gap-12 py-2 md:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] md:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,27rem)]'>
           <div className='home-intro flex flex-col items-start gap-4'>
             <p
-              className={cn(
-                'text-3xl sm:text-4xl',
-                euphoria_script.className,
-                'display-script'
-              )}
+              className='text-3xl sm:text-4xl display-script'
             >
               Lovely to see you.
             </p>
@@ -99,11 +88,7 @@ export default function Home() {
                         Latest entry
                       </span>
                       <span
-                        className={cn(
-                          'block text-2xl sm:text-3xl',
-                          euphoria_script.className,
-                          'display-script'
-                        )}
+                        className='block text-2xl sm:text-3xl display-script'
                       >
                         {latestPost.title}&nbsp;→
                       </span>

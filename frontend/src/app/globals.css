@@ -4,40 +4,50 @@
 
 @layer base {
   :root {
-    --background: 280 25% 90%;
-    --background-start: 280 25% 80%;
-    --background-end: 280 25% 95%;
-    --foreground: 39 10% 8%;
+    /* Palette for the decoration rules in `styles/theme.css`. */
+    --art-band: 45 50% 89%;
+    --art-terra: 25 76% 31%;
+    --art-orange: 25 100% 40%;
+    --art-rose: 294 43% 81%;
+    --art-sky: 197 71% 73%;
+    --art-sage: 80 35% 75%;
+    --art-cream: 45 60% 94%;
+    --art-note: 43 88% 79%;
+    /* Fine brown speckle; alpha follows the noise so most of it is clear. */
+    --art-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.26 0 0 0 0 0.16 0.42 0 0 0 -0.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 
-    --muted: 39 65% 21%;
-    --muted-foreground: 39 10% 13%;
+    --background: 45 55% 92%;
+    --foreground: 22 30% 18%;
 
-    --popover: 21 45% 9.1%;
-    --popover-foreground: 21 10% 98.5%;
+    --muted: 30 25% 72%;
+    --muted-foreground: 25 15% 35%;
 
-    --card: 21 45% 9.1%;
-    --card-foreground: 21 10% 98.5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 22 30% 18%;
 
-    --border: 21 50% 21%;
-    --input: 21 50% 21%;
+    --card: 0 0% 100%;
+    --card-foreground: 22 30% 18%;
 
-    --primary: 14 84% 78%;
-    --primary-foreground: 14 84% 5%;
+    --border: 30 25% 72%;
+    --input: 30 25% 72%;
 
-    --secondary: 334 31% 60%;
-    --secondary-foreground: 334 31% 8%;
+    --primary: 197 60% 80%;
+    --primary-foreground: 200 45% 16%;
 
-    --accent: 152 43% 40%;
-    --accent-foreground: 247 7% 8%;
+    --secondary: 294 43% 85%;
+    --secondary-foreground: 294 25% 18%;
+
+    --accent: 25 100% 40%;
+    --accent-foreground: 60 56% 97%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 21 10% 98.5%;
 
-    --ring: 21 100% 70%;
+    --ring: 25 100% 40%;
     --radius: 0.5rem;
 
-    --card-shadow: inset 0 1px 2px hsla(0, 0%, 100%),
-      0px 2px 4px hsla(0, 0%, 0%, 0.07), 0px 4px 8px hsla(0, 0%, 0%, 0.15);
+    --card-shadow: 0 2px 12px hsla(0, 0%, 0%, 0.06),
+      0 0 0 1px hsla(30, 25%, 72%, 0.6);
     --header-shadow: inset 0 1px 2px hsla(0, 0%, 100%);
   }
 }

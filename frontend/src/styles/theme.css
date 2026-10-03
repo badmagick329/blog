@@ -1,79 +1,33 @@
 /*
- * Artesanato Orgânico e Acolhedor (designmd.app). Cream surfaces, burnt-orange
- * accent. Header and footer sit on a cream strip with a stitched orange edge:
- * the client rejected the forest-green bands. Dancing Script for headings and
- * accents, Vollkorn for reading text: the source used the script for body too,
- * and the user found it too small and squiggly to read. Flat colour only: the
- * user rejected gradients.
+ * The site's look (Artesanato Orgânico e Acolhedor, from designmd.app):
+ * cream surfaces, burnt-orange accent, header and footer on a cream strip
+ * with a stitched orange edge. Dancing Script for headings and accents,
+ * Vollkorn for reading text: the source used the script for body too, and
+ * the user found it too small and squiggly to read. Flat colour only: the user
+ * rejected gradients. Tokens live in `app/globals.css`; fonts load in
+ * `app/layout.tsx`.
  */
 
-:root[data-design='artesanato'] {
-  /* Palette for the decoration rules below. */
-  --art-band: 45 50% 89%;
-  --art-terra: 25 76% 31%;
-  --art-orange: 25 100% 40%;
-  --art-rose: 294 43% 81%;
-  --art-sky: 197 71% 73%;
-  --art-sage: 80 35% 75%;
-  --art-cream: 45 60% 94%;
-  --art-note: 43 88% 79%;
-  /* Fine brown speckle; alpha follows the noise so most of it is clear. */
-  --art-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.26 0 0 0 0 0.16 0.42 0 0 0 -0.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-
-  --background: 45 55% 92%;
-  --background-start: 45 55% 92%;
-  --background-end: 45 55% 92%;
-  --foreground: 22 30% 18%;
-
-  --muted: 30 25% 72%;
-  --muted-foreground: 25 15% 35%;
-
-  --popover: 0 0% 100%;
-  --popover-foreground: 22 30% 18%;
-
-  --card: 0 0% 100%;
-  --card-foreground: 22 30% 18%;
-
-  --border: 30 25% 72%;
-  --input: 30 25% 72%;
-
-  --primary: 197 60% 80%;
-  --primary-foreground: 200 45% 16%;
-
-  --secondary: 294 43% 85%;
-  --secondary-foreground: 294 25% 18%;
-
-  --accent: 25 100% 40%;
-  --accent-foreground: 60 56% 97%;
-
-  --ring: 25 100% 40%;
-  --radius: 0.5rem;
-
-  --card-shadow: 0 2px 12px hsla(0, 0%, 0%, 0.06),
-    0 0 0 1px hsla(30, 25%, 72%, 0.6);
-  --header-shadow: inset 0 1px 2px hsla(0, 0%, 100%);
-}
-
 /* Fonts. */
-:root[data-design='artesanato'] body {
-  font-family: 'Vollkorn', Georgia, serif;
+:root body {
+  font-family: var(--font-vollkorn), Georgia, serif;
 }
 
-:root[data-design='artesanato'] :is(h1, h2, h3, header nav, .display-script, .site-cta) {
-  font-family: 'Dancing Script', cursive;
+:root :is(h1, h2, h3, header nav, .display-script, .site-cta) {
+  font-family: var(--font-dancing-script), cursive;
 }
 
-:root[data-design='artesanato'] .display-script {
+:root .display-script {
   font-weight: 700;
   color: hsl(var(--art-orange));
 }
 
-:root[data-design='artesanato'] :is(code, pre, kbd) {
-  font-family: 'JetBrains Mono', monospace;
+:root :is(code, pre, kbd) {
+  font-family: var(--font-jetbrains-mono), monospace;
 }
 
 /* Typography plugin colours ignore the tokens; point them at the palette. */
-:root[data-design='artesanato'] .prose {
+:root .prose {
   --tw-prose-body: hsl(var(--foreground) / 0.9);
   --tw-prose-headings: hsl(var(--art-terra));
   --tw-prose-lead: hsl(var(--foreground) / 0.8);
@@ -91,22 +45,23 @@
 }
 
 /* Decoration. Tokens alone left the page cream and near-black; these spread
-   the palette across surfaces. Selectors lean on current markup and are fine
-   for exploration, not for shipping. */
+   the palette across surfaces. Some selectors lean on current markup
+   (`div:has(> header)`, `article.not-prose`), so check them when that
+   markup changes. */
 
-:root[data-design='artesanato'] body {
+:root body {
   background-image: none;
   background-color: hsl(var(--background));
 }
 
 /* Header and footer on a cream strip with a stitched burnt-orange edge.
    Links keep the base foreground colours and orange hover. */
-:root[data-design='artesanato'] div:has(> header) {
+:root div:has(> header) {
   background: hsl(var(--art-band) / 0.96);
   border-bottom: 4px dashed hsl(var(--art-orange));
 }
 
-:root[data-design='artesanato'] footer {
+:root footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
   background: hsl(var(--art-band));
@@ -114,12 +69,12 @@
   color: hsl(var(--foreground) / 0.8);
 }
 
-:root[data-design='artesanato'] h1 {
+:root h1 {
   color: hsl(var(--art-terra));
 }
 
 /* Cards: white paper. */
-:root[data-design='artesanato'] .section-card {
+:root .section-card {
   background: hsl(0 0% 100% / 0.8);
   border-color: hsl(var(--border) / 0.7);
 }
@@ -136,7 +91,7 @@
    out of line. Keep each one subtle. The user ruled out tilting the page,
    rejected a torn hole and a lifted-corner shadow as unconvincing, and found
    square spine-side corners odd. */
-:root[data-design='artesanato'] .notebook-page {
+:root .notebook-page {
   --nb-row: 2rem;
   --nb-margin: 2.75rem;
   --nb-pad-left: calc(var(--nb-margin) + 1.25rem);
@@ -165,14 +120,14 @@
 }
 
 /* The heading sits on the unruled top of the sheet. */
-:root[data-design='artesanato'] .notebook-page > :first-child {
+:root .notebook-page > :first-child {
   margin: 0;
 }
 
 /* The ruled part runs edge to edge and down to the bottom of the sheet, so it
    cancels the page padding and repaints the paper under its rules; its
    padding-top is one blank ruled row under the heading. */
-:root[data-design='artesanato'] .notebook-page > .notebook-lines {
+:root .notebook-page > .notebook-lines {
   margin: 0 calc(-1 * var(--nb-pad-right)) calc(-1 * var(--nb-row))
     calc(-1 * var(--nb-pad-left));
   padding: var(--nb-row) var(--nb-pad-right) var(--nb-row) var(--nb-pad-left);
@@ -203,7 +158,7 @@
 
 /* Three punched holes down the left edge, slightly out of line. Hole colour
    is the page background showing through. */
-:root[data-design='artesanato'] .notebook-page::before {
+:root .notebook-page::before {
   --nb-hole: hsl(var(--background));
   --nb-rim: hsl(var(--border) / 0.9);
   content: '';
@@ -235,7 +190,7 @@
 /* A post runs several screens long, where three holes would sit far apart, so
    long sheets get a hole every 20rem instead. Three layers repeating every
    60rem, each nudged a pixel, keep the holes slightly out of line. */
-:root[data-design='artesanato'] .notebook-page--long::before {
+:root .notebook-page--long::before {
   background:
     radial-gradient(
         circle 0.52rem at 50% 10rem,
@@ -261,14 +216,14 @@
 }
 
 /* Rhythm: every block and gap in the ruled part is a whole number of rows. */
-:root[data-design='artesanato']
+:root
   .notebook-lines
   > :not([hidden])
   ~ :not([hidden]) {
   margin-top: var(--nb-row);
 }
 
-:root[data-design='artesanato'] .notebook-lines > * {
+:root .notebook-lines > * {
   margin-top: 0;
   margin-bottom: 0;
   line-height: var(--nb-row);
@@ -278,25 +233,25 @@
    rows. No post has headings, lists or images yet; headings and lists are
    held to the rows here, but an image inside the text would push everything
    after it off the lines unless its height is a whole number of rows. */
-:root[data-design='artesanato'] .notebook-lines > :is(.text-4xl, h2) {
+:root .notebook-lines > :is(.text-4xl, h2) {
   line-height: calc(var(--nb-row) * 2);
 }
 
-:root[data-design='artesanato'] .notebook-lines :is(li, li > p, blockquote > p) {
+:root .notebook-lines :is(li, li > p, blockquote > p) {
   margin-block: 0;
 }
 
-:root[data-design='artesanato'] .notebook-lines > blockquote {
+:root .notebook-lines > blockquote {
   padding-block: 0;
 }
 
 /* A raised note must not stretch its line off the rows. */
-:root[data-design='artesanato'] .notebook-lines :is(sup, sub) {
+:root .notebook-lines :is(sup, sub) {
   line-height: 0;
 }
 
 @media (min-width: 640px) {
-  :root[data-design='artesanato'] .notebook-page {
+  :root .notebook-page {
     --nb-margin: 3.75rem;
     --nb-pad-left: calc(var(--nb-margin) + 1.75rem);
     --nb-pad-right: 2.5rem;
@@ -307,7 +262,7 @@
    stands proud of the page through colour, the pin and a deep shadow. The
    tilt stays slight: the user wanted one here but finds strongly tilted text
    awkward to read. */
-:root[data-design='artesanato'] .glance-note {
+:root .glance-note {
   rotate: 1.1deg;
   border: none;
   border-radius: 0.15rem;
@@ -321,12 +276,12 @@
   backdrop-filter: none;
 }
 
-:root[data-design='artesanato'] .glance-note-title {
+:root .glance-note-title {
   color: hsl(var(--art-terra));
 }
 
 /* Short pen stroke under the title. */
-:root[data-design='artesanato'] .glance-note-title::after {
+:root .glance-note-title::after {
   content: '';
   display: block;
   width: 3rem;
@@ -337,12 +292,12 @@
 }
 
 /* The contact note's title goes without the stroke. */
-:root[data-design='artesanato'] .glance-note-title--plain::after {
+:root .glance-note-title--plain::after {
   content: none;
 }
 
 /* Highlighter swipe behind each label. */
-:root[data-design='artesanato'] .glance-note-label {
+:root .glance-note-label {
   padding: 0.05rem 0.35rem;
   border-radius: 0.3rem 0.5rem 0.35rem 0.55rem;
   background: hsl(var(--art-orange) / 0.2);
@@ -351,40 +306,40 @@
 }
 
 /* Post list: paper cards with title bars cycling through the palette. */
-:root[data-design='artesanato'] article.not-prose {
+:root article.not-prose {
   background: hsl(0 0% 100% / 0.8);
 }
 
-:root[data-design='artesanato'] article.not-prose h2 {
+:root article.not-prose h2 {
   color: hsl(var(--foreground));
 }
 
-:root[data-design='artesanato'] article.not-prose:nth-child(3n + 1) h2 {
+:root article.not-prose:nth-child(3n + 1) h2 {
   background: hsl(var(--art-rose));
 }
 
-:root[data-design='artesanato'] article.not-prose:nth-child(3n + 2) h2 {
+:root article.not-prose:nth-child(3n + 2) h2 {
   background: hsl(var(--art-sky));
 }
 
-:root[data-design='artesanato'] article.not-prose:nth-child(3n) h2 {
+:root article.not-prose:nth-child(3n) h2 {
   background: hsl(var(--art-sage));
 }
 
 /* End of a post ("bottom of the cup"): rose card, terracotta script title. */
-:root[data-design='artesanato'] .post-end {
+:root .post-end {
   background: hsl(var(--art-rose));
 }
 
-:root[data-design='artesanato'] .post-end-title {
+:root .post-end-title {
   color: hsl(var(--art-terra));
 }
 
 /* Cover tape: plain translucent masking tape with torn ends, replacing the
    base gradient strip. clip-path draws the tear; it also clips any shadow, so
    there is none. */
-:root[data-design='artesanato'] .blog-cover-frame::before,
-:root[data-design='artesanato'] .blog-cover-frame::after {
+:root .blog-cover-frame::before,
+:root .blog-cover-frame::after {
   background: hsl(46 42% 84% / 0.82);
   border-radius: 0;
   box-shadow: none;
@@ -408,8 +363,8 @@
 }
 
 /* Contact call-to-action: filled burnt orange. */
-:root[data-design='artesanato'] header a.site-nav-cta,
-:root[data-design='artesanato'] header a.site-nav-cta:hover {
+:root header a.site-nav-cta,
+:root header a.site-nav-cta:hover {
   background: hsl(var(--art-orange));
   color: hsl(var(--art-cream));
 }

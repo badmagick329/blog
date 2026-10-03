@@ -1,16 +1,8 @@
 import AboutGlanceNote from '@/components/about-glance-note';
 import MainHeading from '@/components/main-heading';
-import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import Link from 'next/link';
 
-const euphoria_script = localFont({
-  src: '../../fonts/EuphoriaScript-Regular.ttf',
-  weight: '400',
-  display: 'swap',
-  adjustFontFallback: false,
-});
 
 export const metadata: Metadata = {
   title: 'About',
@@ -27,7 +19,7 @@ export default function About() {
         <section className='section-card notebook-page prose readable-prose w-full min-w-0 space-y-6 px-6 py-8 text-foreground sm:px-8 lg:prose-lg'>
           <MainHeading text='About' />
           <div className='notebook-lines space-y-6'>
-            <p className={cn('text-justify text-4xl', euphoria_script.className, 'display-script')}>
+            <p className='text-justify text-4xl display-script'>
               Hi.
             </p>
             <p>I’m happy to see you find your way to my little website.</p>
@@ -56,8 +48,8 @@ export default function About() {
               visit again.
             </p>
             <p>Until next time,</p>
-            <p className={cn('text-4xl', euphoria_script.className, 'display-script')}>Krista</p>
-            <p className={cn('text-2xl', euphoria_script.className, 'display-script')}>
+            <p className='text-4xl display-script'>Krista</p>
+            <p className='text-2xl display-script'>
               Psst. Check out{' '}
               <Link
                 className='underline decoration-accent/60 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
