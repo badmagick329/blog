@@ -48,7 +48,7 @@ export default function Home() {
                   className='section-card motion-lift flex items-center justify-center gap-3 px-4 py-4 text-sm font-medium text-foreground/90 hover:-translate-y-1 hover:border-accent/50 hover:text-foreground hover:shadow-[0_16px_32px_hsl(0_0%_0%/0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:flex-col sm:gap-2 sm:text-base'
                 >
                   <Image
-                    className='motion-lift dark:invert'
+                    className='motion-lift'
                     src={item.image}
                     width={36}
                     height={36}

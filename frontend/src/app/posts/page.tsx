@@ -34,7 +34,7 @@ export default async function BlogPosts() {
       tabIndex={-1}
       className='container flex flex-1 flex-col items-center px-4 sm:px-6 md:px-8'
     >
-      <article className='motion-fade-in prose pt-8 text-foreground dark:prose-invert lg:prose-lg'>
+      <article className='motion-fade-in prose pt-8 text-foreground lg:prose-lg'>
         <MainHeading text='Blog Posts' />
         <section className='flex flex-col items-start gap-12 font-normal'>
           {displayPosts.length > 0 ? (

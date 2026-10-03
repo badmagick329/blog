@@ -87,8 +87,8 @@ function LinkContent({
           className={cn(
             'motion-lift inline-flex h-9 w-9 items-center justify-center rounded-md font-semibold',
             isActive
-              ? 'text-foreground hover:bg-transparent dark:hover:bg-transparent'
-              : 'hover:bg-foreground/1 dark:hover:bg-foreground/1 hover:text-accent'
+              ? 'text-foreground hover:bg-transparent'
+              : 'hover:bg-foreground/1 hover:text-accent'
           )}
         >
           <MobileNavIcon path={href} isActive={isActive} />
@@ -125,7 +125,7 @@ function MobileNavIcon({
     <span className='flex h-6 w-6 items-center justify-center'>
       <Image
         className={cn(
-          'h-auto w-auto object-contain transition-transform dark:invert',
+          'h-auto w-auto object-contain transition-transform',
           isActive ? 'scale-150' : 'scale-100',
           icon.mobileSizeClassName
         )}

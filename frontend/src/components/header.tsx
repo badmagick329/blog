@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 
-import { ModeToggle } from './mode-toggle';
 import NavbarLink from './navbar-link';
 
 export default function Header() {
@@ -19,7 +18,6 @@ export default function Header() {
           <NavbarLink href='/about' pathname={pathname} />
           <NavbarLink href='/posts' pathname={pathname} />
           <NavbarLink href='/contact' pathname={pathname} />
-          <ModeToggle />
         </nav>
       </header>
     </div>

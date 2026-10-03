@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <main id='main-content' tabIndex={-1} className='page-shell'>
-      <article className='content-shell motion-fade-in prose readable-prose text-foreground dark:prose-invert lg:prose-lg'>
+      <article className='content-shell motion-fade-in prose readable-prose text-foreground lg:prose-lg'>
         <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
           <MainHeading text='About' />
           <p className={cn('text-justify text-4xl', euphoria_script.className, 'display-script')}>

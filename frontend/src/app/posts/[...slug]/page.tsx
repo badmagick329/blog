@@ -80,7 +80,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
 
   return (
     <main id='main-content' tabIndex={-1}>
-      <article className='container prose mx-auto max-w-3xl py-6 text-justify dark:prose-invert lg:prose-xl'>
+      <article className='container prose mx-auto max-w-3xl py-6 text-justify lg:prose-xl'>
         <div className='flex w-full justify-center'>
           <BlogCoverImage
             src={post.coverImage || ''}

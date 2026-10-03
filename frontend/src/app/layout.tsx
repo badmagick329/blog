@@ -2,7 +2,6 @@
 
 import Footer from '@/components/footer';
 import Header from '@/components/header';
-import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
@@ -31,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en'>
       <head>
         <Script
           src='/ingest/js/script.js'
@@ -48,16 +47,9 @@ export default function RootLayout({
         <a href='#main-content' className='skip-link'>
           Skip to main content
         </a>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <Header />
+        {children}
+        <Footer />
         <Toaster />
         {DesignSwitcher && <DesignSwitcher />}
       </body>

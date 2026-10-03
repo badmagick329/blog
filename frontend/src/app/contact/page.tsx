@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 export default function Contact() {
   return (
     <main id='main-content' tabIndex={-1} className='page-shell'>
-      <article className='content-shell readable-prose motion-fade-in prose text-foreground dark:prose-invert lg:prose-lg'>
+      <article className='content-shell readable-prose motion-fade-in prose text-foreground lg:prose-lg'>
         <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
           <MainHeading text='Would I like to get in touch?' />
           <p className='text-justify'>

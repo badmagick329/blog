@@ -1,7 +1,6 @@
 import type { Config } from 'tailwindcss';
 
 const config = {
-  darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -34,10 +33,6 @@ const config = {
         background: 'hsl(var(--background))',
         'background-start': 'hsl(var(--background-start))',
         'background-end': 'hsl(var(--background-end))',
-        'background-light': 'hsl(var(--background-light))',
-        'background-dark': 'hsl(var(--background-dark))',
-        'foreground-light': 'hsl(var(--foreground-light))',
-        'foreground-dark': 'hsl(var(--foreground-dark))',
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
