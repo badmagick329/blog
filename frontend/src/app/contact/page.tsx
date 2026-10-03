@@ -1,3 +1,4 @@
+import ContactForm from '@/components/contact-form';
 import MainHeading from '@/components/main-heading';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -69,6 +70,8 @@ export default function Contact() {
               />
             </Link>
           </section>
+          <p className='text-justify'>Or leave me a message right here:</p>
+          <ContactForm />
           <section
             className={cn('text-center text-4xl', euphoria_script.className, 'display-script')}
           >
