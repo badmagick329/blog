@@ -1,0 +1,221 @@
+/*
+ * Artesanato Orgânico e Acolhedor (designmd.app). Cream surfaces, forest-green
+ * bands, burnt-orange accent. Dancing Script for headings and accents, Vollkorn
+ * for reading text: the source used the script for body too, and the user
+ * found it too small and squiggly to read. Flat colour only: the user rejected
+ * gradients.
+ */
+
+:root[data-design='artesanato'] {
+  /* Palette for the decoration rules below. */
+  --art-band: 150 25% 26%;
+  --art-terra: 25 76% 31%;
+  --art-orange: 25 100% 40%;
+  --art-rose: 294 43% 81%;
+  --art-sky: 197 71% 73%;
+  --art-sage: 80 35% 75%;
+  --art-cream: 45 60% 94%;
+
+  --background: 45 55% 92%;
+  --background-start: 45 55% 92%;
+  --background-end: 45 55% 92%;
+  --foreground: 22 30% 18%;
+
+  --muted: 150 25% 26%;
+  --muted-foreground: 25 15% 35%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 22 30% 18%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 22 30% 18%;
+
+  --border: 30 25% 72%;
+  --input: 30 25% 72%;
+
+  --primary: 197 60% 80%;
+  --primary-foreground: 200 45% 16%;
+
+  --secondary: 294 43% 85%;
+  --secondary-foreground: 294 25% 18%;
+
+  --accent: 25 100% 40%;
+  --accent-foreground: 60 56% 97%;
+
+  --ring: 25 100% 40%;
+  --radius: 0.5rem;
+
+  --card-shadow: 0 2px 12px hsla(0, 0%, 0%, 0.06),
+    0 0 0 1px hsla(30, 25%, 72%, 0.6);
+  --header-shadow: inset 0 1px 2px hsla(0, 0%, 100%);
+}
+
+/* Fonts. */
+:root[data-design='artesanato'] body {
+  font-family: 'Vollkorn', Georgia, serif;
+}
+
+:root[data-design='artesanato'] :is(h1, h2, h3, header nav, .display-script) {
+  font-family: 'Dancing Script', cursive;
+}
+
+:root[data-design='artesanato'] .display-script {
+  font-weight: 700;
+  color: hsl(var(--art-orange));
+}
+
+:root[data-design='artesanato'] :is(code, pre, kbd) {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Typography plugin colours ignore the tokens; point them at the palette. */
+:root[data-design='artesanato'] .prose {
+  --tw-prose-body: hsl(var(--foreground) / 0.9);
+  --tw-prose-headings: hsl(var(--art-terra));
+  --tw-prose-lead: hsl(var(--foreground) / 0.8);
+  --tw-prose-links: hsl(var(--accent));
+  --tw-prose-bold: hsl(var(--foreground));
+  --tw-prose-counters: hsl(var(--muted-foreground));
+  --tw-prose-bullets: hsl(var(--art-band));
+  --tw-prose-hr: hsl(var(--border));
+  --tw-prose-quotes: hsl(var(--foreground));
+  --tw-prose-quote-borders: hsl(var(--art-orange));
+  --tw-prose-captions: hsl(var(--muted-foreground));
+  --tw-prose-code: hsl(var(--foreground));
+  --tw-prose-th-borders: hsl(var(--border));
+  --tw-prose-td-borders: hsl(var(--border));
+}
+
+/* Decoration. Tokens alone left the page cream and near-black; these spread
+   the palette across surfaces. Selectors lean on current markup and are fine
+   for exploration, not for shipping. */
+
+:root[data-design='artesanato'] body {
+  background-image: none;
+  background-color: hsl(var(--background));
+}
+
+/* Header and footer as green bands with a burnt-orange edge. */
+:root[data-design='artesanato'] div:has(> header) {
+  background: hsl(var(--art-band) / 0.96);
+  border-bottom: 4px solid hsl(var(--art-orange));
+}
+
+:root[data-design='artesanato'] footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  background: hsl(var(--art-band));
+  border-top: 4px solid hsl(var(--art-orange));
+  color: hsl(var(--art-cream));
+}
+
+:root[data-design='artesanato'] :is(header, footer) a {
+  color: hsl(var(--art-cream) / 0.85);
+}
+
+:root[data-design='artesanato'] :is(header, footer) a:hover,
+:root[data-design='artesanato'] header a[aria-current='page'] {
+  color: hsl(var(--art-cream));
+}
+
+:root[data-design='artesanato'] header a:not([aria-current]):hover {
+  color: hsl(var(--art-rose));
+}
+
+:root[data-design='artesanato'] header img {
+  filter: invert(0.95);
+}
+
+:root[data-design='artesanato'] h1 {
+  color: hsl(var(--art-terra));
+}
+
+/* Cards: white paper by default, solid colour washes where there's a set. */
+:root[data-design='artesanato'] .section-card {
+  background: hsl(0 0% 100% / 0.8);
+  border-color: hsl(var(--border) / 0.7);
+}
+
+:root[data-design='artesanato'] article:has(ul.grid) > .section-card {
+  background: hsl(var(--art-rose) / 0.45);
+}
+
+:root[data-design='artesanato'] ul.grid > li:nth-child(3n + 1) > a {
+  background: hsl(var(--art-rose) / 0.65);
+  border-color: hsl(294 30% 65% / 0.6);
+}
+
+:root[data-design='artesanato'] ul.grid > li:nth-child(3n + 2) > a {
+  background: hsl(var(--art-sky) / 0.55);
+  border-color: hsl(197 45% 55% / 0.6);
+}
+
+:root[data-design='artesanato'] ul.grid > li:nth-child(3n) > a {
+  background: hsl(var(--art-sage) / 0.7);
+  border-color: hsl(80 30% 50% / 0.6);
+}
+
+/* Stitched divider instead of a fading hairline. */
+:root[data-design='artesanato'] .subtle-divider {
+  height: 0;
+  background: none;
+  border-top: 2px dashed hsl(var(--art-orange) / 0.55);
+}
+
+/* Post list: paper cards with title bars cycling through the palette. */
+:root[data-design='artesanato'] article.not-prose {
+  background: hsl(0 0% 100% / 0.8);
+}
+
+:root[data-design='artesanato'] article.not-prose h2 {
+  color: hsl(var(--foreground));
+}
+
+:root[data-design='artesanato'] article.not-prose:nth-child(3n + 1) h2 {
+  background: hsl(var(--art-rose));
+}
+
+:root[data-design='artesanato'] article.not-prose:nth-child(3n + 2) h2 {
+  background: hsl(var(--art-sky));
+}
+
+:root[data-design='artesanato'] article.not-prose:nth-child(3n) h2 {
+  background: hsl(var(--art-sage));
+}
+
+/* Post page: long reads sit on paper. */
+:root[data-design='artesanato'] article.container.prose {
+  margin-top: 2rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+  border: 1px solid hsl(var(--border) / 0.7);
+  border-radius: calc(var(--radius) + 0.25rem);
+  background: hsl(0 0% 100% / 0.85);
+  box-shadow: var(--card-shadow);
+}
+
+/* Cover tape: plain translucent masking tape with torn ends, replacing the
+   base gradient strip. clip-path draws the tear; it also clips any shadow, so
+   there is none. */
+:root[data-design='artesanato'] .blog-cover-frame::before,
+:root[data-design='artesanato'] .blog-cover-frame::after {
+  background: hsl(46 42% 84% / 0.82);
+  border-radius: 0;
+  box-shadow: none;
+  opacity: 1;
+  clip-path: polygon(
+    2% 0,
+    98% 0,
+    100% 16%,
+    97% 31%,
+    100% 47%,
+    96% 64%,
+    100% 81%,
+    98% 100%,
+    2% 100%,
+    0 84%,
+    3% 67%,
+    0 51%,
+    4% 34%,
+    0 18%
+  );
+}

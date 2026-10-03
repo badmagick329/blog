@@ -11,4 +11,11 @@ export type Design = {
   fontsHref?: string;
 };
 
-export const designs: Design[] = [];
+export const designs: Design[] = [
+  {
+    id: 'artesanato',
+    name: 'Artesanato Orgânico',
+    fontsHref:
+      'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Vollkorn:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap',
+  },
+];
