@@ -69,7 +69,7 @@ export async function sendContactMessage(
     console.error('contact: daily send cap reached');
     return { status: 'failed', reason: 'unavailable' };
   }
-  const ip = clientIp();
+  const ip = await clientIp();
   if (!takeSendSlot(ip)) {
     console.warn('contact: rate limited', ip);
     return { status: 'failed', reason: 'rate-limited' };
@@ -142,8 +142,8 @@ function validate(values: Record<ContactField, string>) {
 
 // nginx sets X-Real-IP from the connection itself. X-Forwarded-For is not
 // used because its leading entries come from the client and can be forged.
-function clientIp() {
-  return headers().get('x-real-ip') ?? 'unknown';
+async function clientIp() {
+  return (await headers()).get('x-real-ip') ?? 'unknown';
 }
 
 /** Records a send for `ip` unless it has used up its slots in the window. */

@@ -13,16 +13,16 @@ import { notFound } from 'next/navigation';
 
 const siteUrl = 'https://kristalomu.com';
 
+type PostSlugParams = { slug: string[] };
+
 type PostSlugProps = {
-  params: {
-    slug: string[];
-  };
+  params: Promise<PostSlugParams>;
 };
 
 export const revalidate = 60;
 
 async function getPostFromParams(params: PostSlugProps['params']) {
-  const slug = params?.slug?.join('/');
+  const slug = (await params).slug.join('/');
   const post = posts.find((post) => post.slugAsParams === slug);
   return post;
 }
@@ -64,9 +64,7 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  PostSlugProps['params'][]
-> {
+export async function generateStaticParams(): Promise<PostSlugParams[]> {
   return posts
     .filter((post) => postIsPublished(post))
     .map((post) => ({

@@ -2,18 +2,39 @@
 
 import { sendContactMessage } from '@/actions/contact';
 import { Button } from '@/components/ui/button';
-import { CONTACT_LIMITS, type ContactFormState } from '@/lib/contact';
-import { useEffect, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import {
+  CONTACT_LIMITS,
+  type ContactField,
+  type ContactFormState,
+} from '@/lib/contact';
+import { useActionState, useEffect, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 
 const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
 const initialState: ContactFormState = { status: 'idle' };
+
+type Draft = Record<ContactField, string>;
+const emptyDraft: Draft = { name: '', email: '', message: '' };
 
 const inputClass =
   'w-full rounded-md border border-input bg-white/70 px-3 py-2 text-base text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-[invalid=true]:border-destructive';
 
 export default function ContactForm() {
-  const [state, formAction] = useFormState(sendContactMessage, initialState);
+  // React resets the form's fields after every action, so the submitted
+  // values become the fields' defaults; otherwise a visitor shown a
+  // validation error would lose what they typed.
+  const [draft, setDraft] = useState(emptyDraft);
+  const [state, formAction] = useActionState(
+    (previous: ContactFormState, formData: FormData) => {
+      setDraft({
+        name: String(formData.get('name') ?? ''),
+        email: String(formData.get('email') ?? ''),
+        message: String(formData.get('message') ?? ''),
+      });
+      return sendContactMessage(previous, formData);
+    },
+    initialState
+  );
   // Set once hydrated; the server drops submissions sent too soon after this,
   // which catches bots that post without loading the page.
   const [startedAt, setStartedAt] = useState('');
@@ -36,6 +57,7 @@ export default function ContactForm() {
           id='name'
           name='name'
           autoComplete='name'
+          defaultValue={draft.name}
           required
           maxLength={CONTACT_LIMITS.name}
           aria-invalid={Boolean(errors.name)}
@@ -49,6 +71,7 @@ export default function ContactForm() {
           name='email'
           type='email'
           autoComplete='email'
+          defaultValue={draft.email}
           required
           maxLength={CONTACT_LIMITS.email}
           aria-invalid={Boolean(errors.email)}
@@ -61,6 +84,7 @@ export default function ContactForm() {
           id='message'
           name='message'
           rows={6}
+          defaultValue={draft.message}
           required
           maxLength={CONTACT_LIMITS.message}
           aria-invalid={Boolean(errors.message)}

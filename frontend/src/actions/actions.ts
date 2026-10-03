@@ -10,7 +10,7 @@ export async function registerView({
   route: string;
   duration: number;
 }) {
-  const ip = headers().get('x-forwarded-for');
+  const ip = (await headers()).get('x-forwarded-for');
   const viewer = ip
     ? crypto.createHash('sha256').update(ip).digest('hex')
     : 'N/A';
