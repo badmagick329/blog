@@ -129,7 +129,13 @@ function Field({
 function SubmitButton({ ready }: { ready: boolean }) {
   const { pending } = useFormStatus();
   return (
-    <Button type='submit' disabled={!ready || pending}>
+    // Styled like the header's Contact button; the default variant's
+    // `primary` token is pale blue in this design.
+    <Button
+      type='submit'
+      disabled={!ready || pending}
+      className='site-cta motion-lift bg-accent px-6 text-lg font-semibold text-accent-foreground shadow-sm hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md'
+    >
       {pending ? 'Sending…' : 'Send message'}
     </Button>
   );

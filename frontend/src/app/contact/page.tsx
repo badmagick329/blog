@@ -1,15 +1,10 @@
 import ContactForm from '@/components/contact-form';
+import ContactNote from '@/components/contact-note';
 import MainHeading from '@/components/main-heading';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import Image from 'next/image';
-import Link from 'next/link';
 
-import EmailIcon from '../../../public/images/email-icon.webp';
-import LinkedinLogo from '../../../public/images/linkedin-icon.webp';
-
-const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
 const euphoria_script = localFont({
   src: '../../fonts/EuphoriaScript-Regular.ttf',
   weight: '400',
@@ -26,8 +21,10 @@ export const metadata: Metadata = {
 export default function Contact() {
   return (
     <main id='main-content' tabIndex={-1} className='page-shell'>
-      <article className='content-shell readable-prose motion-fade-in prose text-foreground lg:prose-lg'>
-        <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
+      {/* The form is the main card; the note with other ways to get in touch
+          is pinned beside it, and falls below it on narrower screens. */}
+      <article className='content-shell motion-fade-in flex flex-col items-center gap-14 lg:flex-row lg:items-start lg:justify-center lg:gap-10'>
+        <section className='section-card prose readable-prose w-full min-w-0 space-y-6 px-6 py-8 text-foreground sm:px-8 lg:prose-lg'>
           <MainHeading text='Would I like to get in touch?' />
           <p className='text-justify'>
             Thank you for asking and yes — I’m always ready for new connections
@@ -36,41 +33,8 @@ export default function Contact() {
           <p className='text-justify'>
             Whether you’re looking for a content writer for your business, want
             to collaborate on a project or just have a great (book) suggestion
-            to share, you can get in touch via:
+            to share, leave me a message right here:
           </p>
-          <section className='flex items-center justify-around gap-8'>
-            <Link
-              href='https://www.linkedin.com/in/kristalomu'
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label='LinkedIn profile'
-            >
-              <Image
-                src={LinkedinLogo}
-                className='rounded-full transition-all hover:scale-110'
-                width={50}
-                height={50}
-                alt=''
-                aria-hidden='true'
-              />
-            </Link>
-            <Link
-              href={`mailto:${EMAIL_ADDRESS}`}
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label='Send email'
-            >
-              <Image
-                src={EmailIcon}
-                className='rounded-full transition-all hover:scale-110'
-                width={50}
-                height={50}
-                alt=''
-                aria-hidden='true'
-              />
-            </Link>
-          </section>
-          <p className='text-justify'>Or leave me a message right here:</p>
           <ContactForm />
           <section
             className={cn('text-center text-4xl', euphoria_script.className, 'display-script')}
@@ -78,6 +42,9 @@ export default function Contact() {
             <p> I hope to hear from you!</p>
           </section>
         </section>
+        <div className='mt-6 w-full max-w-sm lg:mt-16 lg:w-96 lg:max-w-none lg:shrink-0'>
+          <ContactNote />
+        </div>
       </article>
     </main>
   );

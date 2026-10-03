@@ -59,7 +59,7 @@
   font-family: 'Vollkorn', Georgia, serif;
 }
 
-:root[data-design='artesanato'] :is(h1, h2, h3, header nav, .display-script) {
+:root[data-design='artesanato'] :is(h1, h2, h3, header nav, .display-script, .site-cta) {
   font-family: 'Dancing Script', cursive;
 }
 
@@ -334,6 +334,11 @@
   margin-top: 0.4rem;
   border-radius: 1px;
   background: hsl(var(--art-terra) / 0.8);
+}
+
+/* The contact note's title goes without the stroke. */
+:root[data-design='artesanato'] .glance-note-title--plain::after {
+  content: none;
 }
 
 /* Highlighter swipe behind each label. */
