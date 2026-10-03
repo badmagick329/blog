@@ -1,6 +1,6 @@
 services:
   nextapp:
-    image: blogfrontend:prod
+    image: blogfrontend:${FRONTEND_TAG:?set FRONTEND_TAG in .env}
     restart: "always"
 
   nginx:
@@ -21,6 +21,7 @@ services:
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./certbot_flags:/flags/:rw
 
 volumes:
   staticfiles:
