@@ -1,0 +1,251 @@
+/*
+ * Cerâmica Wabi-Sabi (designmd.app). Linen cream page, charcoal bands, clay
+ * headings, indigo links, gold kintsugi lines as the signature detail. Sharp
+ * 0px corners and light shadows per the source. Cormorant Garamond throughout,
+ * as the source specifies, with the whole type scale stepped up and body weight
+ * 500: Cormorant's small x-height reads thin at the source's 1rem/400. Flat colour
+ * only: the user rejects gradients, and the source's own rules agree.
+ */
+
+:root[data-design='ceramica'] {
+  /* Palette for the decoration rules below. */
+  --cer-clay: 19 56% 40%;
+  --cer-stone: 33 4% 53%;
+  --cer-linen: 30 67% 94%;
+  --cer-charcoal: 204 19% 26%;
+  --cer-matcha: 75 36% 36%;
+  --cer-indigo: 231 48% 48%;
+  --cer-gold: 46 65% 52%;
+  --cer-blush: 15 55% 82%;
+  /* Light washes of the palette for card fills. */
+  --cer-matcha-wash: 75 36% 80%;
+  --cer-indigo-wash: 231 48% 88%;
+  --cer-gold-wash: 46 65% 82%;
+
+  --background: 30 67% 94%;
+  --background-start: 30 67% 94%;
+  --background-end: 30 67% 94%;
+  --foreground: 204 19% 20%;
+
+  --muted: 33 4% 53%;
+  --muted-foreground: 204 10% 38%;
+
+  --popover: 30 80% 98%;
+  --popover-foreground: 204 19% 20%;
+
+  --card: 30 80% 98%;
+  --card-foreground: 204 19% 20%;
+
+  --border: 33 12% 72%;
+  --input: 33 12% 72%;
+
+  --primary: 19 56% 40%;
+  --primary-foreground: 30 67% 96%;
+
+  --secondary: 15 55% 85%;
+  --secondary-foreground: 19 40% 22%;
+
+  --accent: 231 48% 48%;
+  --accent-foreground: 30 67% 96%;
+
+  --ring: 231 48% 48%;
+  --radius: 0rem;
+
+  --card-shadow: 0 2px 8px hsla(204, 19%, 20%, 0.08);
+  --header-shadow: none;
+}
+
+/* Fonts. Cormorant sets about a tenth smaller than most faces at the same
+   size, so the whole scale steps up to keep small labels legible. */
+:root[data-design='ceramica'] {
+  font-size: 110%;
+}
+
+:root[data-design='ceramica'] body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+}
+
+:root[data-design='ceramica'] :is(h1, h2, h3) {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+:root[data-design='ceramica'] header nav {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* The Euphoria Script lines become an italic clay annotation. */
+:root[data-design='ceramica'] .display-script {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  color: hsl(var(--cer-clay));
+}
+
+:root[data-design='ceramica'] :is(code, pre, kbd) {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Typography plugin colours ignore the tokens; point them at the palette. */
+:root[data-design='ceramica'] .prose {
+  --tw-prose-body: hsl(var(--foreground) / 0.92);
+  --tw-prose-headings: hsl(var(--cer-clay));
+  --tw-prose-lead: hsl(var(--foreground) / 0.8);
+  --tw-prose-links: hsl(var(--cer-indigo));
+  --tw-prose-bold: hsl(var(--foreground));
+  --tw-prose-counters: hsl(var(--cer-matcha));
+  --tw-prose-bullets: hsl(var(--cer-matcha));
+  --tw-prose-hr: hsl(var(--cer-gold));
+  --tw-prose-quotes: hsl(var(--cer-charcoal));
+  --tw-prose-quote-borders: hsl(var(--cer-gold));
+  --tw-prose-captions: hsl(var(--muted-foreground));
+  --tw-prose-code: hsl(var(--cer-charcoal));
+  --tw-prose-th-borders: hsl(var(--border));
+  --tw-prose-td-borders: hsl(var(--border));
+}
+
+/* Decoration. Tokens alone would leave the page linen and charcoal; these
+   spread the palette across surfaces. Selectors lean on current markup and are
+   fine for exploration, not for shipping. */
+
+:root[data-design='ceramica'] body {
+  background-image: none;
+  background-color: hsl(var(--background));
+}
+
+/* Header and footer as charcoal bands sealed with a gold kintsugi seam. */
+:root[data-design='ceramica'] div:has(> header) {
+  background: hsl(var(--cer-charcoal));
+  border-bottom: 3px solid hsl(var(--cer-gold));
+}
+
+:root[data-design='ceramica'] footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  background: hsl(var(--cer-charcoal));
+  border-top: 3px solid hsl(var(--cer-gold));
+  color: hsl(var(--cer-linen));
+}
+
+:root[data-design='ceramica'] :is(header, footer) a {
+  color: hsl(var(--cer-linen) / 0.85);
+}
+
+:root[data-design='ceramica'] :is(header, footer) a:hover {
+  color: hsl(var(--cer-gold));
+}
+
+:root[data-design='ceramica'] header a[aria-current='page'] {
+  color: hsl(var(--cer-linen));
+}
+
+/* Active nav indicator in gold, matching the seam below it. */
+:root[data-design='ceramica'] header a[aria-current='page'] > span[aria-hidden] {
+  background: hsl(var(--cer-gold));
+}
+
+:root[data-design='ceramica'] header img {
+  filter: invert(0.95);
+}
+
+:root[data-design='ceramica'] h1 {
+  color: hsl(var(--cer-clay));
+}
+
+/* Cards: sharp-edged glazed tiles. */
+:root[data-design='ceramica'] .section-card {
+  background: hsl(var(--card));
+  border-color: hsl(var(--border));
+  box-shadow: var(--card-shadow);
+  backdrop-filter: none;
+}
+
+:root[data-design='ceramica'] article:has(ul.grid) > .section-card {
+  background: hsl(var(--cer-blush) / 0.55);
+  border-color: hsl(var(--cer-clay) / 0.35);
+}
+
+:root[data-design='ceramica'] ul.grid > li:nth-child(3n + 1) > a {
+  background: hsl(var(--cer-matcha-wash));
+  border-color: hsl(var(--cer-matcha) / 0.5);
+}
+
+:root[data-design='ceramica'] ul.grid > li:nth-child(3n + 2) > a {
+  background: hsl(var(--cer-indigo-wash));
+  border-color: hsl(var(--cer-indigo) / 0.4);
+}
+
+:root[data-design='ceramica'] ul.grid > li:nth-child(3n) > a {
+  background: hsl(var(--cer-gold-wash));
+  border-color: hsl(var(--cer-gold) / 0.6);
+}
+
+/* Kintsugi divider: a gold crack line instead of a fading hairline. The SVG
+   keeps a constant stroke while stretching to any width. */
+:root[data-design='ceramica'] .subtle-divider {
+  height: 10px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 L38 4 L64 7 L102 3 L131 6 L170 2 L196 6 L237 4 L262 8 L301 3 L333 6 L368 4 L400 5' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+}
+
+/* Post list: linen tiles with title bars cycling through glaze colours. */
+:root[data-design='ceramica'] article.not-prose {
+  background: hsl(var(--card));
+}
+
+:root[data-design='ceramica'] article.not-prose h2 {
+  color: hsl(var(--cer-charcoal));
+}
+
+:root[data-design='ceramica'] article.not-prose:nth-child(3n + 1) h2 {
+  background: hsl(var(--cer-blush));
+}
+
+:root[data-design='ceramica'] article.not-prose:nth-child(3n + 2) h2 {
+  background: hsl(var(--cer-matcha-wash));
+}
+
+:root[data-design='ceramica'] article.not-prose:nth-child(3n) h2 {
+  background: hsl(var(--cer-indigo-wash));
+}
+
+/* Post page: long reads sit on a linen sheet with a gold seam on top. */
+:root[data-design='ceramica'] article.container.prose {
+  margin-top: 2rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+  border: 1px solid hsl(var(--border));
+  border-top: 3px solid hsl(var(--cer-gold));
+  background: hsl(var(--card));
+  box-shadow: var(--card-shadow);
+}
+
+/* Cover tape: translucent blush washi tape with torn ends, replacing the base
+   gradient strip. clip-path draws the tear; it also clips any shadow, so
+   there is none. */
+:root[data-design='ceramica'] .blog-cover-frame::before,
+:root[data-design='ceramica'] .blog-cover-frame::after {
+  background: hsl(15 55% 78% / 0.78);
+  border-radius: 0;
+  box-shadow: none;
+  opacity: 1;
+  clip-path: polygon(
+    2% 0,
+    98% 0,
+    100% 16%,
+    97% 31%,
+    100% 47%,
+    96% 64%,
+    100% 81%,
+    98% 100%,
+    2% 100%,
+    0 84%,
+    3% 67%,
+    0 51%,
+    4% 34%,
+    0 18%
+  );
+}
