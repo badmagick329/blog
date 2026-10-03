@@ -1,0 +1,19 @@
+# Gitignored files Claude Code copies into new worktrees (.gitignore syntax).
+
+# Env files from create_conf.py, plus the dev DB and importer settings.
+.env
+frontend/.env.local
+frontend/.env.development.local
+
+# Untracked project docs and release kit that agents read first.
+.ignore/
+
+# Local nginx config built from main.conf.sample.
+nginx/conf.d/main.conf
+
+# Pre-CMS post sources and covers; covers still ship in images.
+frontend/content/
+frontend/public/covers/
+
+# Dev uploads referenced by the shared dev database.
+frontend/media/

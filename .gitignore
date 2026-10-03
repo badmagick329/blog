@@ -12,3 +12,6 @@ certbot/
 
 deploy.sh
 **/covers/*.webp
+
+# Claude Code worktrees
+.claude/worktrees/
