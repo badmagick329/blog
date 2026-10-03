@@ -19,7 +19,7 @@ export default function NavbarLink({
 }: {
   href: string;
   pathname: string;
-  /** 'button' renders a filled call-to-action with its label at every size. */
+  /** The filled call-to-action follows the mobile icon / desktop label layout. */
   variant?: 'link' | 'button';
 }) {
   const hrefAsValidPath = pathText(href);
@@ -29,11 +29,20 @@ export default function NavbarLink({
       hrefAsValidPath !== undefined && pathIsActive(pathname, hrefAsValidPath);
     return (
       <Link
-        className='site-nav-cta motion-lift ml-1 rounded-md bg-accent px-2.5 py-1 font-semibold text-accent-foreground shadow-sm hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:ml-2 sm:px-5 sm:py-1.5'
+        className='site-nav-cta motion-lift ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-accent font-semibold text-accent-foreground shadow-sm hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:ml-2 sm:h-auto sm:w-auto sm:px-5 sm:py-1.5'
         href={href}
         aria-current={isActive ? 'page' : undefined}
       >
-        {hrefAsValidPath ?? href}
+        <span className='sm:hidden'>
+          <MobileNavIcon
+            path={href}
+            isActive={isActive}
+            className='brightness-0 invert drop-shadow-[0.3px_0_0_hsl(var(--accent-foreground))]'
+          />
+        </span>
+        <span className='sr-only sm:not-sr-only'>
+          {hrefAsValidPath ?? href}
+        </span>
       </Link>
     );
   }
@@ -126,9 +135,11 @@ function pathText(path: string): NavLabel | undefined {
 function MobileNavIcon({
   path,
   isActive,
+  className,
 }: {
   path: string;
   isActive: boolean;
+  className?: string;
 }) {
   const label = pathText(path);
 
@@ -144,7 +155,8 @@ function MobileNavIcon({
         className={cn(
           'h-auto w-auto object-contain transition-transform',
           isActive ? 'scale-150' : 'scale-100',
-          icon.mobileSizeClassName
+          icon.mobileSizeClassName,
+          className
         )}
         src={icon.image}
         width={24}
