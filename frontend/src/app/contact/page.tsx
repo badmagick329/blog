@@ -70,7 +70,7 @@ export default function Contact() {
             </Link>
           </section>
           <section
-            className={cn('text-center text-4xl', euphoria_script.className)}
+            className={cn('text-center text-4xl', euphoria_script.className, 'display-script')}
           >
             <p> I hope to hear from you!</p>
           </section>

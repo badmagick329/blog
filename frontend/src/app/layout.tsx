@@ -5,10 +5,18 @@ import Header from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
 import './globals.css';
+
+// The constant condition lets the bundler drop the import in production, so
+// candidate design CSS and font links never ship to the live site.
+const DesignSwitcher =
+  process.env.NODE_ENV === 'development'
+    ? dynamic(() => import('@/components/design-switcher'), { ssr: false })
+    : null;
 
 const forum = localFont({
   src: '../fonts/Forum-Regular.ttf',
@@ -51,6 +59,7 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
         <Toaster />
+        {DesignSwitcher && <DesignSwitcher />}
       </body>
     </html>
   );

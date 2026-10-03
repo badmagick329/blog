@@ -23,7 +23,7 @@ export default function About() {
       <article className='content-shell motion-fade-in prose readable-prose text-foreground dark:prose-invert lg:prose-lg'>
         <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
           <MainHeading text='About' />
-          <p className={cn('text-justify text-4xl', euphoria_script.className)}>
+          <p className={cn('text-justify text-4xl', euphoria_script.className, 'display-script')}>
             Hi.
           </p>
           <p>I’m happy to see you find your way to my little website.</p>
@@ -52,8 +52,8 @@ export default function About() {
             visit again.
           </p>
           <p>Until next time,</p>
-          <p className={cn('text-4xl', euphoria_script.className)}>Krista</p>
-          <p className={cn('text-2xl', euphoria_script.className)}>
+          <p className={cn('text-4xl', euphoria_script.className, 'display-script')}>Krista</p>
+          <p className={cn('text-2xl', euphoria_script.className, 'display-script')}>
             Psst. Check out{' '}
             <Link
               className='underline decoration-accent/60 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'

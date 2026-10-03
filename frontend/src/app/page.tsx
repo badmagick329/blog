@@ -26,7 +26,7 @@ export default function Home() {
     <main id='main-content' tabIndex={-1} className='page-shell'>
       <article className='content-shell motion-fade-in flex h-full w-full flex-col items-center gap-8'>
         <section className='section-card readable-prose flex w-full max-w-3xl flex-col items-center gap-4 px-6 py-10 text-center sm:px-10'>
-          <p className={cn('text-3xl sm:text-4xl', euphoria_script.className)}>
+          <p className={cn('text-3xl sm:text-4xl', euphoria_script.className, 'display-script')}>
             Lovely to see you.
           </p>
           <MainHeading
