@@ -1,3 +1,4 @@
+import AboutGlanceNote from '@/components/about-glance-note';
 import MainHeading from '@/components/main-heading';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -20,8 +21,10 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <main id='main-content' tabIndex={-1} className='page-shell'>
-      <article className='content-shell motion-fade-in prose readable-prose text-foreground lg:prose-lg'>
-        <section className='section-card space-y-6 px-6 py-8 sm:px-8'>
+      {/* Page left, glance note pinned beside it; on narrower screens the
+          note comes first, above the page. */}
+      <article className='content-shell motion-fade-in flex flex-col items-center gap-14 lg:flex-row lg:items-start lg:justify-center lg:gap-10'>
+        <section className='section-card notebook-page prose readable-prose w-full min-w-0 space-y-6 px-6 py-8 text-foreground sm:px-8 lg:prose-lg'>
           <MainHeading text='About' />
           <p className={cn('text-justify text-4xl', euphoria_script.className, 'display-script')}>
             Hi.
@@ -63,6 +66,9 @@ export default function About() {
             </Link>
           </p>
         </section>
+        <div className='order-first mt-6 w-full max-w-sm lg:order-none lg:mt-28 lg:w-80 lg:shrink-0'>
+          <AboutGlanceNote />
+        </div>
       </article>
     </main>
   );

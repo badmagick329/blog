@@ -16,6 +16,9 @@
   --art-sky: 197 71% 73%;
   --art-sage: 80 35% 75%;
   --art-cream: 45 60% 94%;
+  --art-note: 43 88% 79%;
+  /* Fine brown speckle; alpha follows the noise so most of it is clear. */
+  --art-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.26 0 0 0 0 0.16 0.42 0 0 0 -0.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 
   --background: 45 55% 92%;
   --background-start: 45 55% 92%;
@@ -119,6 +122,169 @@
 :root[data-design='artesanato'] .section-card {
   background: hsl(0 0% 100% / 0.8);
   border-color: hsl(var(--border) / 0.7);
+}
+
+/* About: a ruled notebook page with a margin line and punched holes. The rules
+   repeat every 2rem, so every line of text and every gap is held to that
+   rhythm or the writing drifts off the lines. The hard-stop gradients draw
+   lines, not colour fades.
+
+   The user found a clean page too perfect to read as paper, so it carries
+   small flaws: faint grain, rules that fade in patches and holes slightly
+   out of line. Keep each one subtle. The user ruled out tilting the page,
+   rejected a torn hole and a lifted-corner shadow as unconvincing, and found
+   square spine-side corners odd. */
+:root[data-design='artesanato'] .notebook-page {
+  --nb-row: 2rem;
+  --nb-head: 6rem; /* unruled top: padding plus the two-row heading */
+  --nb-margin: 2.75rem;
+  --nb-paper: 48 70% 98%;
+  /* Paper-coloured streaks that wash out stretches of the printed lines. */
+  --nb-wash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.03' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.992 0 0 0 0 0.98 0 0 0 0 0.94 1.1 0 0 0 -0.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+  position: relative;
+  padding: var(--nb-row) 1.25rem var(--nb-row)
+    calc(var(--nb-margin) + 1.25rem);
+  border-radius: 0.2rem;
+  border-color: hsl(var(--border) / 0.6);
+  background-color: hsl(var(--nb-paper));
+  background-image:
+    var(--art-grain),
+    var(--nb-wash),
+    linear-gradient(
+      to right,
+      transparent var(--nb-margin),
+      hsl(var(--art-orange) / 0.45) var(--nb-margin),
+      hsl(var(--art-orange) / 0.45) calc(var(--nb-margin) + 2px),
+      transparent calc(var(--nb-margin) + 2px)
+    ),
+    linear-gradient(hsl(var(--nb-paper)), hsl(var(--nb-paper))),
+    linear-gradient(
+      to bottom,
+      transparent calc(var(--nb-row) - 1px),
+      hsl(var(--art-sky) / 0.7) calc(var(--nb-row) - 1px)
+    );
+  background-size:
+    200px 200px,
+    640px 640px,
+    100% 100%,
+    100% var(--nb-head),
+    100% var(--nb-row);
+  background-repeat: repeat, repeat, no-repeat, no-repeat, repeat;
+  /* Rules sit just under the text baseline, not at the bottom of each row. */
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    0 0,
+    0 -0.45rem;
+  box-shadow:
+    0 1px 2px hsl(22 30% 18% / 0.08),
+    0 10px 24px hsl(22 30% 18% / 0.07);
+  backdrop-filter: none;
+}
+
+/* Three punched holes down the left edge, slightly out of line. Hole colour
+   is the page background showing through. */
+:root[data-design='artesanato'] .notebook-page::before {
+  --nb-hole: hsl(var(--background));
+  --nb-rim: hsl(var(--border) / 0.9);
+  content: '';
+  position: absolute;
+  inset: var(--nb-row) auto var(--nb-row) 0;
+  width: var(--nb-margin);
+  background:
+    radial-gradient(
+      circle 0.52rem at 50% 16%,
+      var(--nb-hole) 0 0.42rem,
+      var(--nb-rim) 0.42rem 0.5rem,
+      transparent 0.52rem
+    ),
+    radial-gradient(
+      circle 0.52rem at calc(50% + 1px) 50%,
+      var(--nb-hole) 0 0.42rem,
+      var(--nb-rim) 0.42rem 0.5rem,
+      transparent 0.52rem
+    ),
+    radial-gradient(
+      circle 0.52rem at calc(50% - 1px) 84.5%,
+      var(--nb-hole) 0 0.43rem,
+      var(--nb-rim) 0.43rem 0.5rem,
+      transparent 0.52rem
+    );
+  background-repeat: no-repeat;
+}
+
+:root[data-design='artesanato']
+  .notebook-page
+  > :not([hidden])
+  ~ :not([hidden]) {
+  margin-top: var(--nb-row);
+}
+
+:root[data-design='artesanato'] .notebook-page > * {
+  margin-bottom: 0;
+  line-height: var(--nb-row);
+}
+
+:root[data-design='artesanato'] .notebook-page > :first-child {
+  margin-top: 0;
+  padding-block: 0;
+  line-height: calc(var(--nb-row) * 2);
+}
+
+/* Script lines ("Hi.", the signature) span two rows. */
+:root[data-design='artesanato'] .notebook-page > .text-4xl {
+  line-height: calc(var(--nb-row) * 2);
+}
+
+@media (min-width: 640px) {
+  :root[data-design='artesanato'] .notebook-page {
+    --nb-margin: 3.75rem;
+    padding-right: 2.5rem;
+    padding-left: calc(var(--nb-margin) + 1.75rem);
+  }
+}
+
+/* About: the "at a glance" sticky note pinned beside the notebook page. It
+   stands proud of the page through colour, the pin and a deep shadow. The
+   tilt stays slight: the user wanted one here but finds strongly tilted text
+   awkward to read. */
+:root[data-design='artesanato'] .glance-note {
+  rotate: 1.1deg;
+  border: none;
+  border-radius: 0.15rem;
+  background-color: hsl(var(--art-note));
+  background-image: var(--art-grain);
+  background-size: 200px 200px;
+  color: hsl(var(--foreground));
+  box-shadow:
+    0 1px 2px hsl(22 40% 20% / 0.12),
+    0 18px 30px -10px hsl(22 40% 20% / 0.28);
+  backdrop-filter: none;
+}
+
+:root[data-design='artesanato'] .glance-note-title {
+  color: hsl(var(--art-terra));
+}
+
+/* Short pen stroke under the title. */
+:root[data-design='artesanato'] .glance-note-title::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: 0.4rem;
+  border-radius: 1px;
+  background: hsl(var(--art-terra) / 0.8);
+}
+
+/* Highlighter swipe behind each label. */
+:root[data-design='artesanato'] .glance-note-label {
+  padding: 0.05rem 0.35rem;
+  border-radius: 0.3rem 0.5rem 0.35rem 0.55rem;
+  background: hsl(var(--art-orange) / 0.2);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 /* Post list: paper cards with title bars cycling through the palette. */
