@@ -1,12 +1,18 @@
+# Local development database for Payload. Production runs its own `db`
+# service from docker-compose.yml. Credentials are dev-only and the port is
+# bound to localhost.
 services:
   db:
-    image: postgres:15
-    volumes:
-      - ./db:/var/lib/postgresql/data/
+    image: postgres:18-alpine
     environment:
-      POSTGRES_PASSWORD: "${DB_PASSWORD}"
-      POSTGRES_USER: "${DB_USER}"
-      POSTGRES_DB: "${DB_NAME}"
-    restart: "on-failure"
+      POSTGRES_USER: blog
+      POSTGRES_PASSWORD: blog
+      POSTGRES_DB: blog
+    volumes:
+      - devdb:/var/lib/postgresql
     ports:
-      - "${DB_PORT}:5432"
+      - "127.0.0.1:5433:5432"
+    restart: "unless-stopped"
+
+volumes:
+  devdb:

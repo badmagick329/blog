@@ -1,12 +1,11 @@
-import { posts } from '#site/content';
 import BlogCoverImage from '@/components/blog-cover-image';
-import { postIsPublished } from '@/lib/utils';
+import { coverOf, getLatestPostWithCover } from '@/lib/posts';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-// The latest post depends on today's date (scheduled posts), so re-render
-// periodically like the posts list does.
-export const revalidate = 60;
+// Rendered per request from the database: images are built without database
+// access, and new or scheduled posts then show up at once.
+export const dynamic = 'force-dynamic';
 
 
 export const metadata: Metadata = {
@@ -15,11 +14,10 @@ export const metadata: Metadata = {
     'Explore the world of a professional freelance content and copywriter. Get in touch to transform your next writing or marketing project.',
 };
 
-export default function Home() {
+export default async function Home() {
   // Newest published post that has a cover; the hero shows it as a polaroid.
-  const latestPost = posts
-    .filter((post) => postIsPublished(post) && post.coverImage)
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
+  const latestPost = await getLatestPostWithCover();
+  const latestCover = latestPost && coverOf(latestPost);
 
   // main fills the space between header and footer; the article centres the
   // hero in it vertically.
@@ -67,18 +65,18 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          {latestPost && (
+          {latestPost && latestCover && (
             <div className='relative mx-auto w-full max-w-xs px-4 pt-6 md:max-w-none md:px-0'>
               <Link
-                href={`/posts/${latestPost.slugAsParams}`}
+                href={`/posts/${latestPost.slug}`}
                 className='home-latest motion-lift relative block rounded-sm hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4'
               >
                 <BlogCoverImage
-                  src={latestPost.coverImage}
+                  src={latestCover.url}
                   alt=''
-                  width={800}
-                  height={560}
-                  seed={latestPost.slugAsParams}
+                  width={latestCover.width}
+                  height={latestCover.height}
+                  seed={latestPost.slug}
                   priority
                   compact
                   rotate={3.5}

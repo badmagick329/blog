@@ -16,19 +16,19 @@ import '@/styles/theme.css';
 // `styles/theme.css` applies them through these variables.
 const vollkorn = localFont({
   src: [
-    { path: '../fonts/Vollkorn-Variable.woff2', style: 'normal' },
-    { path: '../fonts/Vollkorn-Italic-Variable.woff2', style: 'italic' },
+    { path: '../../fonts/Vollkorn-Variable.woff2', style: 'normal' },
+    { path: '../../fonts/Vollkorn-Italic-Variable.woff2', style: 'italic' },
   ],
   weight: '400 900',
   variable: '--font-vollkorn',
 });
 const dancingScript = localFont({
-  src: '../fonts/DancingScript-Variable.woff2',
+  src: '../../fonts/DancingScript-Variable.woff2',
   weight: '400 700',
   variable: '--font-dancing-script',
 });
 const jetbrainsMono = localFont({
-  src: '../fonts/JetBrainsMono-Variable.woff2',
+  src: '../../fonts/JetBrainsMono-Variable.woff2',
   weight: '100 800',
   variable: '--font-jetbrains-mono',
 });

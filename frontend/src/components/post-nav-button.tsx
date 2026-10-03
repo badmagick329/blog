@@ -10,7 +10,7 @@ export default function PostNavButton({
   return (
     <Link
       className='hover:text-foreground'
-      href={`/${slug}`}
+      href={`/posts/${slug}`}
     >
       {children}
     </Link>

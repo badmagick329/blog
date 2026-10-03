@@ -1,42 +1,44 @@
-import { posts } from '#site/content';
 import type { Metadata } from 'next';
 import MainHeading from '@/components/main-heading';
 import BlogCoverImage from '@/components/blog-cover-image';
 import CoffeeDock from '@/components/coffee-dock';
-import { MDXContent } from '@/components/mdx-components';
+import LivePreviewListener from '@/components/live-preview-listener';
 import PostDate from '@/components/post-date';
+import RichText from '@/components/rich-text';
 import ShareButtons from '@/components/share-buttons';
-import { cn, postIsPublished } from '@/lib/utils';
-import '@/styles/mdx.css';
+import { coverOf, getPost } from '@/lib/posts';
+import { cn, isoDay } from '@/lib/utils';
+import { draftMode } from 'next/headers';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 const siteUrl = 'https://kristalomu.com';
 
-type PostSlugParams = { slug: string[] };
-
 type PostSlugProps = {
-  params: Promise<PostSlugParams>;
+  params: Promise<{ slug: string[] }>;
 };
 
-export const revalidate = 60;
+// Rendered per request from the database: images are built without database
+// access, and publishing, unpublishing or a scheduled day arriving then shows
+// up at once.
+export const dynamic = 'force-dynamic';
 
 async function getPostFromParams(params: PostSlugProps['params']) {
-  const slug = (await params).slug.join('/');
-  const post = posts.find((post) => post.slugAsParams === slug);
-  return post;
+  return getPost(decodeURIComponent((await params).slug.join('/')));
 }
 
 export async function generateMetadata({
   params,
 }: PostSlugProps): Promise<Metadata> {
   const post = await getPostFromParams(params);
-  if (!post || !postIsPublished(post)) {
+  if (!post) {
     return {};
   }
 
-  const postUrl = `${siteUrl}/posts/${post.slugAsParams}`;
-  const description = post.description === 'none' ? undefined : post.description;
+  const postUrl = `${siteUrl}/posts/${post.slug}`;
+  const description = post.description ?? undefined;
+  const cover = coverOf(post);
+  const coverUrl = cover && `${siteUrl}${cover.url}`;
 
   return {
     title: post.title,
@@ -51,38 +53,45 @@ export async function generateMetadata({
       title: post.title,
       description,
       publishedTime: post.publishedAt,
-      images: post.coverImage
-        ? [{ url: post.coverImage, alt: post.title }]
-        : undefined,
+      images: coverUrl ? [{ url: coverUrl, alt: cover.alt }] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description,
-      images: post.coverImage ? [post.coverImage] : undefined,
+      images: coverUrl ? [coverUrl] : undefined,
     },
   };
 }
 
-export async function generateStaticParams(): Promise<PostSlugParams[]> {
-  return posts
-    .filter((post) => postIsPublished(post))
-    .map((post) => ({
-      slug: post.slugAsParams.split('/'),
-    }));
-}
-
 export default async function PostSlug({ params }: PostSlugProps) {
   const post = await getPostFromParams(params);
-  if (!post || !postIsPublished(post)) {
+  if (!post) {
     return notFound();
   }
+  const cover = coverOf(post);
+  const { isEnabled: draft } = await draftMode();
 
   const pill =
     'motion-lift inline-flex items-center rounded-full px-6 py-2.5 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
 
   return (
     <main id='main-content' tabIndex={-1} className='page-shell'>
+      {draft && (
+        <>
+          <LivePreviewListener />
+          <p className='content-shell mb-6 rounded-md bg-secondary px-4 py-2 text-center text-secondary-foreground'>
+            You’re previewing the latest draft.{' '}
+            {/* A plain link: the exit route is a route handler, not a page. */}
+            <a
+              href={`/next/exit-preview?path=/posts/${post.slug}`}
+              className='font-semibold underline'
+            >
+              Leave preview
+            </a>
+          </p>
+        </>
+      )}
       {/* The post is written on notebook paper. From lg its cover photo sits
           beside the sheet in a sticky column as tall as the screen, photo at
           the top and the coffee cup in the column's bottom-right corner. On
@@ -97,10 +106,10 @@ export default async function PostSlug({ params }: PostSlugProps) {
               text={post.title}
               className='text-start font-normal tracking-tight'
             />
-            <PostDate date={post.publishedAt.split('T')[0]} />
+            <PostDate date={isoDay(post.publishedAt)} />
           </header>
           <div className='notebook-lines text-justify'>
-            <MDXContent code={post.body} />
+            <RichText data={post.body} />
           </div>
         </article>
         <div
@@ -108,23 +117,23 @@ export default async function PostSlug({ params }: PostSlugProps) {
             'order-first w-full max-w-md lg:sticky lg:top-28 lg:order-none lg:flex lg:h-[calc(100dvh-8.5rem)] lg:w-80 lg:shrink-0 lg:flex-col lg:gap-6 xl:w-96',
             // Without a photo the column holds only the fixed cup on small
             // screens, so it must not take up a row and a gap.
-            !post.coverImage && 'max-lg:contents'
+            !cover && 'max-lg:contents'
           )}
         >
-          {post.coverImage && (
+          {cover && (
             <div className='motion-fade-in'>
               <BlogCoverImage
-                src={post.coverImage}
-                alt={post.title}
-                width={800}
-                height={800}
-                seed={post.slugAsParams}
+                src={cover.url}
+                alt={cover.alt}
+                width={cover.width}
+                height={cover.height}
+                seed={post.slug}
                 priority
               />
             </div>
           )}
           {/* Keyed by post, so moving between posts starts a fresh drain. */}
-          <CoffeeDock key={post.slugAsParams} />
+          <CoffeeDock key={post.slug} />
         </div>
       </div>
       {/* The reader reaches this as the cup runs dry, so it sends them back

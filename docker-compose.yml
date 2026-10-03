@@ -2,6 +2,30 @@ services:
   nextapp:
     image: blogfrontend:${FRONTEND_TAG:?set FRONTEND_TAG in .env}
     restart: "always"
+    # Runtime-only secrets: the image is built without them.
+    environment:
+      DATABASE_URI: postgres://${DB_USER:?set DB_USER in .env}:${DB_PASSWORD:?set DB_PASSWORD in .env}@db:5432/${DB_NAME:?set DB_NAME in .env}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET in .env}
+    volumes:
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:18-alpine
+    restart: "always"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   nginx:
     image: blognginx:prod
@@ -25,3 +49,5 @@ services:
 
 volumes:
   staticfiles:
+  pgdata:
+  media:

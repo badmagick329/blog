@@ -1,4 +1,5 @@
 import PostNavButton from '@/components/post-nav-button';
+import type { Post } from '@/payload-types';
 import { formatDate } from '@/lib/utils';
 
 import PostExcerpt from './post-excerpt';
@@ -6,13 +7,13 @@ import PostExcerpt from './post-excerpt';
 type PostItemProps = {
   slug: string;
   title: string;
-  description: string;
+  body: Post['body'];
   publishedAt: string;
 };
 export default function PostItem({
   slug,
   title,
-  description,
+  body,
   publishedAt,
 }: PostItemProps) {
   return (
@@ -23,7 +24,7 @@ export default function PostItem({
             {title}
           </h2>
           <p className='p-2 text-sm font-semibold'>{formatDate(publishedAt)}</p>
-          <PostExcerpt body={description} />
+          <PostExcerpt body={body} />
         </section>
       </PostNavButton>
     </article>

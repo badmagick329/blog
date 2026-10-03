@@ -1,11 +1,12 @@
-import { posts } from '#site/content';
 import type { Metadata } from 'next';
 import CoffeeStation from '@/components/coffee-station';
 import MainHeading from '@/components/main-heading';
 import PostItem from '@/components/post-item';
-import { postIsPublished } from '@/lib/utils';
+import { getVisiblePosts } from '@/lib/posts';
 
-export const revalidate = 60;
+// Rendered per request from the database: images are built without database
+// access, and new or scheduled posts then show up at once.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Blog Posts',
@@ -25,9 +26,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPosts() {
-  const displayPosts = posts
-    .filter((post) => postIsPublished(post))
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  const displayPosts = await getVisiblePosts();
 
   return (
     <main
@@ -52,18 +51,15 @@ export default async function BlogPosts() {
           <article className='prose w-full text-foreground lg:prose-lg'>
             <section className='flex flex-col items-start gap-12 font-normal'>
               {displayPosts.length > 0 ? (
-                displayPosts.map((post) => {
-                  const { slug, title, publishedAt, body } = post;
-                  return (
-                    <PostItem
-                      key={slug}
-                      slug={slug}
-                      title={title}
-                      description={body}
-                      publishedAt={publishedAt}
-                    />
-                  );
-                })
+                displayPosts.map(({ id, slug, title, publishedAt, body }) => (
+                  <PostItem
+                    key={id}
+                    slug={slug}
+                    title={title}
+                    body={body}
+                    publishedAt={publishedAt}
+                  />
+                ))
               ) : (
                 <p>No posts found</p>
               )}

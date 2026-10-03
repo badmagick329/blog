@@ -36,6 +36,9 @@ yarn-error.log*
 next-env.d.ts
 
 # blog
-/content/*
+# Pre-CMS post sources and Velite output, kept locally only.
+/content/
 /.velite/
 /public/static
+# Payload uploads in development; a volume in production.
+/media/

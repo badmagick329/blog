@@ -163,7 +163,7 @@ body {
   }
 }
 
-.mdx-excerpt {
+.post-excerpt {
   display: -webkit-box;
   -webkit-line-clamp: 3; /* adjust number of lines */
   line-clamp: 3; /* standard property for compatibility */
