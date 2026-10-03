@@ -36,8 +36,15 @@ export default async function BlogPosts() {
       className='container flex flex-1 flex-col items-center px-4 sm:px-6 md:px-8'
     >
       <div className='motion-fade-in w-full pt-8'>
-        <div className='prose mx-auto text-foreground lg:prose-lg'>
+        {/* Spacing goes on this wrapper: margins on the intro itself lose to
+            lg:prose-lg, which zeroes the last paragraph's bottom margin. */}
+        <div className='prose mx-auto mb-10 text-foreground lg:prose-lg'>
           <MainHeading text='Blog Posts' />
+          <p className='text-center text-foreground/85'>
+            A collection of things I’ve been thinking about, reading about or
+            accidentally disappearing down a rabbit hole about. You’ll mostly
+            find musings around creativity, words, work, and being human.
+          </p>
         </div>
         {/* Posts beside a sticky coffee station from lg; on phones the
             station comes first so the reader can pour before picking. */}
