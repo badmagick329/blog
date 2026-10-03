@@ -1,10 +1,13 @@
-import MainHeading from '@/components/main-heading';
-import { homeQuickLinkLabels, navIconConfig } from '@/lib/nav-icons';
-import { cn } from '@/lib/utils';
+import { posts } from '#site/content';
+import BlogCoverImage from '@/components/blog-cover-image';
+import { cn, postIsPublished } from '@/lib/utils';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import Image from 'next/image';
 import Link from 'next/link';
+
+// The latest post depends on today's date (scheduled posts), so re-render
+// periodically like the posts list does.
+export const revalidate = 60;
 
 const euphoria_script = localFont({
   src: '../fonts/EuphoriaScript-Regular.ttf',
@@ -20,47 +23,74 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const quickLinks = homeQuickLinkLabels.map((label) => navIconConfig[label]);
+  // Newest published post that has a cover; the hero shows it as a polaroid.
+  const latestPost = posts
+    .filter((post) => postIsPublished(post) && post.coverImage)
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
 
+  // main fills the space between header and footer; the article centres the
+  // hero in it vertically.
   return (
-    <main id='main-content' tabIndex={-1} className='page-shell'>
-      <article className='content-shell motion-fade-in flex h-full w-full flex-col items-center gap-8'>
-        <section className='section-card readable-prose flex w-full max-w-3xl flex-col items-center gap-4 px-6 py-10 text-center sm:px-10'>
-          <p className={cn('text-3xl sm:text-4xl', euphoria_script.className, 'display-script')}>
-            Lovely to see you.
-          </p>
-          <MainHeading
-            text={'I’m Krista, a freelance content and copywriter.'}
-            withProse
-            className='max-w-[18ch] text-4xl sm:text-5xl'
-          />
-          <p className='readable-prose text-base text-foreground/85 sm:text-lg'>
-            Go ahead and explore my little website.
-          </p>
-        </section>
-        <section className='w-full max-w-3xl'>
-          <div className='subtle-divider mb-10 mt-6' />
-          <ul className='grid gap-3 sm:grid-cols-3'>
-            {quickLinks.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className='section-card motion-lift flex items-center justify-center gap-3 px-4 py-4 text-sm font-medium text-foreground/90 hover:-translate-y-1 hover:border-accent/50 hover:text-foreground hover:shadow-[0_16px_32px_hsl(0_0%_0%/0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:flex-col sm:gap-2 sm:text-base'
-                >
-                  <Image
-                    className='motion-lift'
-                    src={item.image}
-                    width={36}
-                    height={36}
-                    alt=''
-                    aria-hidden='true'
-                    unoptimized
-                  />
-                  <span>{item.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+    <main
+      id='main-content'
+      tabIndex={-1}
+      className='page-shell flex flex-col'
+    >
+      <article className='content-shell motion-fade-in flex w-full flex-1 flex-col items-center justify-center gap-12'>
+        {/* Intro left, latest post right; stacks intro-first below md. */}
+        <section className='home-hero grid w-full items-center gap-12 py-2 md:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] md:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-20 xl:grid-cols-[minmax(0,1fr)_minmax(0,27rem)]'>
+          <div className='home-intro flex flex-col items-start gap-4'>
+            <p
+              className={cn(
+                'text-3xl sm:text-4xl',
+                euphoria_script.className,
+                'display-script'
+              )}
+            >
+              Lovely to see you.
+            </p>
+            <h1 className='max-w-[16ch] text-balance py-2 text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl'>
+              I’m Krista, a freelance content and copywriter.
+            </h1>
+            <p className='readable-prose text-base text-foreground/85 sm:text-lg'>
+              Go ahead and explore my little website.
+            </p>
+          </div>
+          {latestPost && (
+            <div className='relative mx-auto w-full max-w-xs px-4 pt-6 md:max-w-none md:px-0'>
+              <Link
+                href={`/posts/${latestPost.slugAsParams}`}
+                className='home-latest motion-lift relative block rounded-sm hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4'
+              >
+                <BlogCoverImage
+                  src={latestPost.coverImage}
+                  alt=''
+                  width={800}
+                  height={560}
+                  seed={latestPost.slugAsParams}
+                  priority
+                  compact
+                  rotate={3.5}
+                  caption={
+                    <>
+                      <span className='block text-xs uppercase tracking-[0.2em] text-foreground/60'>
+                        Latest entry
+                      </span>
+                      <span
+                        className={cn(
+                          'block text-2xl sm:text-3xl',
+                          euphoria_script.className,
+                          'display-script'
+                        )}
+                      >
+                        {latestPost.title}&nbsp;→
+                      </span>
+                    </>
+                  }
+                />
+              </Link>
+            </div>
+          )}
         </section>
       </article>
     </main>

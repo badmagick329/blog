@@ -20,7 +20,6 @@
   /* Light washes of the palette for card fills. */
   --cer-matcha-wash: 75 36% 80%;
   --cer-indigo-wash: 231 48% 88%;
-  --cer-gold-wash: 46 65% 82%;
 
   --background: 30 67% 94%;
   --background-start: 30 67% 94%;
@@ -164,34 +163,6 @@
   backdrop-filter: none;
 }
 
-:root[data-design='ceramica'] article:has(ul.grid) > .section-card {
-  background: hsl(var(--cer-blush) / 0.55);
-  border-color: hsl(var(--cer-clay) / 0.35);
-}
-
-:root[data-design='ceramica'] ul.grid > li:nth-child(3n + 1) > a {
-  background: hsl(var(--cer-matcha-wash));
-  border-color: hsl(var(--cer-matcha) / 0.5);
-}
-
-:root[data-design='ceramica'] ul.grid > li:nth-child(3n + 2) > a {
-  background: hsl(var(--cer-indigo-wash));
-  border-color: hsl(var(--cer-indigo) / 0.4);
-}
-
-:root[data-design='ceramica'] ul.grid > li:nth-child(3n) > a {
-  background: hsl(var(--cer-gold-wash));
-  border-color: hsl(var(--cer-gold) / 0.6);
-}
-
-/* Kintsugi divider: a gold crack line instead of a fading hairline. The SVG
-   keeps a constant stroke while stretching to any width. */
-:root[data-design='ceramica'] .subtle-divider {
-  height: 10px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 L38 4 L64 7 L102 3 L131 6 L170 2 L196 6 L237 4 L262 8 L301 3 L333 6 L368 4 L400 5' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
-    center / 100% 100% no-repeat;
-}
-
 /* Post list: linen tiles with title bars cycling through glaze colours. */
 :root[data-design='ceramica'] article.not-prose {
   background: hsl(var(--card));
@@ -248,4 +219,11 @@
     4% 34%,
     0 18%
   );
+}
+
+/* Contact call-to-action: clay stands out against the charcoal band. */
+:root[data-design='ceramica'] header a.site-nav-cta,
+:root[data-design='ceramica'] header a.site-nav-cta:hover {
+  background: hsl(var(--cer-clay));
+  color: hsl(var(--cer-linen));
 }

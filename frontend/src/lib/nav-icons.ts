@@ -45,5 +45,3 @@ export const navIconConfig: Record<NavLabel, NavIconConfig> = {
     mobileSizeClassName: 'max-h-[1.35rem] max-w-[1.35rem]',
   },
 };
-
-export const homeQuickLinkLabels: NavLabel[] = ['About', 'Blog', 'Contact'];

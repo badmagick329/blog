@@ -130,36 +130,10 @@
   color: hsl(var(--art-terra));
 }
 
-/* Cards: white paper by default, solid colour washes where there's a set. */
+/* Cards: white paper. */
 :root[data-design='artesanato'] .section-card {
   background: hsl(0 0% 100% / 0.8);
   border-color: hsl(var(--border) / 0.7);
-}
-
-:root[data-design='artesanato'] article:has(ul.grid) > .section-card {
-  background: hsl(var(--art-rose) / 0.45);
-}
-
-:root[data-design='artesanato'] ul.grid > li:nth-child(3n + 1) > a {
-  background: hsl(var(--art-rose) / 0.65);
-  border-color: hsl(294 30% 65% / 0.6);
-}
-
-:root[data-design='artesanato'] ul.grid > li:nth-child(3n + 2) > a {
-  background: hsl(var(--art-sky) / 0.55);
-  border-color: hsl(197 45% 55% / 0.6);
-}
-
-:root[data-design='artesanato'] ul.grid > li:nth-child(3n) > a {
-  background: hsl(var(--art-sage) / 0.7);
-  border-color: hsl(80 30% 50% / 0.6);
-}
-
-/* Stitched divider instead of a fading hairline. */
-:root[data-design='artesanato'] .subtle-divider {
-  height: 0;
-  background: none;
-  border-top: 2px dashed hsl(var(--art-orange) / 0.55);
 }
 
 /* Post list: paper cards with title bars cycling through the palette. */
@@ -218,4 +192,11 @@
     4% 34%,
     0 18%
   );
+}
+
+/* Contact call-to-action: burnt orange stands out against the green band. */
+:root[data-design='artesanato'] header a.site-nav-cta,
+:root[data-design='artesanato'] header a.site-nav-cta:hover {
+  background: hsl(var(--art-orange));
+  color: hsl(var(--art-cream));
 }

@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import Image from 'next/image';
 
 type BlogCoverImageProps = {
@@ -9,6 +9,10 @@ type BlogCoverImageProps = {
   seed: string;
   priority?: boolean;
   compact?: boolean;
+  /** Handwritten-style label in the polaroid's bottom margin. */
+  caption?: ReactNode;
+  /** Fixed frame tilt in degrees, replacing the seeded one. */
+  rotate?: number;
 };
 
 function hashString(value: string) {
@@ -67,6 +71,8 @@ export default function BlogCoverImage({
   seed,
   priority = false,
   compact = false,
+  caption,
+  rotate,
 }: BlogCoverImageProps) {
   if (!src) {
     return null;
@@ -75,7 +81,10 @@ export default function BlogCoverImage({
   return (
     <figure
       className={`blog-cover-frame${compact ? ' blog-cover-frame--compact' : ''}`}
-      style={getPolaroidStyle(seed)}
+      style={{
+        ...getPolaroidStyle(seed),
+        ...(rotate !== undefined && { '--polaroid-rotate': `${rotate}deg` }),
+      }}
     >
       <div className='blog-cover-photo'>
         <Image
@@ -87,6 +96,9 @@ export default function BlogCoverImage({
           className='h-auto w-full'
         />
       </div>
+      {caption && (
+        <figcaption className='blog-cover-caption'>{caption}</figcaption>
+      )}
     </figure>
   );
 }

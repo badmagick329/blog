@@ -15,11 +15,28 @@ const pathToPathName = new Map<string, NavLabel>([
 export default function NavbarLink({
   href,
   pathname,
+  variant = 'link',
 }: {
   href: string;
   pathname: string;
+  /** 'button' renders a filled call-to-action with its label at every size. */
+  variant?: 'link' | 'button';
 }) {
   const hrefAsValidPath = pathText(href);
+
+  if (variant === 'button') {
+    const isActive =
+      hrefAsValidPath !== undefined && pathIsActive(pathname, hrefAsValidPath);
+    return (
+      <Link
+        className='site-nav-cta motion-lift ml-1 rounded-md bg-accent px-2.5 py-1 font-semibold text-accent-foreground shadow-sm hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:ml-2 sm:px-5 sm:py-1.5'
+        href={href}
+        aria-current={isActive ? 'page' : undefined}
+      >
+        {hrefAsValidPath ?? href}
+      </Link>
+    );
+  }
 
   if (hrefAsValidPath === undefined) {
     return (
