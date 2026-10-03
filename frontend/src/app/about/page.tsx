@@ -52,7 +52,7 @@ export default function About() {
             <p className='text-2xl display-script'>
               Psst. Check out{' '}
               <Link
-                className='underline decoration-accent/60 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                className='underline decoration-mint decoration-2 underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                 href='/contact'
               >
                 my contact details

@@ -1,7 +1,8 @@
 /*
  * The site's look (Artesanato Orgânico e Acolhedor, from designmd.app):
- * cream surfaces, burnt-orange accent, header and footer on a cream strip
- * with a stitched orange edge. Dancing Script for headings and accents,
+ * cream surfaces with a berry, wine and mint palette (the client's colour
+ * reference replaced the source's burnt orange), and a stitched berry edge
+ * under the header and over the footer. Dancing Script for headings and accents,
  * Vollkorn for reading text: the source used the script for body too, and
  * the user found it too small and squiggly to read. Flat colour only: the user
  * rejected gradients. Tokens live in `app/globals.css`; fonts load in
@@ -19,7 +20,7 @@
 
 :root .display-script {
   font-weight: 700;
-  color: hsl(var(--art-orange));
+  color: hsl(var(--art-raspberry));
 }
 
 :root :is(code, pre, kbd) {
@@ -29,15 +30,15 @@
 /* Typography plugin colours ignore the tokens; point them at the palette. */
 :root .prose {
   --tw-prose-body: hsl(var(--foreground) / 0.9);
-  --tw-prose-headings: hsl(var(--art-terra));
+  --tw-prose-headings: hsl(var(--art-wine));
   --tw-prose-lead: hsl(var(--foreground) / 0.8);
   --tw-prose-links: hsl(var(--accent));
   --tw-prose-bold: hsl(var(--foreground));
   --tw-prose-counters: hsl(var(--muted-foreground));
-  --tw-prose-bullets: hsl(var(--art-orange));
+  --tw-prose-bullets: hsl(var(--art-berry));
   --tw-prose-hr: hsl(var(--border));
   --tw-prose-quotes: hsl(var(--foreground));
-  --tw-prose-quote-borders: hsl(var(--art-orange));
+  --tw-prose-quote-borders: hsl(var(--art-berry));
   --tw-prose-captions: hsl(var(--muted-foreground));
   --tw-prose-code: hsl(var(--foreground));
   --tw-prose-th-borders: hsl(var(--border));
@@ -54,23 +55,23 @@
   background-color: hsl(var(--background));
 }
 
-/* Header and footer on a cream strip with a stitched burnt-orange edge.
-   Links keep the base foreground colours and orange hover. */
+/* Header and footer on the cream page colour with a stitched berry edge.
+   Links keep the base foreground colours and berry hover. */
 :root div:has(> header) {
   background: hsl(var(--art-band) / 0.96);
-  border-bottom: 4px dashed hsl(var(--art-orange));
+  border-bottom: 4px dashed hsl(var(--art-berry));
 }
 
 :root footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
   background: hsl(var(--art-band));
-  border-top: 4px dashed hsl(var(--art-orange));
+  border-top: 4px dashed hsl(var(--art-berry));
   color: hsl(var(--foreground) / 0.8);
 }
 
 :root h1 {
-  color: hsl(var(--art-terra));
+  color: hsl(var(--art-wine));
 }
 
 /* Cards: white paper. */
@@ -101,8 +102,8 @@
   --nb-margin-line: linear-gradient(
     to right,
     transparent var(--nb-margin),
-    hsl(var(--art-orange) / 0.45) var(--nb-margin),
-    hsl(var(--art-orange) / 0.45) calc(var(--nb-margin) + 2px),
+    hsl(var(--art-berry) / 0.45) var(--nb-margin),
+    hsl(var(--art-berry) / 0.45) calc(var(--nb-margin) + 2px),
     transparent calc(var(--nb-margin) + 2px)
   );
   position: relative;
@@ -277,7 +278,7 @@
 }
 
 :root .glance-note-title {
-  color: hsl(var(--art-terra));
+  color: hsl(var(--art-wine));
 }
 
 /* Short pen stroke under the title. */
@@ -288,7 +289,7 @@
   height: 2px;
   margin-top: 0.4rem;
   border-radius: 1px;
-  background: hsl(var(--art-terra) / 0.8);
+  background: hsl(var(--art-wine) / 0.8);
 }
 
 /* The contact note's title goes without the stroke. */
@@ -300,7 +301,7 @@
 :root .glance-note-label {
   padding: 0.05rem 0.35rem;
   border-radius: 0.3rem 0.5rem 0.35rem 0.55rem;
-  background: hsl(var(--art-orange) / 0.2);
+  background: hsl(var(--art-mint) / 0.7);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -332,15 +333,15 @@
 }
 
 :root .post-end-title {
-  color: hsl(var(--art-terra));
+  color: hsl(var(--art-wine));
 }
 
-/* Cover tape: plain translucent masking tape with torn ends, replacing the
-   base gradient strip. clip-path draws the tear; it also clips any shadow, so
-   there is none. */
+/* Cover tape: plain translucent mint washi tape with torn ends, replacing
+   the base gradient strip. clip-path draws the tear; it also clips any
+   shadow, so there is none. */
 :root .blog-cover-frame::before,
 :root .blog-cover-frame::after {
-  background: hsl(46 42% 84% / 0.82);
+  background: hsl(var(--art-mint) / 0.85);
   border-radius: 0;
   box-shadow: none;
   opacity: 1;
@@ -362,9 +363,15 @@
   );
 }
 
-/* Contact call-to-action: filled burnt orange. */
+/* Contact call-to-action: filled berry. */
 :root header a.site-nav-cta,
 :root header a.site-nav-cta:hover {
-  background: hsl(var(--art-orange));
+  background: hsl(var(--art-berry));
   color: hsl(var(--art-cream));
+}
+
+/* The current page's nav link reads in raspberry, over its berry bar. The
+   filled Contact button keeps its cream label. */
+:root header nav a[aria-current='page']:not(.site-nav-cta) {
+  color: hsl(var(--art-raspberry));
 }

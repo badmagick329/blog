@@ -61,7 +61,7 @@ export default function Home() {
               </Link>
               <Link
                 href='/contact'
-                className='rounded-sm font-semibold text-foreground underline decoration-accent decoration-2 underline-offset-4 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-lg'
+                className='rounded-sm font-semibold text-foreground underline decoration-mint decoration-2 underline-offset-4 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-lg'
               >
                 Let’s talk
               </Link>

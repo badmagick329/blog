@@ -1,11 +1,10 @@
 /* Coffee-cup reading: the machine on /posts and the mug. One outline weight
    throughout so machine and mug read as one illustration. Flat colours from
-   the Artesanato palette, with no green: the client rejected it, and the
-   prototype's machine body was the old green band. */
+   the site palette: wine body and berry lid; the coffee stays brown. */
 .coffee-art {
   --cf-ink: hsl(var(--foreground));
-  --cf-body: hsl(25 76% 31%);
-  --cf-lid: hsl(25 100% 40%);
+  --cf-body: hsl(var(--art-wine));
+  --cf-lid: hsl(var(--art-berry));
   --cf-cream: hsl(45 60% 94%);
   --cf-water: hsl(197 71% 73%);
   --cf-lamp-off: hsl(30 15% 58%);

@@ -5,28 +5,33 @@
 @layer base {
   :root {
     /* Palette for the decoration rules in `styles/theme.css`. */
-    --art-band: 45 50% 89%;
-    --art-terra: 25 76% 31%;
-    --art-orange: 25 100% 40%;
+    /* Berry and mint, sampled from the client's reference (2026-10-03): berry
+       fills and lines, wine headings, raspberry script accents, mint
+       underlines and tape. The client dislikes orange; keep it out. */
+    --art-berry: 328 61% 42%;
+    --art-wine: 342 88% 28%;
+    --art-raspberry: 336 68% 34%;
+    --art-mint: 136 25% 77%;
+    --art-band: 37 50% 93%;
     --art-rose: 294 43% 81%;
     --art-sky: 197 71% 73%;
     --art-sage: 80 35% 75%;
-    --art-cream: 45 60% 94%;
+    --art-cream: 37 60% 97%;
     --art-note: 43 88% 79%;
     /* Fine brown speckle; alpha follows the noise so most of it is clear. */
     --art-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.26 0 0 0 0 0.16 0.42 0 0 0 -0.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 
-    --background: 45 55% 92%;
-    --foreground: 22 30% 18%;
+    --background: 37 50% 93%;
+    --foreground: 353 10% 18%;
 
     --muted: 30 25% 72%;
-    --muted-foreground: 25 15% 35%;
+    --muted-foreground: 20 6% 32%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 22 30% 18%;
+    --popover-foreground: 353 10% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 22 30% 18%;
+    --card-foreground: 353 10% 18%;
 
     --border: 30 25% 72%;
     --input: 30 25% 72%;
@@ -37,13 +42,13 @@
     --secondary: 294 43% 85%;
     --secondary-foreground: 294 25% 18%;
 
-    --accent: 25 100% 40%;
-    --accent-foreground: 60 56% 97%;
+    --accent: 328 61% 42%;
+    --accent-foreground: 37 60% 97%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 21 10% 98.5%;
 
-    --ring: 25 100% 40%;
+    --ring: 328 61% 42%;
     --radius: 0.5rem;
 
     --card-shadow: 0 2px 12px hsla(0, 0%, 0%, 0.06),
