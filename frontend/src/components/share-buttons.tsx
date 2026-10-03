@@ -3,7 +3,6 @@
 import { cn, copyToClipboard } from '@/lib/utils';
 import { Share2 } from 'lucide-react';
 
-import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
 
 type ToastType = ReturnType<typeof useToast>['toast'];
@@ -19,9 +18,11 @@ declare global {
 
 type ShareButtonsProps = {
   title: string;
+  className?: string;
 };
 
-export default function ShareButtons({ title }: ShareButtonsProps) {
+// A bare button: where it sits and how it looks belong to the caller.
+export default function ShareButtons({ title, className }: ShareButtonsProps) {
   const { toast } = useToast();
 
   const handleShare = async () => {
@@ -44,15 +45,10 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
   };
 
   return (
-    <section
-      className='not-prose mt-10 flex flex-col items-end gap-3'
-      aria-label='Share post'
-    >
-      <Button onClick={handleShare} variant='outline'>
-        <Share2 className='mr-2 h-4 w-4' aria-hidden='true' />
-        Share
-      </Button>
-    </section>
+    <button type='button' onClick={handleShare} className={className}>
+      <Share2 className='mr-2 inline h-4 w-4' aria-hidden='true' />
+      Share
+    </button>
   );
 }
 

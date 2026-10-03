@@ -124,10 +124,12 @@
   border-color: hsl(var(--border) / 0.7);
 }
 
-/* About: a ruled notebook page with a margin line and punched holes. The rules
-   repeat every 2rem, so every line of text and every gap is held to that
-   rhythm or the writing drifts off the lines. The hard-stop gradients draw
-   lines, not colour fades.
+/* Notebook paper, on the About page and every post. A ruled sheet with a
+   margin line and punched holes. Markup: an unruled heading first, then
+   `.notebook-lines` holding the text. The rules repeat every 2rem from the top
+   of `.notebook-lines`, so every line of text and every gap inside it is held
+   to that rhythm or the writing drifts off the lines. The hard-stop gradients
+   draw lines, not colour fades.
 
    The user found a clean page too perfect to read as paper, so it carries
    small flaws: faint grain, rules that fade in patches and holes slightly
@@ -136,28 +138,50 @@
    square spine-side corners odd. */
 :root[data-design='artesanato'] .notebook-page {
   --nb-row: 2rem;
-  --nb-head: 6rem; /* unruled top: padding plus the two-row heading */
   --nb-margin: 2.75rem;
+  --nb-pad-left: calc(var(--nb-margin) + 1.25rem);
+  --nb-pad-right: 1.25rem;
   --nb-paper: 48 70% 98%;
-  /* Paper-coloured streaks that wash out stretches of the printed lines. */
   --nb-wash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.03' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.992 0 0 0 0 0.98 0 0 0 0 0.94 1.1 0 0 0 -0.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+  --nb-margin-line: linear-gradient(
+    to right,
+    transparent var(--nb-margin),
+    hsl(var(--art-orange) / 0.45) var(--nb-margin),
+    hsl(var(--art-orange) / 0.45) calc(var(--nb-margin) + 2px),
+    transparent calc(var(--nb-margin) + 2px)
+  );
   position: relative;
-  padding: var(--nb-row) 1.25rem var(--nb-row)
-    calc(var(--nb-margin) + 1.25rem);
+  padding: var(--nb-row) var(--nb-pad-right) var(--nb-row) var(--nb-pad-left);
   border-radius: 0.2rem;
   border-color: hsl(var(--border) / 0.6);
+  background-color: hsl(var(--nb-paper));
+  background-image: var(--art-grain), var(--nb-margin-line);
+  background-size: 200px 200px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  box-shadow:
+    0 1px 2px hsl(22 30% 18% / 0.08),
+    0 10px 24px hsl(22 30% 18% / 0.07);
+  backdrop-filter: none;
+}
+
+/* The heading sits on the unruled top of the sheet. */
+:root[data-design='artesanato'] .notebook-page > :first-child {
+  margin: 0;
+}
+
+/* The ruled part runs edge to edge and down to the bottom of the sheet, so it
+   cancels the page padding and repaints the paper under its rules; its
+   padding-top is one blank ruled row under the heading. */
+:root[data-design='artesanato'] .notebook-page > .notebook-lines {
+  margin: 0 calc(-1 * var(--nb-pad-right)) calc(-1 * var(--nb-row))
+    calc(-1 * var(--nb-pad-left));
+  padding: var(--nb-row) var(--nb-pad-right) var(--nb-row) var(--nb-pad-left);
+  border-radius: 0 0 0.2rem 0.2rem;
   background-color: hsl(var(--nb-paper));
   background-image:
     var(--art-grain),
     var(--nb-wash),
-    linear-gradient(
-      to right,
-      transparent var(--nb-margin),
-      hsl(var(--art-orange) / 0.45) var(--nb-margin),
-      hsl(var(--art-orange) / 0.45) calc(var(--nb-margin) + 2px),
-      transparent calc(var(--nb-margin) + 2px)
-    ),
-    linear-gradient(hsl(var(--nb-paper)), hsl(var(--nb-paper))),
+    var(--nb-margin-line),
     linear-gradient(
       to bottom,
       transparent calc(var(--nb-row) - 1px),
@@ -167,20 +191,14 @@
     200px 200px,
     640px 640px,
     100% 100%,
-    100% var(--nb-head),
     100% var(--nb-row);
-  background-repeat: repeat, repeat, no-repeat, no-repeat, repeat;
+  background-repeat: repeat, repeat, no-repeat, repeat;
   /* Rules sit just under the text baseline, not at the bottom of each row. */
   background-position:
     0 0,
     0 0,
     0 0,
-    0 0,
     0 -0.45rem;
-  box-shadow:
-    0 1px 2px hsl(22 30% 18% / 0.08),
-    0 10px 24px hsl(22 30% 18% / 0.07);
-  backdrop-filter: none;
 }
 
 /* Three punched holes down the left edge, slightly out of line. Hole colour
@@ -214,34 +232,74 @@
   background-repeat: no-repeat;
 }
 
+/* A post runs several screens long, where three holes would sit far apart, so
+   long sheets get a hole every 20rem instead. Three layers repeating every
+   60rem, each nudged a pixel, keep the holes slightly out of line. */
+:root[data-design='artesanato'] .notebook-page--long::before {
+  background:
+    radial-gradient(
+        circle 0.52rem at 50% 10rem,
+        var(--nb-hole) 0 0.42rem,
+        var(--nb-rim) 0.42rem 0.5rem,
+        transparent 0.52rem
+      )
+      0 0 / 100% 60rem repeat-y,
+    radial-gradient(
+        circle 0.52rem at calc(50% + 1px) 10rem,
+        var(--nb-hole) 0 0.42rem,
+        var(--nb-rim) 0.42rem 0.5rem,
+        transparent 0.52rem
+      )
+      0 20rem / 100% 60rem repeat-y,
+    radial-gradient(
+        circle 0.52rem at calc(50% - 1px) 10rem,
+        var(--nb-hole) 0 0.43rem,
+        var(--nb-rim) 0.43rem 0.5rem,
+        transparent 0.52rem
+      )
+      0 40rem / 100% 60rem repeat-y;
+}
+
+/* Rhythm: every block and gap in the ruled part is a whole number of rows. */
 :root[data-design='artesanato']
-  .notebook-page
+  .notebook-lines
   > :not([hidden])
   ~ :not([hidden]) {
   margin-top: var(--nb-row);
 }
 
-:root[data-design='artesanato'] .notebook-page > * {
+:root[data-design='artesanato'] .notebook-lines > * {
+  margin-top: 0;
   margin-bottom: 0;
   line-height: var(--nb-row);
 }
 
-:root[data-design='artesanato'] .notebook-page > :first-child {
-  margin-top: 0;
-  padding-block: 0;
+/* Script lines ("Hi.", the signature) and second-level headings span two
+   rows. No post has headings, lists or images yet; headings and lists are
+   held to the rows here, but an image inside the text would push everything
+   after it off the lines unless its height is a whole number of rows. */
+:root[data-design='artesanato'] .notebook-lines > :is(.text-4xl, h2) {
   line-height: calc(var(--nb-row) * 2);
 }
 
-/* Script lines ("Hi.", the signature) span two rows. */
-:root[data-design='artesanato'] .notebook-page > .text-4xl {
-  line-height: calc(var(--nb-row) * 2);
+:root[data-design='artesanato'] .notebook-lines :is(li, li > p, blockquote > p) {
+  margin-block: 0;
+}
+
+:root[data-design='artesanato'] .notebook-lines > blockquote {
+  padding-block: 0;
+}
+
+/* A raised note must not stretch its line off the rows. */
+:root[data-design='artesanato'] .notebook-lines :is(sup, sub) {
+  line-height: 0;
 }
 
 @media (min-width: 640px) {
   :root[data-design='artesanato'] .notebook-page {
     --nb-margin: 3.75rem;
-    padding-right: 2.5rem;
-    padding-left: calc(var(--nb-margin) + 1.75rem);
+    --nb-pad-left: calc(var(--nb-margin) + 1.75rem);
+    --nb-pad-right: 2.5rem;
   }
 }
 
@@ -306,16 +364,6 @@
 
 :root[data-design='artesanato'] article.not-prose:nth-child(3n) h2 {
   background: hsl(var(--art-sage));
-}
-
-/* Post page: long reads sit on paper. */
-:root[data-design='artesanato'] article.container.prose {
-  margin-top: 2rem;
-  padding: 2rem clamp(1rem, 4vw, 3rem);
-  border: 1px solid hsl(var(--border) / 0.7);
-  border-radius: calc(var(--radius) + 0.25rem);
-  background: hsl(0 0% 100% / 0.85);
-  box-shadow: var(--card-shadow);
 }
 
 /* End of a post ("bottom of the cup"): rose card, terracotta script title. */

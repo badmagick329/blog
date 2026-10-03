@@ -25,7 +25,7 @@ const describe = (v: number) =>
             ? 'one last sip'
             : 'empty';
 
-// Fixed cup on a post page that drains as the reader scrolls. Remount it per
+// The cup on a post page that drains as the reader scrolls. Remount it per
 // post (key it by slug) so each post starts its own drain.
 export default function CoffeeDock() {
   const [level, setLevel] = useState<number | null>(null);
@@ -96,7 +96,10 @@ export default function CoffeeDock() {
   }, []);
 
   return (
-    <div className='section-card fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-20 w-[4.2rem] px-1.5 py-2 sm:w-20'>
+    // Docked in the screen corner on small screens. From lg the post page
+    // places it in the photo's sticky column, where it sits in flow and is
+    // pushed to the column's bottom-right corner.
+    <div className='section-card fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-20 w-[4.2rem] px-1.5 py-2 sm:w-20 lg:static lg:mt-auto lg:w-24 lg:self-end lg:px-2 lg:py-2.5'>
       <svg
         viewBox='14 -18 108 128'
         role='img'
