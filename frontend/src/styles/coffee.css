@@ -1,0 +1,97 @@
+/* Coffee-cup reading: the machine on /posts and the mug. One outline weight
+   throughout so machine and mug read as one illustration. Flat colours from
+   the Artesanato palette, with no green: the client rejected it, and the
+   prototype's machine body was the old green band. */
+.coffee-art {
+  --cf-ink: hsl(var(--foreground));
+  --cf-body: hsl(25 76% 31%);
+  --cf-lid: hsl(25 100% 40%);
+  --cf-cream: hsl(45 60% 94%);
+  --cf-water: hsl(197 71% 73%);
+  --cf-lamp-off: hsl(30 15% 58%);
+  --cf-lamp-on: hsl(45 95% 62%);
+  --cf-coffee: hsl(24 48% 21%);
+  --cf-crema: hsl(30 52% 58%);
+  --cf-glass: hsl(197 60% 97% / 0.7);
+  --cf-glint: hsl(0 0% 100% / 0.85);
+  --cf-steam: hsl(25 10% 62%);
+}
+
+.coffee-art .m-line {
+  stroke: var(--cf-ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.coffee-art .m-body { fill: var(--cf-body); }
+.coffee-art .m-lid { fill: var(--cf-lid); }
+.coffee-art .m-spout { fill: var(--cf-ink); }
+.coffee-art .m-base { fill: var(--cf-ink); }
+.coffee-art .m-window,
+.coffee-art .m-dial { fill: var(--cf-cream); }
+.coffee-art .m-water { fill: var(--cf-water); }
+.coffee-art .m-pointer {
+  fill: none;
+  stroke: var(--cf-ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.coffee-art .m-lamp {
+  fill: var(--cf-lamp-off);
+  stroke: var(--cf-ink);
+  stroke-width: 2;
+  transition: fill 0.2s;
+}
+.coffee-art .m-lamp.on { fill: var(--cf-lamp-on); }
+.coffee-art .m-stream { fill: var(--cf-coffee); }
+
+.coffee-art .mug-glass {
+  fill: var(--cf-glass);
+  stroke: var(--cf-ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.coffee-art .mug-coffee { fill: var(--cf-coffee); }
+.coffee-art .mug-crema {
+  fill: none;
+  stroke: var(--cf-crema);
+  stroke-width: 3;
+}
+.coffee-art .mug-glint {
+  fill: none;
+  stroke: var(--cf-glint);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.coffee-art .mug-wave { animation: coffee-wave 2.6s linear infinite; }
+
+.coffee-art .mug-steam path {
+  fill: none;
+  stroke: var(--cf-steam);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.coffee-art .is-hot .mug-steam path {
+  animation: coffee-steam 3.4s ease-in-out infinite;
+}
+.coffee-art .is-hot .mug-steam path:nth-child(2) { animation-delay: -1.1s; }
+.coffee-art .is-hot .mug-steam path:nth-child(3) { animation-delay: -2.3s; }
+
+@keyframes coffee-wave {
+  to { transform: translateX(-40px); }
+}
+
+@keyframes coffee-steam {
+  0% { opacity: 0; transform: translateY(6px); }
+  40% { opacity: 0.75; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coffee-art .mug-wave,
+  .coffee-art .is-hot .mug-steam path { animation: none; }
+  .coffee-art .is-hot .mug-steam path { opacity: 0.45; }
+  .coffee-art .m-lamp { transition: none; }
+}

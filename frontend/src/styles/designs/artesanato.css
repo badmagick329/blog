@@ -318,6 +318,15 @@
   box-shadow: var(--card-shadow);
 }
 
+/* End of a post ("bottom of the cup"): rose card, terracotta script title. */
+:root[data-design='artesanato'] .post-end {
+  background: hsl(var(--art-rose));
+}
+
+:root[data-design='artesanato'] .post-end-title {
+  color: hsl(var(--art-terra));
+}
+
 /* Cover tape: plain translucent masking tape with torn ends, replacing the
    base gradient strip. clip-path draws the tear; it also clips any shadow, so
    there is none. */

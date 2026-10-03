@@ -1,5 +1,6 @@
 import { posts } from '#site/content';
 import type { Metadata } from 'next';
+import CoffeeStation from '@/components/coffee-station';
 import MainHeading from '@/components/main-heading';
 import PostItem from '@/components/post-item';
 import { postIsPublished } from '@/lib/utils';
@@ -34,27 +35,38 @@ export default async function BlogPosts() {
       tabIndex={-1}
       className='container flex flex-1 flex-col items-center px-4 sm:px-6 md:px-8'
     >
-      <article className='motion-fade-in prose pt-8 text-foreground lg:prose-lg'>
-        <MainHeading text='Blog Posts' />
-        <section className='flex flex-col items-start gap-12 font-normal'>
-          {displayPosts.length > 0 ? (
-            displayPosts.map((post) => {
-              const { slug, title, publishedAt, body } = post;
-              return (
-                <PostItem
-                  key={slug}
-                  slug={slug}
-                  title={title}
-                  description={body}
-                  publishedAt={publishedAt}
-                />
-              );
-            })
-          ) : (
-            <p>No posts found</p>
-          )}
-        </section>
-      </article>
+      <div className='motion-fade-in w-full pt-8'>
+        <div className='prose mx-auto text-foreground lg:prose-lg'>
+          <MainHeading text='Blog Posts' />
+        </div>
+        {/* Posts beside a sticky coffee station from lg; on phones the
+            station comes first so the reader can pour before picking. */}
+        <div className='flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center lg:gap-12'>
+          <article className='prose w-full text-foreground lg:prose-lg'>
+            <section className='flex flex-col items-start gap-12 font-normal'>
+              {displayPosts.length > 0 ? (
+                displayPosts.map((post) => {
+                  const { slug, title, publishedAt, body } = post;
+                  return (
+                    <PostItem
+                      key={slug}
+                      slug={slug}
+                      title={title}
+                      description={body}
+                      publishedAt={publishedAt}
+                    />
+                  );
+                })
+              ) : (
+                <p>No posts found</p>
+              )}
+            </section>
+          </article>
+          <div className='order-first w-full max-w-md lg:sticky lg:top-28 lg:order-none lg:w-72 lg:shrink-0'>
+            <CoffeeStation />
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
