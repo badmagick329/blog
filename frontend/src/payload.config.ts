@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import { Media } from './collections/Media';
 import { Posts } from './collections/Posts';
 import { Users } from './collections/Users';
+import { emailAdapter } from './lib/email';
 import { migrations } from './migrations';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,6 +25,9 @@ const droppedFeatures = new Set(['checklist', 'link', 'relationship']);
 export default buildConfig({
   admin: {
     user: Users.slug,
+    components: {
+      beforeDashboard: ['/components/admin/dashboard-guide#DashboardGuide'],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -53,10 +57,18 @@ export default buildConfig({
     // schema straight from this config.
     prodMigrations: migrations,
   }),
+  email: emailAdapter(),
   graphQL: {
     disable: true,
   },
   sharp,
+  // Phone and camera photos are a few megabytes; nginx allows a little more,
+  // so an oversized upload gets Payload's message rather than nginx's page.
+  upload: {
+    limits: {
+      fileSize: 20 * 1024 * 1024,
+    },
+  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

@@ -2,6 +2,11 @@ upstream frontend {
   server nextapp:3000;
 }
 
+# Payload locks an account after 5 wrong passwords, but nothing stops one IP
+# from trying many accounts or flooding someone with reset emails.
+limit_req_zone $binary_remote_addr zone=auth:1m rate=6r/m;
+limit_req_status 429;
+
 
 server {
     listen 80;
@@ -36,6 +41,10 @@ server {
     access_log /var/logs/access.log;
     error_log /var/logs/error.log;
 
+    # Admin photo uploads; Payload itself rejects files over 20 MB with a
+    # clearer message than nginx's 413 page.
+    client_max_body_size 25m;
+
     gzip on;
     gzip_proxied any;
     gzip_comp_level 4;
@@ -45,6 +54,12 @@ server {
       sendfile on;
       sendfile_max_chunk 10m;
       alias /usr/src/app/staticfiles/;
+    }
+
+    location ~ ^/api/users/(login|forgot-password|reset-password|first-register|unlock)$ {
+      limit_req zone=auth burst=5 nodelay;
+      proxy_pass http://frontend;
+      proxy_http_version 1.1;
     }
 
     location / {
