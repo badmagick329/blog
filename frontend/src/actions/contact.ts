@@ -5,6 +5,13 @@ import {
   type ContactField,
   type ContactFormState,
 } from '@/lib/contact';
+import {
+  countDailySend,
+  dailyCapReached,
+  isRepeatMessage,
+  looksLikeSpam,
+  rememberMessage,
+} from '@/lib/contact-guards';
 import { headers } from 'next/headers';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,11 +52,29 @@ export async function sendContactMessage(
     return { status: 'invalid', fieldErrors };
   }
 
+  // Checked after validation, so a person who mistyped still sees their
+  // errors; spam and repeats get the same fake success as bots.
+  if (looksLikeSpam(name, message)) {
+    console.warn('contact: dropped a message that looks like link spam');
+    return { status: 'sent' };
+  }
+  if (isRepeatMessage(message)) {
+    console.warn('contact: dropped a repeat of a recent message');
+    return { status: 'sent' };
+  }
+
+  // Checked before taking an IP slot, so a full day doesn't also use up the
+  // visitor's own allowance.
+  if (dailyCapReached()) {
+    console.error('contact: daily send cap reached');
+    return { status: 'failed', reason: 'unavailable' };
+  }
   const ip = clientIp();
   if (!takeSendSlot(ip)) {
     console.warn('contact: rate limited', ip);
     return { status: 'failed', reason: 'rate-limited' };
   }
+  countDailySend();
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
@@ -91,6 +116,7 @@ export async function sendContactMessage(
     return { status: 'failed', reason: 'unavailable' };
   }
 
+  rememberMessage(message);
   return { status: 'sent' };
 }
 
