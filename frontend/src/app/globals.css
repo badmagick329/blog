@@ -112,8 +112,11 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  /* backwards, not both: a fill that outlives the animation leaves a
+     transform on the page content for good, and that composited layer was
+     intermittently painted over the sticky header while scrolling. */
   .motion-fade-in {
-    animation: fade-in 220ms ease-out both;
+    animation: fade-in 220ms ease-out backwards;
   }
 
   .motion-lift {

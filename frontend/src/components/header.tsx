@@ -9,7 +9,11 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div className='sticky top-0 z-10 flex flex-col border-b border-border/40 bg-background/75 backdrop-blur-md'>
+    // transform-gpu gives the sticky bar its own compositor layer, so
+    // transformed content (animated or tilted cards) can't paint over it
+    // mid-scroll. Nothing inside is position: fixed, so the new containing
+    // block is harmless.
+    <div className='sticky top-0 z-10 flex transform-gpu flex-col border-b border-border/40 bg-background/75 backdrop-blur-md'>
       <header className='content-shell flex items-center justify-between gap-2 py-3 sm:py-4'>
         <Link
           href='/'
