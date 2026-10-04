@@ -276,3 +276,11 @@ body {
     left: calc(-0.9rem + (var(--tape-bottom-x-offset, 0rem) * 0.45));
   }
 }
+
+/* The 404 page's text is editable rich text, so its link is styled here. */
+.not-found-body a {
+  font-weight: 600;
+}
+.not-found-body a:hover {
+  color: hsl(var(--foreground) / 0.6);
+}

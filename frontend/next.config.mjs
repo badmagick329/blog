@@ -13,6 +13,9 @@ const nextConfig = {
   },
   async rewrites() {
     return [
+      // Pages link the icon at /icon.ico, but bots and some browsers ask for
+      // /favicon.ico regardless.
+      { source: '/favicon.ico', destination: '/icon.ico' },
       {
         source: '/ingest/js/script.js',
         destination: 'https://analytics.mgck.ink/js/script.js',

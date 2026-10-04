@@ -18,11 +18,16 @@ declare global {
 
 type ShareButtonsProps = {
   title: string;
+  label: string;
   className?: string;
 };
 
 // A bare button: where it sits and how it looks belong to the caller.
-export default function ShareButtons({ title, className }: ShareButtonsProps) {
+export default function ShareButtons({
+  title,
+  label,
+  className,
+}: ShareButtonsProps) {
   const { toast } = useToast();
 
   const handleShare = async () => {
@@ -47,7 +52,7 @@ export default function ShareButtons({ title, className }: ShareButtonsProps) {
   return (
     <button type='button' onClick={handleShare} className={className}>
       <Share2 className='mr-2 inline h-4 w-4' aria-hidden='true' />
-      Share
+      {label}
     </button>
   );
 }

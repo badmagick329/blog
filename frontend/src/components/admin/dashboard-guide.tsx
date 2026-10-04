@@ -46,6 +46,12 @@ export function DashboardGuide() {
         version.
       </p>
       <p>
+        The wording of every page is under <strong>Site copy</strong> in the
+        menu: Home, About, Blog, Contact, Terms of Use, and the header, footer
+        and 404 page. It works like a post: edit, check it with the eye icon,
+        then click <strong>Publish changes</strong>.
+      </p>
+      <p>
         Forgot your password? Use <strong>Forgot password?</strong> on the login
         page and a reset link arrives by email. Change it any time under your
         account (top right).

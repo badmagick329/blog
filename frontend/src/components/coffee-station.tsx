@@ -24,7 +24,18 @@ const POUR_RATE = 0.36;
 const easeOut = (t: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
 
 // The coffee machine on /posts, where the reader pours a cup before reading.
-export default function CoffeeStation() {
+export type CoffeeCopy = {
+  title: string;
+  empty: string;
+  partFull: string;
+  full: string;
+  pouring: string;
+  pour: string;
+  topUp: string;
+  fullButton: string;
+};
+
+export default function CoffeeStation({ copy }: { copy: CoffeeCopy }) {
   const [level, setLevel] = useState<number | null>(null);
   const [pouring, setPouring] = useState(false);
   const levelRef = useRef(0);
@@ -106,19 +117,19 @@ export default function CoffeeStation() {
     level === null
       ? ''
       : pouring
-        ? 'Pouring…'
+        ? copy.pouring
         : full
-          ? 'A full cup, still hot. Pick a post and settle in.'
+          ? copy.full
           : partFull
-            ? 'There’s some left from your last read. Top it up?'
-            : 'Your cup is empty. Pour one before you settle in.';
+            ? copy.partFull
+            : copy.empty;
   const label = pouring
-    ? 'Pouring…'
+    ? copy.pouring
     : full
-      ? 'Your cup is full'
+      ? copy.fullButton
       : partFull
-        ? 'Top up'
-        : 'Pour a cup';
+        ? copy.topUp
+        : copy.pour;
 
   // Phones: drawing left, text beside it. From lg: a narrow column, centred.
   return (
@@ -143,21 +154,47 @@ export default function CoffeeStation() {
           height='0'
           rx='3'
         />
-        <rect className='m-lid m-line' x='62' y='26' width='146' height='20' rx='9' />
+        <rect
+          className='m-lid m-line'
+          x='62'
+          y='26'
+          width='146'
+          height='20'
+          rx='9'
+        />
         <path
           className='m-body m-line'
           d='M56 40 H214 Q230 40 230 56 V264 H170 V114 Q170 100 156 100 H56 Q40 100 40 84 V56 Q40 40 56 40 Z'
         />
         <path className='m-spout m-line' d='M78 99 H106 L101 110 H83 Z' />
-        <rect className='m-window m-line' x='184' y='118' width='32' height='68' rx='8' />
+        <rect
+          className='m-window m-line'
+          x='184'
+          y='118'
+          width='32'
+          height='68'
+          rx='8'
+        />
         <path
           className='m-water'
           d='M188 142 H212 V178 Q212 182 208 182 H192 Q188 182 188 178 Z'
         />
         <circle className='m-dial m-line' cx='200' cy='214' r='11' />
         <path className='m-pointer' d='M200 214 V206' />
-        <circle className={cn('m-lamp', pouring && 'on')} cx='200' cy='240' r='4.5' />
-        <rect className='m-base m-line' x='18' y='262' width='224' height='16' rx='8' />
+        <circle
+          className={cn('m-lamp', pouring && 'on')}
+          cx='200'
+          cy='240'
+          r='4.5'
+        />
+        <rect
+          className='m-base m-line'
+          x='18'
+          y='262'
+          width='224'
+          height='16'
+          rx='8'
+        />
         <CoffeeMug
           level={level}
           hot={!pouring}
@@ -165,7 +202,7 @@ export default function CoffeeStation() {
         />
       </svg>
       <h2 className='display-script m-0 text-3xl leading-none lg:text-4xl'>
-        Pour yourself a coffee
+        {copy.title}
       </h2>
       <p
         aria-live='polite'

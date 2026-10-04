@@ -1,15 +1,16 @@
-'use client';
-
+import DraftBanner from '@/components/draft-banner';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { Toaster } from '@/components/ui/toaster';
+import { getCopy } from '@/lib/content';
 import { cn } from '@/lib/utils';
+// After globals.css, so the theme wins ties with the base rules.
+import '@/styles/theme.css';
 import localFont from 'next/font/local';
+import { draftMode } from 'next/headers';
 import Script from 'next/script';
 
 import './globals.css';
-// After globals.css, so the theme wins ties with the base rules.
-import '@/styles/theme.css';
 
 // Committed latin-subset variable fonts (from Fontsource; OFL licences beside
 // them), so image builds never depend on reaching Google Fonts.
@@ -33,11 +34,17 @@ const jetbrainsMono = localFont({
   variable: '--font-jetbrains-mono',
 });
 
-export default function RootLayout({
+// Every page reads its copy from the database per request: images are built
+// without database access, and saved copy then shows at once.
+export const dynamic = 'force-dynamic';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const site = await getCopy('site');
+  const { isEnabled: draft } = await draftMode();
   return (
     <html
       lang='en'
@@ -58,9 +65,10 @@ export default function RootLayout({
         <a href='#main-content' className='skip-link'>
           Skip to main content
         </a>
-        <Header />
+        <Header name={site.name} nav={site.nav} />
+        {draft && <DraftBanner />}
         {children}
-        <Footer />
+        <Footer name={site.name} terms={site.footer.terms} />
         <Toaster />
       </body>
     </html>

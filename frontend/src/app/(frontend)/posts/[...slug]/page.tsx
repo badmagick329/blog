@@ -1,14 +1,13 @@
-import type { Metadata } from 'next';
-import MainHeading from '@/components/main-heading';
 import BlogCoverImage from '@/components/blog-cover-image';
 import CoffeeDock from '@/components/coffee-dock';
-import LivePreviewListener from '@/components/live-preview-listener';
+import MainHeading from '@/components/main-heading';
 import PostDate from '@/components/post-date';
 import RichText from '@/components/rich-text';
 import ShareButtons from '@/components/share-buttons';
+import { getCopy } from '@/lib/content';
 import { coverOf, getPost } from '@/lib/posts';
 import { cn, isoDay } from '@/lib/utils';
-import { draftMode } from 'next/headers';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -30,7 +29,10 @@ async function getPostFromParams(params: PostSlugProps['params']) {
 export async function generateMetadata({
   params,
 }: PostSlugProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
+  const [post, site] = await Promise.all([
+    getPostFromParams(params),
+    getCopy('site'),
+  ]);
   if (!post) {
     return {};
   }
@@ -48,7 +50,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: 'article',
-      siteName: 'Krista Lomu',
+      siteName: site.name,
       url: postUrl,
       title: post.title,
       description,
@@ -70,28 +72,13 @@ export default async function PostSlug({ params }: PostSlugProps) {
     return notFound();
   }
   const cover = coverOf(post);
-  const { isEnabled: draft } = await draftMode();
+  const { postEnd } = await getCopy('blog');
 
   const pill =
     'motion-lift inline-flex items-center rounded-full px-6 py-2.5 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2';
 
   return (
     <main id='main-content' tabIndex={-1} className='page-shell'>
-      {draft && (
-        <>
-          <LivePreviewListener />
-          <p className='content-shell mb-6 rounded-md bg-secondary px-4 py-2 text-center text-secondary-foreground'>
-            You’re previewing the latest draft.{' '}
-            {/* A plain link: the exit route is a route handler, not a page. */}
-            <a
-              href={`/next/exit-preview?path=/posts/${post.slug}`}
-              className='font-semibold underline'
-            >
-              Leave preview
-            </a>
-          </p>
-        </>
-      )}
       {/* The post is written on notebook paper. From lg its cover photo sits
           beside the sheet in a sticky column as tall as the screen, photo at
           the top and the coffee cup in the column's bottom-right corner. On
@@ -100,7 +87,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
           on the children, not this row: an animating transform here would
           briefly pin the fixed cup to the row instead of the screen. */}
       <div className='content-shell flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center lg:gap-12'>
-        <article className='section-card notebook-page notebook-page--long motion-fade-in prose readable-prose w-full min-w-0 px-6 py-8 text-foreground sm:px-8 lg:prose-lg'>
+        <article className='section-card notebook-page notebook-page--long motion-fade-in readable-prose prose w-full min-w-0 px-6 py-8 text-foreground lg:prose-lg sm:px-8'>
           <header className='not-prose flex flex-col gap-1'>
             <MainHeading
               text={post.title}
@@ -142,20 +129,19 @@ export default async function PostSlug({ params }: PostSlugProps) {
       <div className='content-shell pt-10'>
         <section className='post-end mx-auto flex max-w-3xl flex-col items-center gap-3 rounded-2xl bg-secondary px-6 py-7 text-center text-secondary-foreground'>
           <h2 className='post-end-title text-3xl font-semibold leading-tight sm:text-4xl'>
-            That’s the bottom of the cup
+            {postEnd.title}
           </h2>
-          <p className='text-lg'>
-            Head back to the blog for a refill and another read.
-          </p>
+          <p className='text-lg'>{postEnd.text}</p>
           <div className='flex flex-wrap items-center justify-center gap-3 pt-1'>
             <Link
               href='/posts'
               className={`${pill} bg-accent text-accent-foreground hover:bg-accent/90`}
             >
-              Back to the blog
+              {postEnd.back}
             </Link>
             <ShareButtons
               title={post.title}
+              label={postEnd.share}
               className={`${pill} border-2 border-accent text-foreground hover:bg-accent/10`}
             />
           </div>

@@ -1,0 +1,3955 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.posts": {
+      "name": "posts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cover_id": {
+          "name": "cover_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "body": {
+          "name": "body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published_at": {
+          "name": "published_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "generate_slug": {
+          "name": "generate_slug",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "_status": {
+          "name": "_status",
+          "type": "enum_posts_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        }
+      },
+      "indexes": {
+        "posts_cover_idx": {
+          "name": "posts_cover_idx",
+          "columns": [
+            {
+              "expression": "cover_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "posts_slug_idx": {
+          "name": "posts_slug_idx",
+          "columns": [
+            {
+              "expression": "slug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "posts_updated_at_idx": {
+          "name": "posts_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "posts_created_at_idx": {
+          "name": "posts_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "posts__status_idx": {
+          "name": "posts__status_idx",
+          "columns": [
+            {
+              "expression": "_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "posts_cover_id_media_id_fk": {
+          "name": "posts_cover_id_media_id_fk",
+          "tableFrom": "posts",
+          "tableTo": "media",
+          "columnsFrom": [
+            "cover_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._posts_v": {
+      "name": "_posts_v",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_title": {
+          "name": "version_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_description": {
+          "name": "version_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_cover_id": {
+          "name": "version_cover_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_body": {
+          "name": "version_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_published_at": {
+          "name": "version_published_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_generate_slug": {
+          "name": "version_generate_slug",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "version_slug": {
+          "name": "version_slug",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "enum__posts_v_version_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "autosave": {
+          "name": "autosave",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_posts_v_parent_idx": {
+          "name": "_posts_v_parent_idx",
+          "columns": [
+            {
+              "expression": "parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_version_version_cover_idx": {
+          "name": "_posts_v_version_version_cover_idx",
+          "columns": [
+            {
+              "expression": "version_cover_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_version_version_slug_idx": {
+          "name": "_posts_v_version_version_slug_idx",
+          "columns": [
+            {
+              "expression": "version_slug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_version_version_updated_at_idx": {
+          "name": "_posts_v_version_version_updated_at_idx",
+          "columns": [
+            {
+              "expression": "version_updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_version_version_created_at_idx": {
+          "name": "_posts_v_version_version_created_at_idx",
+          "columns": [
+            {
+              "expression": "version_created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_version_version__status_idx": {
+          "name": "_posts_v_version_version__status_idx",
+          "columns": [
+            {
+              "expression": "version__status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_created_at_idx": {
+          "name": "_posts_v_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_updated_at_idx": {
+          "name": "_posts_v_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_latest_idx": {
+          "name": "_posts_v_latest_idx",
+          "columns": [
+            {
+              "expression": "latest",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_posts_v_autosave_idx": {
+          "name": "_posts_v_autosave_idx",
+          "columns": [
+            {
+              "expression": "autosave",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_posts_v_parent_id_posts_id_fk": {
+          "name": "_posts_v_parent_id_posts_id_fk",
+          "tableFrom": "_posts_v",
+          "tableTo": "posts",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_posts_v_version_cover_id_media_id_fk": {
+          "name": "_posts_v_version_cover_id_media_id_fk",
+          "tableFrom": "_posts_v",
+          "tableTo": "media",
+          "columnsFrom": [
+            "version_cover_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.media": {
+      "name": "media",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "alt": {
+          "name": "alt",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "thumbnail_u_r_l": {
+          "name": "thumbnail_u_r_l",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "filename": {
+          "name": "filename",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mime_type": {
+          "name": "mime_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "filesize": {
+          "name": "filesize",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "width": {
+          "name": "width",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "height": {
+          "name": "height",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "focal_x": {
+          "name": "focal_x",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "focal_y": {
+          "name": "focal_y",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sizes_cover_url": {
+          "name": "sizes_cover_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sizes_cover_width": {
+          "name": "sizes_cover_width",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sizes_cover_height": {
+          "name": "sizes_cover_height",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sizes_cover_mime_type": {
+          "name": "sizes_cover_mime_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sizes_cover_filesize": {
+          "name": "sizes_cover_filesize",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sizes_cover_filename": {
+          "name": "sizes_cover_filename",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "media_updated_at_idx": {
+          "name": "media_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "media_created_at_idx": {
+          "name": "media_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "media_filename_idx": {
+          "name": "media_filename_idx",
+          "columns": [
+            {
+              "expression": "filename",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "media_sizes_cover_sizes_cover_filename_idx": {
+          "name": "media_sizes_cover_sizes_cover_filename_idx",
+          "columns": [
+            {
+              "expression": "sizes_cover_filename",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users_sessions": {
+      "name": "users_sessions",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "users_sessions_order_idx": {
+          "name": "users_sessions_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "users_sessions_parent_id_idx": {
+          "name": "users_sessions_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "users_sessions_parent_id_fk": {
+          "name": "users_sessions_parent_id_fk",
+          "tableFrom": "users_sessions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reset_password_token": {
+          "name": "reset_password_token",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reset_password_expiration": {
+          "name": "reset_password_expiration",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "salt": {
+          "name": "salt",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hash": {
+          "name": "hash",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reset_password_requested_at": {
+          "name": "reset_password_requested_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "login_attempts": {
+          "name": "login_attempts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "lock_until": {
+          "name": "lock_until",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "users_updated_at_idx": {
+          "name": "users_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "users_created_at_idx": {
+          "name": "users_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "users_email_idx": {
+          "name": "users_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.payload_kv": {
+      "name": "payload_kv",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "payload_kv_key_idx": {
+          "name": "payload_kv_key_idx",
+          "columns": [
+            {
+              "expression": "key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.payload_locked_documents": {
+      "name": "payload_locked_documents",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "global_slug": {
+          "name": "global_slug",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "payload_locked_documents_global_slug_idx": {
+          "name": "payload_locked_documents_global_slug_idx",
+          "columns": [
+            {
+              "expression": "global_slug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_locked_documents_updated_at_idx": {
+          "name": "payload_locked_documents_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_locked_documents_created_at_idx": {
+          "name": "payload_locked_documents_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.payload_locked_documents_rels": {
+      "name": "payload_locked_documents_rels",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "path": {
+          "name": "path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "posts_id": {
+          "name": "posts_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "users_id": {
+          "name": "users_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "payload_locked_documents_rels_order_idx": {
+          "name": "payload_locked_documents_rels_order_idx",
+          "columns": [
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_locked_documents_rels_parent_idx": {
+          "name": "payload_locked_documents_rels_parent_idx",
+          "columns": [
+            {
+              "expression": "parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_locked_documents_rels_path_idx": {
+          "name": "payload_locked_documents_rels_path_idx",
+          "columns": [
+            {
+              "expression": "path",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_locked_documents_rels_posts_id_idx": {
+          "name": "payload_locked_documents_rels_posts_id_idx",
+          "columns": [
+            {
+              "expression": "posts_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_locked_documents_rels_media_id_idx": {
+          "name": "payload_locked_documents_rels_media_id_idx",
+          "columns": [
+            {
+              "expression": "media_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_locked_documents_rels_users_id_idx": {
+          "name": "payload_locked_documents_rels_users_id_idx",
+          "columns": [
+            {
+              "expression": "users_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "payload_locked_documents_rels_parent_fk": {
+          "name": "payload_locked_documents_rels_parent_fk",
+          "tableFrom": "payload_locked_documents_rels",
+          "tableTo": "payload_locked_documents",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "payload_locked_documents_rels_posts_fk": {
+          "name": "payload_locked_documents_rels_posts_fk",
+          "tableFrom": "payload_locked_documents_rels",
+          "tableTo": "posts",
+          "columnsFrom": [
+            "posts_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "payload_locked_documents_rels_media_fk": {
+          "name": "payload_locked_documents_rels_media_fk",
+          "tableFrom": "payload_locked_documents_rels",
+          "tableTo": "media",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "payload_locked_documents_rels_users_fk": {
+          "name": "payload_locked_documents_rels_users_fk",
+          "tableFrom": "payload_locked_documents_rels",
+          "tableTo": "users",
+          "columnsFrom": [
+            "users_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.payload_preferences": {
+      "name": "payload_preferences",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "value": {
+          "name": "value",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "payload_preferences_key_idx": {
+          "name": "payload_preferences_key_idx",
+          "columns": [
+            {
+              "expression": "key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_preferences_updated_at_idx": {
+          "name": "payload_preferences_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_preferences_created_at_idx": {
+          "name": "payload_preferences_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.payload_preferences_rels": {
+      "name": "payload_preferences_rels",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "path": {
+          "name": "path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "users_id": {
+          "name": "users_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "payload_preferences_rels_order_idx": {
+          "name": "payload_preferences_rels_order_idx",
+          "columns": [
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_preferences_rels_parent_idx": {
+          "name": "payload_preferences_rels_parent_idx",
+          "columns": [
+            {
+              "expression": "parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_preferences_rels_path_idx": {
+          "name": "payload_preferences_rels_path_idx",
+          "columns": [
+            {
+              "expression": "path",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_preferences_rels_users_id_idx": {
+          "name": "payload_preferences_rels_users_id_idx",
+          "columns": [
+            {
+              "expression": "users_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "payload_preferences_rels_parent_fk": {
+          "name": "payload_preferences_rels_parent_fk",
+          "tableFrom": "payload_preferences_rels",
+          "tableTo": "payload_preferences",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "payload_preferences_rels_users_fk": {
+          "name": "payload_preferences_rels_users_fk",
+          "tableFrom": "payload_preferences_rels",
+          "tableTo": "users",
+          "columnsFrom": [
+            "users_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.payload_migrations": {
+      "name": "payload_migrations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "batch": {
+          "name": "batch",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "payload_migrations_updated_at_idx": {
+          "name": "payload_migrations_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "payload_migrations_created_at_idx": {
+          "name": "payload_migrations_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.home": {
+      "name": "home",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "greeting": {
+          "name": "greeting",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Lovely to see you.'"
+        },
+        "heading": {
+          "name": "heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'I’m Krista, a freelance content and copywriter.'"
+        },
+        "intro": {
+          "name": "intro",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Give me a tricky topic, a complicated problem and a strong coffee, and I’m happy.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"I turn ideas, thoughts and data into content strategies, campaigns and words that give people a reason to pay attention.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "about_button": {
+          "name": "about_button",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About me'"
+        },
+        "contact_link": {
+          "name": "contact_link",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Let’s talk'"
+        },
+        "latest_label": {
+          "name": "latest_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Latest entry'"
+        },
+        "meta_title": {
+          "name": "meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Home'"
+        },
+        "meta_description": {
+          "name": "meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Explore the world of a professional freelance content and copywriter. Get in touch to transform your next writing or marketing project.'"
+        },
+        "_status": {
+          "name": "_status",
+          "type": "enum_home_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "home__status_idx": {
+          "name": "home__status_idx",
+          "columns": [
+            {
+              "expression": "_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._home_v": {
+      "name": "_home_v",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version_greeting": {
+          "name": "version_greeting",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Lovely to see you.'"
+        },
+        "version_heading": {
+          "name": "version_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'I’m Krista, a freelance content and copywriter.'"
+        },
+        "version_intro": {
+          "name": "version_intro",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Give me a tricky topic, a complicated problem and a strong coffee, and I’m happy.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"I turn ideas, thoughts and data into content strategies, campaigns and words that give people a reason to pay attention.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "version_about_button": {
+          "name": "version_about_button",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About me'"
+        },
+        "version_contact_link": {
+          "name": "version_contact_link",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Let’s talk'"
+        },
+        "version_latest_label": {
+          "name": "version_latest_label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Latest entry'"
+        },
+        "version_meta_title": {
+          "name": "version_meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Home'"
+        },
+        "version_meta_description": {
+          "name": "version_meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Explore the world of a professional freelance content and copywriter. Get in touch to transform your next writing or marketing project.'"
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "enum__home_v_version_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "autosave": {
+          "name": "autosave",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_home_v_version_version__status_idx": {
+          "name": "_home_v_version_version__status_idx",
+          "columns": [
+            {
+              "expression": "version__status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_home_v_created_at_idx": {
+          "name": "_home_v_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_home_v_updated_at_idx": {
+          "name": "_home_v_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_home_v_latest_idx": {
+          "name": "_home_v_latest_idx",
+          "columns": [
+            {
+              "expression": "latest",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_home_v_autosave_idx": {
+          "name": "_home_v_autosave_idx",
+          "columns": [
+            {
+              "expression": "autosave",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.about_glance_facts": {
+      "name": "about_glance_facts",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "value": {
+          "name": "value",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "about_glance_facts_order_idx": {
+          "name": "about_glance_facts_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "about_glance_facts_parent_id_idx": {
+          "name": "about_glance_facts_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "about_glance_facts_parent_id_fk": {
+          "name": "about_glance_facts_parent_id_fk",
+          "tableFrom": "about_glance_facts",
+          "tableTo": "about",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.about": {
+      "name": "about",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "heading": {
+          "name": "heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About'"
+        },
+        "greeting": {
+          "name": "greeting",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Hi.'"
+        },
+        "body": {
+          "name": "body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"I’m happy to see you find your way to my little website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"I’m Krista, a copywriter based in the vibrant city of London. For years now, I’ve been freelancing as a content writer, fueled by copious amounts of coffee and an unending love for words.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Through my professional writing, I’ve worked with fantastic companies, from multinationals to smaller startups and solo entrepreneurs. My work has allowed me to explore a diverse range of topics, from finance and HR to travel and personal development. I’ve written blogs, newsletters, white papers, emails and social media content — all sorts of materials to support business growth.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"What drives me most is my curiosity — I love exploring new projects and ideas and supporting remarkable people and teams in achieving their goals. I’ve connected with wonderful people and am excited about the new experiences I’ve yet to discover.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Thank you for visiting my website and spending a few of your precious moments with me. I hope you enjoy what you find and come visit again.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Until next time,\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "signature": {
+          "name": "signature",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Krista'"
+        },
+        "postscript_text": {
+          "name": "postscript_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Psst. Check out'"
+        },
+        "postscript_link": {
+          "name": "postscript_link",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'my contact details'"
+        },
+        "glance_title": {
+          "name": "glance_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Krista,\nat a glance'"
+        },
+        "meta_title": {
+          "name": "meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About'"
+        },
+        "meta_description": {
+          "name": "meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'A professional content and copywriter from London, with experience in finance, Human Resources, taxation, investing, personal development and travel.'"
+        },
+        "_status": {
+          "name": "_status",
+          "type": "enum_about_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "about__status_idx": {
+          "name": "about__status_idx",
+          "columns": [
+            {
+              "expression": "_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._about_v_version_glance_facts": {
+      "name": "_about_v_version_glance_facts",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "value": {
+          "name": "value",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_about_v_version_glance_facts_order_idx": {
+          "name": "_about_v_version_glance_facts_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_about_v_version_glance_facts_parent_id_idx": {
+          "name": "_about_v_version_glance_facts_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "_about_v_version_glance_facts_parent_id_fk": {
+          "name": "_about_v_version_glance_facts_parent_id_fk",
+          "tableFrom": "_about_v_version_glance_facts",
+          "tableTo": "_about_v",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._about_v": {
+      "name": "_about_v",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version_heading": {
+          "name": "version_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About'"
+        },
+        "version_greeting": {
+          "name": "version_greeting",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Hi.'"
+        },
+        "version_body": {
+          "name": "version_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"I’m happy to see you find your way to my little website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"I’m Krista, a copywriter based in the vibrant city of London. For years now, I’ve been freelancing as a content writer, fueled by copious amounts of coffee and an unending love for words.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Through my professional writing, I’ve worked with fantastic companies, from multinationals to smaller startups and solo entrepreneurs. My work has allowed me to explore a diverse range of topics, from finance and HR to travel and personal development. I’ve written blogs, newsletters, white papers, emails and social media content — all sorts of materials to support business growth.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"What drives me most is my curiosity — I love exploring new projects and ideas and supporting remarkable people and teams in achieving their goals. I’ve connected with wonderful people and am excited about the new experiences I’ve yet to discover.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Thank you for visiting my website and spending a few of your precious moments with me. I hope you enjoy what you find and come visit again.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Until next time,\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "version_signature": {
+          "name": "version_signature",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Krista'"
+        },
+        "version_postscript_text": {
+          "name": "version_postscript_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Psst. Check out'"
+        },
+        "version_postscript_link": {
+          "name": "version_postscript_link",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'my contact details'"
+        },
+        "version_glance_title": {
+          "name": "version_glance_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Krista,\nat a glance'"
+        },
+        "version_meta_title": {
+          "name": "version_meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About'"
+        },
+        "version_meta_description": {
+          "name": "version_meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'A professional content and copywriter from London, with experience in finance, Human Resources, taxation, investing, personal development and travel.'"
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "enum__about_v_version_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "autosave": {
+          "name": "autosave",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_about_v_version_version__status_idx": {
+          "name": "_about_v_version_version__status_idx",
+          "columns": [
+            {
+              "expression": "version__status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_about_v_created_at_idx": {
+          "name": "_about_v_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_about_v_updated_at_idx": {
+          "name": "_about_v_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_about_v_latest_idx": {
+          "name": "_about_v_latest_idx",
+          "columns": [
+            {
+              "expression": "latest",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_about_v_autosave_idx": {
+          "name": "_about_v_autosave_idx",
+          "columns": [
+            {
+              "expression": "autosave",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.blog": {
+      "name": "blog",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "heading": {
+          "name": "heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Blog Posts'"
+        },
+        "intro": {
+          "name": "intro",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'A collection of things I’ve been thinking about, reading about or accidentally disappearing down a rabbit hole about. You’ll mostly find musings around creativity, words, work, and being human.'"
+        },
+        "empty": {
+          "name": "empty",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'No posts found'"
+        },
+        "coffee_title": {
+          "name": "coffee_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Pour yourself a coffee'"
+        },
+        "coffee_empty": {
+          "name": "coffee_empty",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Your cup is empty. Pour one before you settle in.'"
+        },
+        "coffee_part_full": {
+          "name": "coffee_part_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'There’s some left from your last read. Top it up?'"
+        },
+        "coffee_full": {
+          "name": "coffee_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'A full cup, still hot. Pick a post and settle in.'"
+        },
+        "coffee_pouring": {
+          "name": "coffee_pouring",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Pouring…'"
+        },
+        "coffee_pour": {
+          "name": "coffee_pour",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Pour a cup'"
+        },
+        "coffee_top_up": {
+          "name": "coffee_top_up",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Top up'"
+        },
+        "coffee_full_button": {
+          "name": "coffee_full_button",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Your cup is full'"
+        },
+        "post_end_title": {
+          "name": "post_end_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'That’s the bottom of the cup'"
+        },
+        "post_end_text": {
+          "name": "post_end_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Head back to the blog for a refill and another read.'"
+        },
+        "post_end_back": {
+          "name": "post_end_back",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Back to the blog'"
+        },
+        "post_end_share": {
+          "name": "post_end_share",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Share'"
+        },
+        "meta_title": {
+          "name": "meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Blog Posts'"
+        },
+        "meta_description": {
+          "name": "meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Thoughts on words, creativity and the everyday moments that inspire my writing.'"
+        },
+        "_status": {
+          "name": "_status",
+          "type": "enum_blog_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "blog__status_idx": {
+          "name": "blog__status_idx",
+          "columns": [
+            {
+              "expression": "_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._blog_v": {
+      "name": "_blog_v",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version_heading": {
+          "name": "version_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Blog Posts'"
+        },
+        "version_intro": {
+          "name": "version_intro",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'A collection of things I’ve been thinking about, reading about or accidentally disappearing down a rabbit hole about. You’ll mostly find musings around creativity, words, work, and being human.'"
+        },
+        "version_empty": {
+          "name": "version_empty",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'No posts found'"
+        },
+        "version_coffee_title": {
+          "name": "version_coffee_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Pour yourself a coffee'"
+        },
+        "version_coffee_empty": {
+          "name": "version_coffee_empty",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Your cup is empty. Pour one before you settle in.'"
+        },
+        "version_coffee_part_full": {
+          "name": "version_coffee_part_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'There’s some left from your last read. Top it up?'"
+        },
+        "version_coffee_full": {
+          "name": "version_coffee_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'A full cup, still hot. Pick a post and settle in.'"
+        },
+        "version_coffee_pouring": {
+          "name": "version_coffee_pouring",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Pouring…'"
+        },
+        "version_coffee_pour": {
+          "name": "version_coffee_pour",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Pour a cup'"
+        },
+        "version_coffee_top_up": {
+          "name": "version_coffee_top_up",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Top up'"
+        },
+        "version_coffee_full_button": {
+          "name": "version_coffee_full_button",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Your cup is full'"
+        },
+        "version_post_end_title": {
+          "name": "version_post_end_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'That’s the bottom of the cup'"
+        },
+        "version_post_end_text": {
+          "name": "version_post_end_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Head back to the blog for a refill and another read.'"
+        },
+        "version_post_end_back": {
+          "name": "version_post_end_back",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Back to the blog'"
+        },
+        "version_post_end_share": {
+          "name": "version_post_end_share",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Share'"
+        },
+        "version_meta_title": {
+          "name": "version_meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Blog Posts'"
+        },
+        "version_meta_description": {
+          "name": "version_meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Thoughts on words, creativity and the everyday moments that inspire my writing.'"
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "enum__blog_v_version_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "autosave": {
+          "name": "autosave",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_blog_v_version_version__status_idx": {
+          "name": "_blog_v_version_version__status_idx",
+          "columns": [
+            {
+              "expression": "version__status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_blog_v_created_at_idx": {
+          "name": "_blog_v_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_blog_v_updated_at_idx": {
+          "name": "_blog_v_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_blog_v_latest_idx": {
+          "name": "_blog_v_latest_idx",
+          "columns": [
+            {
+              "expression": "latest",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_blog_v_autosave_idx": {
+          "name": "_blog_v_autosave_idx",
+          "columns": [
+            {
+              "expression": "autosave",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.contact": {
+      "name": "contact",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "heading": {
+          "name": "heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Would I like to get in touch?'"
+        },
+        "intro": {
+          "name": "intro",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Thank you for asking and yes — I’m always ready for new connections and would love to hear from you!\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Whether you’re looking for a content writer for your business, want to collaborate on a project or just have a great (book) suggestion to share, leave me a message right here:\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "closing": {
+          "name": "closing",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'I hope to hear from you!'"
+        },
+        "form_name": {
+          "name": "form_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Name'"
+        },
+        "form_email": {
+          "name": "form_email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Email'"
+        },
+        "form_message": {
+          "name": "form_message",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Message'"
+        },
+        "form_send": {
+          "name": "form_send",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Send message'"
+        },
+        "form_sending": {
+          "name": "form_sending",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Sending…'"
+        },
+        "form_sent": {
+          "name": "form_sent",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Thank you! Your message is on its way and I’ll get back to you soon.'"
+        },
+        "form_failed": {
+          "name": "form_failed",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Sorry, your message couldn’t be sent. Please try again later'"
+        },
+        "form_rate_limited": {
+          "name": "form_rate_limited",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'You’ve sent a few messages already. Please try again later'"
+        },
+        "form_email_fallback": {
+          "name": "form_email_fallback",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'or email me at'"
+        },
+        "note_title": {
+          "name": "note_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Other ways to get in touch'"
+        },
+        "note_linkedin_link": {
+          "name": "note_linkedin_link",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Find me on LinkedIn'"
+        },
+        "note_linkedin_url": {
+          "name": "note_linkedin_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'https://www.linkedin.com/in/kristalomu'"
+        },
+        "note_linkedin_text": {
+          "name": "note_linkedin_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Connect, have a nose around and say hello.'"
+        },
+        "note_email_heading": {
+          "name": "note_email_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Email me directly'"
+        },
+        "note_email_text": {
+          "name": "note_email_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Not a form person? You can email me at'"
+        },
+        "note_footer": {
+          "name": "note_footer",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'I’m always up for a chat about interesting projects, content puzzles, and, of course, good book recommendations.'"
+        },
+        "meta_title": {
+          "name": "meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Contact'"
+        },
+        "meta_description": {
+          "name": "meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Need a content writer for business or personal projects? Contact a professional copywriter to get results with your blog, newsletters, emails and social media.'"
+        },
+        "_status": {
+          "name": "_status",
+          "type": "enum_contact_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "contact__status_idx": {
+          "name": "contact__status_idx",
+          "columns": [
+            {
+              "expression": "_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._contact_v": {
+      "name": "_contact_v",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version_heading": {
+          "name": "version_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Would I like to get in touch?'"
+        },
+        "version_intro": {
+          "name": "version_intro",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Thank you for asking and yes — I’m always ready for new connections and would love to hear from you!\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Whether you’re looking for a content writer for your business, want to collaborate on a project or just have a great (book) suggestion to share, leave me a message right here:\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "version_closing": {
+          "name": "version_closing",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'I hope to hear from you!'"
+        },
+        "version_form_name": {
+          "name": "version_form_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Name'"
+        },
+        "version_form_email": {
+          "name": "version_form_email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Email'"
+        },
+        "version_form_message": {
+          "name": "version_form_message",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Message'"
+        },
+        "version_form_send": {
+          "name": "version_form_send",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Send message'"
+        },
+        "version_form_sending": {
+          "name": "version_form_sending",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Sending…'"
+        },
+        "version_form_sent": {
+          "name": "version_form_sent",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Thank you! Your message is on its way and I’ll get back to you soon.'"
+        },
+        "version_form_failed": {
+          "name": "version_form_failed",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Sorry, your message couldn’t be sent. Please try again later'"
+        },
+        "version_form_rate_limited": {
+          "name": "version_form_rate_limited",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'You’ve sent a few messages already. Please try again later'"
+        },
+        "version_form_email_fallback": {
+          "name": "version_form_email_fallback",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'or email me at'"
+        },
+        "version_note_title": {
+          "name": "version_note_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Other ways to get in touch'"
+        },
+        "version_note_linkedin_link": {
+          "name": "version_note_linkedin_link",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Find me on LinkedIn'"
+        },
+        "version_note_linkedin_url": {
+          "name": "version_note_linkedin_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'https://www.linkedin.com/in/kristalomu'"
+        },
+        "version_note_linkedin_text": {
+          "name": "version_note_linkedin_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Connect, have a nose around and say hello.'"
+        },
+        "version_note_email_heading": {
+          "name": "version_note_email_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Email me directly'"
+        },
+        "version_note_email_text": {
+          "name": "version_note_email_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Not a form person? You can email me at'"
+        },
+        "version_note_footer": {
+          "name": "version_note_footer",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'I’m always up for a chat about interesting projects, content puzzles, and, of course, good book recommendations.'"
+        },
+        "version_meta_title": {
+          "name": "version_meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Contact'"
+        },
+        "version_meta_description": {
+          "name": "version_meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Need a content writer for business or personal projects? Contact a professional copywriter to get results with your blog, newsletters, emails and social media.'"
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "enum__contact_v_version_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "autosave": {
+          "name": "autosave",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_contact_v_version_version__status_idx": {
+          "name": "_contact_v_version_version__status_idx",
+          "columns": [
+            {
+              "expression": "version__status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_contact_v_created_at_idx": {
+          "name": "_contact_v_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_contact_v_updated_at_idx": {
+          "name": "_contact_v_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_contact_v_latest_idx": {
+          "name": "_contact_v_latest_idx",
+          "columns": [
+            {
+              "expression": "latest",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_contact_v_autosave_idx": {
+          "name": "_contact_v_autosave_idx",
+          "columns": [
+            {
+              "expression": "autosave",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.terms": {
+      "name": "terms",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "heading": {
+          "name": "heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Website Terms of Use'"
+        },
+        "last_updated": {
+          "name": "last_updated",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'September, 2024'"
+        },
+        "body": {
+          "name": "body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Terms of Use\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Please read these Terms of Use carefully before using this website. Using this website indicates your agreement with these Terms of Use. If you do not agree with any of the below Terms of Use, do not use this website. Krista Lomu reserves the right, at its sole discretion, to modify, alter or otherwise update these Terms of Use at any time, and you agree to be bound by such modifications, alterations or updates.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Information on this website\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Whilst every effort is made to update the information contained on this website, neither Krista Lomu nor any third party or data or content provider make any representations or warranties, whether express, implied in law or residual, as to the sequence, accuracy, completeness or reliability of information, opinions, research information, data and/or content contained on the website (including but not limited to any information which may be provided by any third party or data or content providers) (“information”) and shall not be bound in any manner by any information contained on the website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu reserves the right at any time to change or discontinue any aspect or feature of this website without notice. No information shall be construed as advice, and information is offered for information purposes only and is not intended for trading purposes. You and your company rely on the information contained on this website at your own risk.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Trademarks, Copyrights and Restrictions\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"The Krista Lomu website is controlled and operated by Krista Lomu. All material on this Site, including, but not limited to text, photos, and graphics, is protected by copyrights, which are owned and controlled by Krista Lomu or by other parties that have granted permission to use their material on the Krista Lomu website (“Copyrights”).\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Material from the Krista Lomu website may not be copied, reproduced, republished, downloaded, posted, transmitted, or distributed in any way. Modification of the materials or use of the materials for any other purpose is a violation of the copyrights and other proprietary rights. For purposes of this Terms Of Use Agreement, using any such material on any other website or networked computer environment is prohibited.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Links to External Websites\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu, whether or not affiliated with sites which may be linked to this Site, is not responsible for their content (“Linked Sites”). The linked sites are for your convenience only, and you access them at your own risk. Appearance of linked sites does not constitute endorsement of the linked Site’s website or information, products or services.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Links to This Website\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu encourages other businesses or individuals to link their sites to this Site. You do not have to obtain permission to do so, although we would be grateful if you could contact Krista Lomu so we can keep any such links up to date. If you wish to establish a link to this website or any particular page of this website, it is requested that the link does not open within another website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Website User Activity\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"As a user of the Site, you agree to use the Site legally, not to use the Site for illegal purposes and not to:\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"list\",\"listType\":\"bullet\",\"start\":1,\"tag\":\"ul\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":1,\"children\":[{\"type\":\"text\",\"text\":\"Harass or mistreat other users of the Site or Krista Lomu;\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":2,\"children\":[{\"type\":\"text\",\"text\":\"Violate the intellectual property rights of the Site owner(s) or any third party to the Site;\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":3,\"children\":[{\"type\":\"text\",\"text\":\"Act in any way that could be considered fraudulent or\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":4,\"children\":[{\"type\":\"text\",\"text\":\"Post any material that may be deemed inappropriate or offensive.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If we believe you are using the Site illegally or in a manner that violates these Terms of Use, we reserve the right to limit, suspend, or terminate your access to the Site and take any legal steps necessary to prevent you from accessing the Site.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Web Analytics Tools\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"The Site may use web analytics tools to collect information on when users access the Site and how long they remain on the page. This information is stored securely and will not be connected to your personal information as a user of the Site.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Personal Information\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If you use the website email or contact Krista Lomu via social media, your personal information may be collected and stored securely. This information will be password-protected and governed by the privacy rules and regulations of the third-party platforms you use to contact. Please contact Krista Lomu if you want to see what information is stored and to ask for the data to be destroyed.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Website Security\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"We do not guarantee that the Site will be secure or free from bugs or viruses. You are responsible for configuring your information technology, computer programs, and platform to access the Site.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Disclaimer\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu nor its affiliated or related entities or its content providers are responsible or liable to any person or entity whatsoever (including, without limitation, persons who may use or rely on such data/materials or to whom such data/materials may be furnished) for any loss, damage (whether actual, consequential, punitive or otherwise), injury, claim, liability or other cause of any kind or character whatsoever based upon or resulting from any information or opinions provided in the Krista Lomu website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Applicable Law\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Please note that these Terms of Use, their subject matter and their formation are governed by English law.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Contact Details\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If you have any questions, comments, or concerns about the website, these Terms of Use, any other relevant policies or notices, or the way Krista Lomu is handling your personal information, please email kristalomu@gmail.com.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "meta_title": {
+          "name": "meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Terms of Use'"
+        },
+        "meta_description": {
+          "name": "meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "_status": {
+          "name": "_status",
+          "type": "enum_terms_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "terms__status_idx": {
+          "name": "terms__status_idx",
+          "columns": [
+            {
+              "expression": "_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._terms_v": {
+      "name": "_terms_v",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version_heading": {
+          "name": "version_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Website Terms of Use'"
+        },
+        "version_last_updated": {
+          "name": "version_last_updated",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'September, 2024'"
+        },
+        "version_body": {
+          "name": "version_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Terms of Use\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Please read these Terms of Use carefully before using this website. Using this website indicates your agreement with these Terms of Use. If you do not agree with any of the below Terms of Use, do not use this website. Krista Lomu reserves the right, at its sole discretion, to modify, alter or otherwise update these Terms of Use at any time, and you agree to be bound by such modifications, alterations or updates.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Information on this website\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Whilst every effort is made to update the information contained on this website, neither Krista Lomu nor any third party or data or content provider make any representations or warranties, whether express, implied in law or residual, as to the sequence, accuracy, completeness or reliability of information, opinions, research information, data and/or content contained on the website (including but not limited to any information which may be provided by any third party or data or content providers) (“information”) and shall not be bound in any manner by any information contained on the website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu reserves the right at any time to change or discontinue any aspect or feature of this website without notice. No information shall be construed as advice, and information is offered for information purposes only and is not intended for trading purposes. You and your company rely on the information contained on this website at your own risk.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Trademarks, Copyrights and Restrictions\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"The Krista Lomu website is controlled and operated by Krista Lomu. All material on this Site, including, but not limited to text, photos, and graphics, is protected by copyrights, which are owned and controlled by Krista Lomu or by other parties that have granted permission to use their material on the Krista Lomu website (“Copyrights”).\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Material from the Krista Lomu website may not be copied, reproduced, republished, downloaded, posted, transmitted, or distributed in any way. Modification of the materials or use of the materials for any other purpose is a violation of the copyrights and other proprietary rights. For purposes of this Terms Of Use Agreement, using any such material on any other website or networked computer environment is prohibited.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Links to External Websites\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu, whether or not affiliated with sites which may be linked to this Site, is not responsible for their content (“Linked Sites”). The linked sites are for your convenience only, and you access them at your own risk. Appearance of linked sites does not constitute endorsement of the linked Site’s website or information, products or services.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Links to This Website\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu encourages other businesses or individuals to link their sites to this Site. You do not have to obtain permission to do so, although we would be grateful if you could contact Krista Lomu so we can keep any such links up to date. If you wish to establish a link to this website or any particular page of this website, it is requested that the link does not open within another website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Website User Activity\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"As a user of the Site, you agree to use the Site legally, not to use the Site for illegal purposes and not to:\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"list\",\"listType\":\"bullet\",\"start\":1,\"tag\":\"ul\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":1,\"children\":[{\"type\":\"text\",\"text\":\"Harass or mistreat other users of the Site or Krista Lomu;\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":2,\"children\":[{\"type\":\"text\",\"text\":\"Violate the intellectual property rights of the Site owner(s) or any third party to the Site;\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":3,\"children\":[{\"type\":\"text\",\"text\":\"Act in any way that could be considered fraudulent or\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"listitem\",\"value\":4,\"children\":[{\"type\":\"text\",\"text\":\"Post any material that may be deemed inappropriate or offensive.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If we believe you are using the Site illegally or in a manner that violates these Terms of Use, we reserve the right to limit, suspend, or terminate your access to the Site and take any legal steps necessary to prevent you from accessing the Site.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Web Analytics Tools\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"The Site may use web analytics tools to collect information on when users access the Site and how long they remain on the page. This information is stored securely and will not be connected to your personal information as a user of the Site.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Personal Information\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If you use the website email or contact Krista Lomu via social media, your personal information may be collected and stored securely. This information will be password-protected and governed by the privacy rules and regulations of the third-party platforms you use to contact. Please contact Krista Lomu if you want to see what information is stored and to ask for the data to be destroyed.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Website Security\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"We do not guarantee that the Site will be secure or free from bugs or viruses. You are responsible for configuring your information technology, computer programs, and platform to access the Site.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Disclaimer\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Krista Lomu nor its affiliated or related entities or its content providers are responsible or liable to any person or entity whatsoever (including, without limitation, persons who may use or rely on such data/materials or to whom such data/materials may be furnished) for any loss, damage (whether actual, consequential, punitive or otherwise), injury, claim, liability or other cause of any kind or character whatsoever based upon or resulting from any information or opinions provided in the Krista Lomu website.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Applicable Law\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"Please note that these Terms of Use, their subject matter and their formation are governed by English law.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"heading\",\"tag\":\"h2\",\"children\":[{\"type\":\"text\",\"text\":\"Contact Details\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If you have any questions, comments, or concerns about the website, these Terms of Use, any other relevant policies or notices, or the way Krista Lomu is handling your personal information, please email kristalomu@gmail.com.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "version_meta_title": {
+          "name": "version_meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Terms of Use'"
+        },
+        "version_meta_description": {
+          "name": "version_meta_description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "enum__terms_v_version_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "autosave": {
+          "name": "autosave",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_terms_v_version_version__status_idx": {
+          "name": "_terms_v_version_version__status_idx",
+          "columns": [
+            {
+              "expression": "version__status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_terms_v_created_at_idx": {
+          "name": "_terms_v_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_terms_v_updated_at_idx": {
+          "name": "_terms_v_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_terms_v_latest_idx": {
+          "name": "_terms_v_latest_idx",
+          "columns": [
+            {
+              "expression": "latest",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_terms_v_autosave_idx": {
+          "name": "_terms_v_autosave_idx",
+          "columns": [
+            {
+              "expression": "autosave",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.site": {
+      "name": "site",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Krista Lomu'"
+        },
+        "nav_home": {
+          "name": "nav_home",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Home'"
+        },
+        "nav_about": {
+          "name": "nav_about",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About'"
+        },
+        "nav_blog": {
+          "name": "nav_blog",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Blog'"
+        },
+        "nav_contact": {
+          "name": "nav_contact",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Contact'"
+        },
+        "footer_terms": {
+          "name": "footer_terms",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Terms of Use'"
+        },
+        "not_found_heading": {
+          "name": "not_found_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'You did it!'"
+        },
+        "not_found_subheading": {
+          "name": "not_found_subheading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'You found the 404 page.'"
+        },
+        "not_found_body": {
+          "name": "not_found_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If this wasn’t intentional, please return to the \",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1},{\"format\":\"\",\"indent\":0,\"version\":3,\"direction\":\"ltr\",\"type\":\"link\",\"fields\":{\"linkType\":\"custom\",\"url\":\"/\",\"newTab\":false},\"children\":[{\"type\":\"text\",\"text\":\"home page\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"type\":\"text\",\"text\":\" and try again.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "_status": {
+          "name": "_status",
+          "type": "enum_site_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "site__status_idx": {
+          "name": "site__status_idx",
+          "columns": [
+            {
+              "expression": "_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public._site_v": {
+      "name": "_site_v",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "version_name": {
+          "name": "version_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Krista Lomu'"
+        },
+        "version_nav_home": {
+          "name": "version_nav_home",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Home'"
+        },
+        "version_nav_about": {
+          "name": "version_nav_about",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'About'"
+        },
+        "version_nav_blog": {
+          "name": "version_nav_blog",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Blog'"
+        },
+        "version_nav_contact": {
+          "name": "version_nav_contact",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Contact'"
+        },
+        "version_footer_terms": {
+          "name": "version_footer_terms",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Terms of Use'"
+        },
+        "version_not_found_heading": {
+          "name": "version_not_found_heading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'You did it!'"
+        },
+        "version_not_found_subheading": {
+          "name": "version_not_found_subheading",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'You found the 404 page.'"
+        },
+        "version_not_found_body": {
+          "name": "version_not_found_body",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"root\":{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"root\",\"children\":[{\"format\":\"\",\"indent\":0,\"version\":1,\"direction\":\"ltr\",\"type\":\"paragraph\",\"textFormat\":0,\"textStyle\":\"\",\"children\":[{\"type\":\"text\",\"text\":\"If this wasn’t intentional, please return to the \",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1},{\"format\":\"\",\"indent\":0,\"version\":3,\"direction\":\"ltr\",\"type\":\"link\",\"fields\":{\"linkType\":\"custom\",\"url\":\"/\",\"newTab\":false},\"children\":[{\"type\":\"text\",\"text\":\"home page\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]},{\"type\":\"text\",\"text\":\" and try again.\",\"format\":0,\"detail\":0,\"mode\":\"normal\",\"style\":\"\",\"version\":1}]}]}}'::jsonb"
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "enum__site_v_version_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'draft'"
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp(3) with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "autosave": {
+          "name": "autosave",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "_site_v_version_version__status_idx": {
+          "name": "_site_v_version_version__status_idx",
+          "columns": [
+            {
+              "expression": "version__status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_site_v_created_at_idx": {
+          "name": "_site_v_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_site_v_updated_at_idx": {
+          "name": "_site_v_updated_at_idx",
+          "columns": [
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_site_v_latest_idx": {
+          "name": "_site_v_latest_idx",
+          "columns": [
+            {
+              "expression": "latest",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_site_v_autosave_idx": {
+          "name": "_site_v_autosave_idx",
+          "columns": [
+            {
+              "expression": "autosave",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.enum_posts_status": {
+      "name": "enum_posts_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__posts_v_version_status": {
+      "name": "enum__posts_v_version_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum_home_status": {
+      "name": "enum_home_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__home_v_version_status": {
+      "name": "enum__home_v_version_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum_about_status": {
+      "name": "enum_about_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__about_v_version_status": {
+      "name": "enum__about_v_version_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum_blog_status": {
+      "name": "enum_blog_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__blog_v_version_status": {
+      "name": "enum__blog_v_version_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum_contact_status": {
+      "name": "enum_contact_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__contact_v_version_status": {
+      "name": "enum__contact_v_version_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum_terms_status": {
+      "name": "enum_terms_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__terms_v_version_status": {
+      "name": "enum__terms_v_version_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum_site_status": {
+      "name": "enum_site_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__site_v_version_status": {
+      "name": "enum__site_v_version_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "id": "a6e515ba-760b-4310-8cda-27c5a27e064a",
+  "prevId": "00000000-0000-0000-0000-000000000000"
+}

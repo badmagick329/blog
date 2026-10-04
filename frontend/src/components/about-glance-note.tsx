@@ -1,24 +1,17 @@
 import Image from 'next/image';
-
-const facts: [label: string, value: string][] = [
-  ['Name', 'Krista'],
-  ['Role', 'Content writer + strategist'],
-  ['Based in', 'London'],
-  ['Best at', 'Turning ideas into clear content plans and copy'],
-  ['Often working on', 'Campaigns, content calendars, blogs, emails'],
-  ['Favourite kind of problem', '“We know we need content, but…”'],
-  ['Pet peeve', 'Content for content’s sake'],
-  ['Powered by', 'Coffee and curiosity'],
-  ['Current side quest', 'Learning Korean'],
-  ['Say hello if', 'You’ve got a tricky content problem'],
-];
+import { Fragment } from 'react';
 
 // A note pinned beside the About page. The doodles are decoration, so they
 // carry empty alt text; their canvases keep transparent padding, so the boxes
 // below are larger than the visible artwork. They turn with the note, but the
 // note's tilt is too slight to show on the upright cup, so it leans further on
 // its own; the user found the same on the star too much.
-export default function AboutGlanceNote() {
+export default function AboutGlanceNote({
+  copy,
+}: {
+  copy: { title: string; facts?: { label: string; value: string }[] | null };
+}) {
+  const titleLines = copy.title.split(/\r?\n/);
   return (
     <aside
       aria-labelledby='glance-title'
@@ -44,12 +37,16 @@ export default function AboutGlanceNote() {
         id='glance-title'
         className='glance-note-title text-4xl font-semibold leading-tight'
       >
-        Krista, <br />
-        at a glance
+        {titleLines.map((line, index) => (
+          <Fragment key={index}>
+            {index > 0 && <br />}
+            {line}
+          </Fragment>
+        ))}
       </h2>
       <dl className='mt-5 flex flex-col gap-3 text-base leading-snug'>
-        {facts.map(([label, value]) => (
-          <div key={label}>
+        {copy.facts?.map(({ label, value }, index) => (
+          <div key={index}>
             <dt className='glance-note-label mr-1.5 inline font-semibold'>
               {label}:
             </dt>

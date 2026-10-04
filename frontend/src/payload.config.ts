@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import { Media } from './collections/Media';
 import { Posts } from './collections/Posts';
 import { Users } from './collections/Users';
+import { globals } from './globals';
 import { emailAdapter } from './lib/email';
 import { migrations } from './migrations';
 
@@ -33,9 +34,11 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: ' · Krista Lomu',
+      icons: [{ rel: 'icon', type: 'image/x-icon', url: '/icon.ico' }],
     },
   },
   collections: [Posts, Media, Users],
+  globals,
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures.filter(({ key }) => !droppedFeatures.has(key)),

@@ -5,7 +5,9 @@ import { usePathname } from 'next/navigation';
 
 import NavbarLink from './navbar-link';
 
-export default function Header() {
+type NavCopy = { home: string; about: string; blog: string; contact: string };
+
+export default function Header({ name, nav }: { name: string; nav: NavCopy }) {
   const pathname = usePathname();
 
   return (
@@ -19,7 +21,7 @@ export default function Header() {
           href='/'
           className='site-wordmark shrink-0 rounded-sm text-lg font-semibold tracking-tight text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-2xl'
         >
-          Krista Lomu
+          {name}
         </Link>
         <nav
           aria-label='Primary navigation'
@@ -27,11 +29,16 @@ export default function Header() {
         >
           {/* The wordmark already links home; phones skip the duplicate. */}
           <span className='hidden sm:contents'>
-            <NavbarLink href='/' pathname={pathname} />
+            <NavbarLink href='/' label={nav.home} pathname={pathname} />
           </span>
-          <NavbarLink href='/about' pathname={pathname} />
-          <NavbarLink href='/posts' pathname={pathname} />
-          <NavbarLink href='/contact' pathname={pathname} variant='button' />
+          <NavbarLink href='/about' label={nav.about} pathname={pathname} />
+          <NavbarLink href='/posts' label={nav.blog} pathname={pathname} />
+          <NavbarLink
+            href='/contact'
+            label={nav.contact}
+            pathname={pathname}
+            variant='button'
+          />
         </nav>
       </header>
     </div>

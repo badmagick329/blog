@@ -1,33 +1,26 @@
+import RichText from '@/components/rich-text';
+import { getCopy } from '@/lib/content';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import NotFoundImage from '../../../public/images/unicorn-surprised-375.webp';
 
-export default function NotFound() {
+export default async function NotFound() {
+  const { notFound: copy } = await getCopy('site');
   return (
     <main
       id='main-content'
       tabIndex={-1}
       className='flex grow flex-col items-center justify-center gap-4'
     >
-      <h1 className='pb-8 text-4xl font-semibold'>You did it!</h1>
-      <p className='pb-4 text-xl'>You found the 404 page.</p>
+      <h1 className='pb-8 text-4xl font-semibold'>{copy.heading}</h1>
+      <p className='pb-4 text-xl'>{copy.subheading}</p>
       <Image
         src={NotFoundImage}
         width={300}
         height={300}
         alt='Unicorn Surprised'
       />
-      <p>
-        If this wasn’t intentional, please return to the{' '}
-        <Link
-          className='font-semibold hover:cursor-pointer hover:text-foreground/60'
-          href='/'
-        >
-          home page
-        </Link>{' '}
-        and try again.
-      </p>
+      <RichText data={copy.body} className='not-found-body' />
     </main>
   );
 }

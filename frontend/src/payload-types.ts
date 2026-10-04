@@ -89,8 +89,22 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    home: Home;
+    about: About;
+    blog: Blog;
+    contact: Contact;
+    terms: Term;
+    site: Site;
+  };
+  globalsSelect: {
+    home: HomeSelect<false> | HomeSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
+    blog: BlogSelect<false> | BlogSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
+    terms: TermsSelect<false> | TermsSelect<true>;
+    site: SiteSelect<false> | SiteSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -410,6 +424,523 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: number;
+  greeting: string;
+  heading: string;
+  intro: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Links to the About page.
+   */
+  aboutButton: string;
+  /**
+   * Links to the Contact page.
+   */
+  contactLink: string;
+  /**
+   * Above the newest post’s title on its photo.
+   */
+  latestLabel: string;
+  meta: {
+    /**
+     * Shown in the browser tab.
+     */
+    title: string;
+    /**
+     * One or two sentences for search results and link previews.
+     */
+    description?: string | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  heading: string;
+  /**
+   * In handwriting, above the text.
+   */
+  greeting: string;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * In handwriting.
+   */
+  signature: string;
+  /**
+   * The handwritten line under the signature.
+   */
+  postscript: {
+    text: string;
+    /**
+     * Links to the Contact page.
+     */
+    link: string;
+  };
+  glance: {
+    /**
+     * Each line of the box is a line on the note.
+     */
+    title: string;
+    facts?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  meta: {
+    /**
+     * Shown in the browser tab.
+     */
+    title: string;
+    /**
+     * One or two sentences for search results and link previews.
+     */
+    description?: string | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The blog page and the box at the end of every post. Posts themselves are under Posts.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog".
+ */
+export interface Blog {
+  id: number;
+  heading: string;
+  intro: string;
+  /**
+   * Shown while there are no published posts.
+   */
+  empty: string;
+  coffee: {
+    title: string;
+    empty: string;
+    partFull: string;
+    full: string;
+    pouring: string;
+    pour: string;
+    topUp: string;
+    fullButton: string;
+  };
+  /**
+   * The box readers reach as their coffee runs out.
+   */
+  postEnd: {
+    title: string;
+    text: string;
+    back: string;
+    share: string;
+  };
+  meta: {
+    /**
+     * Shown in the browser tab.
+     */
+    title: string;
+    /**
+     * One or two sentences for search results and link previews.
+     */
+    description?: string | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The email address shown on this page is set by the developer; ask them to change it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: number;
+  heading: string;
+  intro: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * In handwriting, under the form.
+   */
+  closing: string;
+  form: {
+    name: string;
+    email: string;
+    message: string;
+    send: string;
+    sending: string;
+    /**
+     * Replaces the form once a message is sent.
+     */
+    sent: string;
+    /**
+     * Followed by the email fallback below.
+     */
+    failed: string;
+    /**
+     * Shown to someone who sent several messages in an hour.
+     */
+    rateLimited: string;
+    /**
+     * Followed by the email address.
+     */
+    emailFallback: string;
+  };
+  note: {
+    title: string;
+    linkedinLink: string;
+    linkedinUrl: string;
+    linkedinText: string;
+    emailHeading: string;
+    /**
+     * Followed by the email address.
+     */
+    emailText: string;
+    footer: string;
+  };
+  meta: {
+    /**
+     * Shown in the browser tab.
+     */
+    title: string;
+    /**
+     * One or two sentences for search results and link previews.
+     */
+    description?: string | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms".
+ */
+export interface Term {
+  id: number;
+  heading: string;
+  /**
+   * Shown as “Last updated: …” under the heading.
+   */
+  lastUpdated: string;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  meta: {
+    /**
+     * Shown in the browser tab.
+     */
+    title: string;
+    /**
+     * One or two sentences for search results and link previews.
+     */
+    description?: string | null;
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site".
+ */
+export interface Site {
+  id: number;
+  /**
+   * The name in the header, the footer copyright and link previews.
+   */
+  name: string;
+  nav: {
+    home: string;
+    about: string;
+    blog: string;
+    contact: string;
+  };
+  footer: {
+    terms: string;
+  };
+  /**
+   * Shown for addresses that don’t exist, such as a mistyped link.
+   */
+  notFound: {
+    heading: string;
+    subheading: string;
+    body: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+  };
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  greeting?: T;
+  heading?: T;
+  intro?: T;
+  aboutButton?: T;
+  contactLink?: T;
+  latestLabel?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  heading?: T;
+  greeting?: T;
+  body?: T;
+  signature?: T;
+  postscript?:
+    | T
+    | {
+        text?: T;
+        link?: T;
+      };
+  glance?:
+    | T
+    | {
+        title?: T;
+        facts?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog_select".
+ */
+export interface BlogSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  empty?: T;
+  coffee?:
+    | T
+    | {
+        title?: T;
+        empty?: T;
+        partFull?: T;
+        full?: T;
+        pouring?: T;
+        pour?: T;
+        topUp?: T;
+        fullButton?: T;
+      };
+  postEnd?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        back?: T;
+        share?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  closing?: T;
+  form?:
+    | T
+    | {
+        name?: T;
+        email?: T;
+        message?: T;
+        send?: T;
+        sending?: T;
+        sent?: T;
+        failed?: T;
+        rateLimited?: T;
+        emailFallback?: T;
+      };
+  note?:
+    | T
+    | {
+        title?: T;
+        linkedinLink?: T;
+        linkedinUrl?: T;
+        linkedinText?: T;
+        emailHeading?: T;
+        emailText?: T;
+        footer?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms_select".
+ */
+export interface TermsSelect<T extends boolean = true> {
+  heading?: T;
+  lastUpdated?: T;
+  body?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site_select".
+ */
+export interface SiteSelect<T extends boolean = true> {
+  name?: T;
+  nav?:
+    | T
+    | {
+        home?: T;
+        about?: T;
+        blog?: T;
+        contact?: T;
+      };
+  footer?:
+    | T
+    | {
+        terms?: T;
+      };
+  notFound?:
+    | T
+    | {
+        heading?: T;
+        subheading?: T;
+        body?: T;
+      };
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

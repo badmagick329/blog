@@ -19,7 +19,19 @@ const emptyDraft: Draft = { name: '', email: '', message: '' };
 const inputClass =
   'w-full rounded-md border border-input bg-white/70 px-3 py-2 text-base text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-[invalid=true]:border-destructive';
 
-export default function ContactForm() {
+export type ContactFormCopy = {
+  name: string;
+  email: string;
+  message: string;
+  send: string;
+  sending: string;
+  sent: string;
+  failed: string;
+  rateLimited: string;
+  emailFallback: string;
+};
+
+export default function ContactForm({ copy }: { copy: ContactFormCopy }) {
   // React resets the form's fields after every action, so the submitted
   // values become the fields' defaults; otherwise a visitor shown a
   // validation error would lose what they typed.
@@ -43,7 +55,7 @@ export default function ContactForm() {
   if (state.status === 'sent') {
     return (
       <p role='status' className='text-center'>
-        Thank you! Your message is on its way and I’ll get back to you soon.
+        {copy.sent}
       </p>
     );
   }
@@ -52,7 +64,7 @@ export default function ContactForm() {
 
   return (
     <form action={formAction} noValidate className='not-prose space-y-4'>
-      <Field id='name' label='Name' error={errors.name}>
+      <Field id='name' label={copy.name} error={errors.name}>
         <input
           id='name'
           name='name'
@@ -65,7 +77,7 @@ export default function ContactForm() {
           className={inputClass}
         />
       </Field>
-      <Field id='email' label='Email' error={errors.email}>
+      <Field id='email' label={copy.email} error={errors.email}>
         <input
           id='email'
           name='email'
@@ -79,7 +91,7 @@ export default function ContactForm() {
           className={inputClass}
         />
       </Field>
-      <Field id='message' label='Message' error={errors.message}>
+      <Field id='message' label={copy.message} error={errors.message}>
         <textarea
           id='message'
           name='message'
@@ -105,10 +117,8 @@ export default function ContactForm() {
       <div aria-live='polite'>
         {state.status === 'failed' && (
           <p className='text-sm text-destructive'>
-            {state.reason === 'rate-limited'
-              ? 'You’ve sent a few messages already. Please try again later'
-              : 'Sorry, your message couldn’t be sent. Please try again later'}{' '}
-            or email me at{' '}
+            {state.reason === 'rate-limited' ? copy.rateLimited : copy.failed}{' '}
+            {copy.emailFallback}{' '}
             <a href={`mailto:${EMAIL_ADDRESS}`} className='underline'>
               {EMAIL_ADDRESS}
             </a>
@@ -118,7 +128,11 @@ export default function ContactForm() {
       </div>
 
       <div className='flex justify-end'>
-        <SubmitButton ready={startedAt !== ''} />
+        <SubmitButton
+          ready={startedAt !== ''}
+          send={copy.send}
+          sending={copy.sending}
+        />
       </div>
     </form>
   );
@@ -150,7 +164,15 @@ function Field({
   );
 }
 
-function SubmitButton({ ready }: { ready: boolean }) {
+function SubmitButton({
+  ready,
+  send,
+  sending,
+}: {
+  ready: boolean;
+  send: string;
+  sending: string;
+}) {
   const { pending } = useFormStatus();
   return (
     // Styled like the header's Contact button; the default variant's
@@ -160,7 +182,7 @@ function SubmitButton({ ready }: { ready: boolean }) {
       disabled={!ready || pending}
       className='site-cta motion-lift bg-accent px-6 text-lg font-semibold text-accent-foreground shadow-sm hover:-translate-y-0.5 hover:bg-accent/90 hover:shadow-md'
     >
-      {pending ? 'Sending…' : 'Send message'}
+      {pending ? sending : send}
     </Button>
   );
 }

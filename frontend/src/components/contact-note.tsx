@@ -10,7 +10,17 @@ const linkClass =
 
 // The other ways to reach Krista, pinned beside the contact form. It shares the
 // About page's sticky-note styling (`glance-note`), so both notes stay alike.
-export default function ContactNote() {
+type ContactNoteCopy = {
+  title: string;
+  linkedinLink: string;
+  linkedinUrl: string;
+  linkedinText: string;
+  emailHeading: string;
+  emailText: string;
+  footer: string;
+};
+
+export default function ContactNote({ copy }: { copy: ContactNoteCopy }) {
   return (
     <aside
       aria-labelledby='contact-note-title'
@@ -29,7 +39,7 @@ export default function ContactNote() {
         id='contact-note-title'
         className='glance-note-title glance-note-title--plain text-4xl font-semibold leading-tight'
       >
-        Other ways to get in touch
+        {copy.title}
       </h2>
       <ul className='mt-6 flex flex-col gap-6 text-base leading-snug'>
         <li className='flex items-start gap-4'>
@@ -42,14 +52,14 @@ export default function ContactNote() {
           />
           <div>
             <a
-              href='https://www.linkedin.com/in/kristalomu'
+              href={copy.linkedinUrl}
               target='_blank'
               rel='noopener noreferrer'
               className={`font-semibold ${linkClass}`}
             >
-              Find me on LinkedIn
+              {copy.linkedinLink}
             </a>
-            <p className='mt-1'>Connect, have a nose around and say hello.</p>
+            <p className='mt-1'>{copy.linkedinText}</p>
           </div>
         </li>
         <li className='flex items-start gap-4'>
@@ -61,9 +71,9 @@ export default function ContactNote() {
             className='shrink-0 rounded-full'
           />
           <div>
-            <p className='font-semibold'>Email me directly</p>
+            <p className='font-semibold'>{copy.emailHeading}</p>
             <p className='mt-1'>
-              Not a form person? You can email me at{' '}
+              {copy.emailText}{' '}
               <a href={`mailto:${EMAIL_ADDRESS}`} className={linkClass}>
                 {EMAIL_ADDRESS}
               </a>
@@ -73,8 +83,7 @@ export default function ContactNote() {
         </li>
       </ul>
       <p className='mt-8 border-t border-foreground/20 pt-5 text-base italic leading-snug'>
-        I’m always up for a chat about interesting projects, content puzzles,
-        and, of course, good book recommendations.
+        {copy.footer}
       </p>
     </aside>
   );

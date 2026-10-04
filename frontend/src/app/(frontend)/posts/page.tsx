@@ -1,32 +1,41 @@
-import type { Metadata } from 'next';
 import CoffeeStation from '@/components/coffee-station';
 import MainHeading from '@/components/main-heading';
 import PostItem from '@/components/post-item';
+import { getCopy } from '@/lib/content';
 import { getVisiblePosts } from '@/lib/posts';
+import type { Metadata } from 'next';
 
 // Rendered per request from the database: images are built without database
 // access, and new or scheduled posts then show up at once.
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Blog Posts',
-  description:
-    'Thoughts on words, creativity and the everyday moments that inspire my writing.',
-  alternates: {
-    canonical: 'https://kristalomu.com/posts',
-  },
-  openGraph: {
-    type: 'website',
-    siteName: 'Krista Lomu',
-    url: 'https://kristalomu.com/posts',
-    title: 'Blog Posts',
-    description:
-      'Thoughts on words, creativity and the everyday moments that inspire my writing.',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [{ meta }, site] = await Promise.all([
+    getCopy('blog'),
+    getCopy('site'),
+  ]);
+  const description = meta.description || undefined;
+  return {
+    title: meta.title,
+    description,
+    alternates: {
+      canonical: 'https://kristalomu.com/posts',
+    },
+    openGraph: {
+      type: 'website',
+      siteName: site.name,
+      url: 'https://kristalomu.com/posts',
+      title: meta.title,
+      description,
+    },
+  };
+}
 
 export default async function BlogPosts() {
-  const displayPosts = await getVisiblePosts();
+  const [copy, displayPosts] = await Promise.all([
+    getCopy('blog'),
+    getVisiblePosts(),
+  ]);
 
   return (
     <main
@@ -38,12 +47,8 @@ export default async function BlogPosts() {
         {/* Spacing goes on this wrapper: margins on the intro itself lose to
             lg:prose-lg, which zeroes the last paragraph's bottom margin. */}
         <div className='prose mx-auto mb-10 text-foreground lg:prose-lg'>
-          <MainHeading text='Blog Posts' />
-          <p className='text-center text-foreground/85'>
-            A collection of things I’ve been thinking about, reading about or
-            accidentally disappearing down a rabbit hole about. You’ll mostly
-            find musings around creativity, words, work, and being human.
-          </p>
+          <MainHeading text={copy.heading} />
+          <p className='text-center text-foreground/85'>{copy.intro}</p>
         </div>
         {/* Posts beside a sticky coffee station from lg; on phones the
             station comes first so the reader can pour before picking. */}
@@ -61,12 +66,12 @@ export default async function BlogPosts() {
                   />
                 ))
               ) : (
-                <p>No posts found</p>
+                <p>{copy.empty}</p>
               )}
             </section>
           </article>
           <div className='order-first w-full max-w-md lg:sticky lg:top-28 lg:order-none lg:w-72 lg:shrink-0'>
-            <CoffeeStation />
+            <CoffeeStation copy={copy.coffee} />
           </div>
         </div>
       </div>

@@ -14,10 +14,13 @@ const pathToPathName = new Map<string, NavLabel>([
 
 export default function NavbarLink({
   href,
+  label,
   pathname,
   variant = 'link',
 }: {
   href: string;
+  /** Editable copy; the icon and active state still key off `href`. */
+  label: string;
   pathname: string;
   /** The filled call-to-action follows the mobile icon / desktop label layout. */
   variant?: 'link' | 'button';
@@ -37,12 +40,10 @@ export default function NavbarLink({
           <MobileNavIcon
             path={href}
             isActive={isActive}
-            className='brightness-0 invert drop-shadow-[0.3px_0_0_hsl(var(--accent-foreground))]'
+            className='brightness-0 drop-shadow-[0.3px_0_0_hsl(var(--accent-foreground))] invert'
           />
         </span>
-        <span className='sr-only sm:not-sr-only'>
-          {hrefAsValidPath ?? href}
-        </span>
+        <span className='sr-only sm:not-sr-only'>{label}</span>
       </Link>
     );
   }
@@ -50,7 +51,7 @@ export default function NavbarLink({
   if (hrefAsValidPath === undefined) {
     return (
       <LinkWrapper href={href} isActive>
-        <LinkContent href={href} hrefAsValidPath={hrefAsValidPath} isActive />
+        <LinkContent href={href} label={label} isActive />
       </LinkWrapper>
     );
   }
@@ -59,11 +60,7 @@ export default function NavbarLink({
 
   return (
     <LinkWrapper isActive={isActive} href={href}>
-      <LinkContent
-        isActive={isActive}
-        href={href}
-        hrefAsValidPath={hrefAsValidPath}
-      />
+      <LinkContent isActive={isActive} href={href} label={label} />
     </LinkWrapper>
   );
 }
@@ -100,11 +97,11 @@ function LinkWrapper({
 function LinkContent({
   isActive,
   href,
-  hrefAsValidPath,
+  label,
 }: {
   isActive: boolean;
   href: string;
-  hrefAsValidPath: NavLabel | undefined;
+  label: string;
 }) {
   return (
     <>
@@ -118,11 +115,11 @@ function LinkContent({
           )}
         >
           <MobileNavIcon path={href} isActive={isActive} />
-          <span className='sr-only'>{hrefAsValidPath}</span>
+          <span className='sr-only'>{label}</span>
         </span>
       </span>
       <span className='hidden text-center font-semibold tracking-wide sm:block sm:px-4'>
-        {hrefAsValidPath}
+        {label}
       </span>
     </>
   );
