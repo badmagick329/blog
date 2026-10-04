@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     posts: Post;
     media: Media;
+    feedback: Feedback;
+    'feedback-screenshots': FeedbackScreenshot;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -79,6 +81,8 @@ export interface Config {
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    feedback: FeedbackSelect<false> | FeedbackSelect<true>;
+    'feedback-screenshots': FeedbackScreenshotsSelect<false> | FeedbackScreenshotsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -211,6 +215,46 @@ export interface Media {
   };
 }
 /**
+ * Problems and ideas for the site. While you’re logged in, the Feedback button at the bottom right of every page on the site adds one with the page filled in.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feedback".
+ */
+export interface Feedback {
+  id: number;
+  /**
+   * What’s wrong, or what you’d like changed.
+   */
+  message: string;
+  /**
+   * The page it’s about, for example https://kristalomu.com/about.
+   */
+  page?: string | null;
+  screenshot?: (number | null) | FeedbackScreenshot;
+  status: 'open' | 'in-progress' | 'done';
+  reporter?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feedback-screenshots".
+ */
+export interface FeedbackScreenshot {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -267,6 +311,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'feedback';
+        value: number | Feedback;
+      } | null)
+    | ({
+        relationTo: 'feedback-screenshots';
+        value: number | FeedbackScreenshot;
       } | null)
     | ({
         relationTo: 'users';
@@ -361,6 +413,36 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feedback_select".
+ */
+export interface FeedbackSelect<T extends boolean = true> {
+  message?: T;
+  page?: T;
+  screenshot?: T;
+  status?: T;
+  reporter?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feedback-screenshots_select".
+ */
+export interface FeedbackScreenshotsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

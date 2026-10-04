@@ -55,6 +55,12 @@ export function DashboardGuide() {
         <strong>Restore this version</strong>.
       </p>
       <p>
+        Spotted something to fix or change? While you’re logged in, every page
+        on the site has a <strong>Feedback</strong> button at the bottom right;
+        it notes the page for you and takes an optional screenshot. Your notes
+        are under <strong>Feedback</strong> in the menu.
+      </p>
+      <p>
         Forgot your password? Use <strong>Forgot password?</strong> on the login
         page and a reset link arrives by email. Change it any time under your
         account (top right).

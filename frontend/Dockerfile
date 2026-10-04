@@ -46,9 +46,10 @@ COPY --from=builder /app/public ./public
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-# Payload uploads. Production mounts a named volume here, which Docker seeds
-# with this directory's ownership the first time, so the app can write to it.
-RUN mkdir media && chown nextjs:nodejs media
+# Payload uploads. Production mounts named volumes here, which Docker seeds
+# with these directories' ownership the first time, so the app can write to
+# them.
+RUN mkdir media feedback-uploads && chown nextjs:nodejs media feedback-uploads
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing

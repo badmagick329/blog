@@ -9,6 +9,8 @@ import { buildConfig } from 'payload';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 
+import { Feedback } from './collections/Feedback';
+import { FeedbackScreenshots } from './collections/FeedbackScreenshots';
 import { Media } from './collections/Media';
 import { Posts } from './collections/Posts';
 import { Users } from './collections/Users';
@@ -37,7 +39,7 @@ export default buildConfig({
       icons: [{ rel: 'icon', type: 'image/x-icon', url: '/icon.ico' }],
     },
   },
-  collections: [Posts, Media, Users],
+  collections: [Posts, Media, Feedback, FeedbackScreenshots, Users],
   globals,
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [

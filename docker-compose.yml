@@ -8,6 +8,7 @@ services:
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET in .env}
     volumes:
       - media:/app/media
+      - feedback-uploads:/app/feedback-uploads
     depends_on:
       db:
         condition: service_healthy
@@ -51,3 +52,4 @@ volumes:
   staticfiles:
   pgdata:
   media:
+  feedback-uploads:

@@ -40,5 +40,6 @@ next-env.d.ts
 /content/
 /.velite/
 /public/static
-# Payload uploads in development; a volume in production.
+# Payload uploads in development; volumes in production.
 /media/
+/feedback-uploads/

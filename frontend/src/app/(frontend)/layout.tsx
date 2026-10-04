@@ -1,8 +1,9 @@
 import DraftBanner from '@/components/draft-banner';
+import FeedbackButton from '@/components/feedback-button';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { Toaster } from '@/components/ui/toaster';
-import { getCopy } from '@/lib/content';
+import { getCopy, isAdmin } from '@/lib/content';
 import { cn } from '@/lib/utils';
 // After globals.css, so the theme wins ties with the base rules.
 import '@/styles/theme.css';
@@ -45,6 +46,7 @@ export default async function RootLayout({
 }>) {
   const site = await getCopy('site');
   const { isEnabled: draft } = await draftMode();
+  const admin = await isAdmin();
   return (
     <html
       lang='en'
@@ -69,6 +71,7 @@ export default async function RootLayout({
         {draft && <DraftBanner />}
         {children}
         <Footer name={site.name} terms={site.footer.terms} />
+        {admin && <FeedbackButton />}
         <Toaster />
       </body>
     </html>
