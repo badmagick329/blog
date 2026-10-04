@@ -49,7 +49,10 @@ export function DashboardGuide() {
         The wording of every page is under <strong>Site copy</strong> in the
         menu: Home, About, Blog, Contact, Terms of Use, and the header, footer
         and 404 page. It works like a post: edit, check it with the eye icon,
-        then click <strong>Publish changes</strong>.
+        then click <strong>Publish changes</strong>. To throw away unpublished
+        edits, open <strong>Versions</strong>, click the newest entry marked
+        Published (it may say <strong>Previously Published</strong>), then{' '}
+        <strong>Restore this version</strong>.
       </p>
       <p>
         Forgot your password? Use <strong>Forgot password?</strong> on the login
