@@ -13,3 +13,4 @@ pnpm-debug.log*
 yarn-error.log*
 # Local Payload uploads: standalone tracing would copy them into the image.
 media
+feedback-uploads
