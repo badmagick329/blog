@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend
 
-## Getting Started
+The blog's Next.js app, with [Payload CMS](https://payloadcms.com/) serving the admin at `/admin` and storing posts, covers and site copy in Postgres.
 
-First, run the development server:
+## Local development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Start the dev database from the repository root:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   docker compose -f docker-compose-db.yml -p blog-dev up -d
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Create `frontend/.env.development.local` with `DATABASE_URI` (`postgres://blog:blog@127.0.0.1:5433/blog`) and any `PAYLOAD_SECRET`.
+3. From `frontend/`, install and run:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   pnpm install
+   pnpm dev
+   ```
 
-## Learn More
+The site is at http://localhost:5000 and the admin at http://localhost:5000/admin. Development pushes the schema straight to the database; production applies the migrations in `src/migrations/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Layout
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `src/app/(frontend)/`: the site's routes. `src/app/(payload)/`: Payload's generated admin and API routes.
+- `src/collections/` and `src/globals/`: the Payload schema. After changing it, run `pnpm generate:types` and add a migration with `pnpm payload migrate:create <name>`.
+- `src/styles/theme.css`: the site's look, on top of the tokens in `src/app/(frontend)/globals.css`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Fonts are self-hosted variable fonts in `src/fonts/`, loaded with `next/font/local` in `src/app/(frontend)/layout.tsx` and applied in `src/styles/theme.css`: Vollkorn for body text, Dancing Script for headings and accents, JetBrains Mono for code.
