@@ -25,7 +25,7 @@ const describe = (v: number) =>
             ? 'one last sip'
             : 'empty';
 
-// The cup on a post page that drains as the reader scrolls. Remount it per
+// The cup on a post page that drains as the visitor scrolls. Remount it per
 // post (key it by slug) so each post starts its own drain.
 export default function CoffeeDock() {
   const [level, setLevel] = useState<number | null>(null);
@@ -67,7 +67,7 @@ export default function CoffeeDock() {
     };
 
     setLevel(current);
-    // Most readers land on a post from search or social and never see the
+    // Most visitors land on a post from search or social and never see the
     // pour on /posts, so an empty cup is filled for them on arrival.
     if (current < 0.02) {
       if (prefersReducedMotion()) {

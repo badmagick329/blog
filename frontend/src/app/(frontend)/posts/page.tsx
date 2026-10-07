@@ -51,7 +51,7 @@ export default async function BlogPosts() {
           <p className='text-center text-foreground/85'>{copy.intro}</p>
         </div>
         {/* Posts beside a sticky coffee station from lg; on phones the
-            station comes first so the reader can pour before picking. */}
+            station comes first so the visitor can pour before picking. */}
         <div className='flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center lg:gap-12'>
           <article className='prose w-full text-foreground lg:prose-lg'>
             <section className='flex flex-col items-start gap-12 font-normal'>

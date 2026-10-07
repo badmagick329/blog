@@ -5,8 +5,8 @@
  * under the header and over the footer. Dancing Script for headings and accents,
  * Vollkorn for reading text: the source used the script for body too, and
  * the user found it too small and squiggly to read. Flat colour only: the user
- * rejected gradients. Tokens live in `app/globals.css`; fonts load in
- * `app/layout.tsx`.
+ * rejected gradients. Tokens live in `app/(frontend)/globals.css`; fonts load
+ * in `app/(frontend)/layout.tsx`.
  */
 
 /* Fonts. */
@@ -327,7 +327,7 @@
   background: hsl(var(--art-sage));
 }
 
-/* End of a post ("bottom of the cup"): rose card, terracotta script title. */
+/* End of a post ("bottom of the cup"): rose card, wine script title. */
 :root .post-end {
   background: hsl(var(--art-rose));
 }

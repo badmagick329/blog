@@ -1,4 +1,4 @@
-// Coffee-cup reading: the reader pours a cup on /posts and it drains as they
+// Coffee-cup reading: the visitor pours a cup on /posts and it drains as they
 // scroll a post. The level (0 empty, 1 full) is the only state shared between
 // pages, so it lives in localStorage.
 

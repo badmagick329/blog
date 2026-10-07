@@ -23,7 +23,7 @@ const POUR_RATE = 0.36;
 
 const easeOut = (t: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
 
-// The coffee machine on /posts, where the reader pours a cup before reading.
+// The coffee station on /posts, where the visitor pours a cup before reading.
 export type CoffeeCopy = {
   title: string;
   empty: string;
@@ -91,7 +91,7 @@ export default function CoffeeStation({ copy }: { copy: CoffeeCopy }) {
     };
     raf = requestAnimationFrame(frame);
 
-    // Also runs if the reader leaves mid-pour, so what was poured is kept.
+    // Also runs if the visitor leaves mid-pour, so what was poured is kept.
     return () => {
       cancelAnimationFrame(raf);
       stream?.setAttribute('height', '0');

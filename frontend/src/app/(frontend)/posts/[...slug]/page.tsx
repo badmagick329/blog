@@ -123,7 +123,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
           <CoffeeDock key={post.slug} />
         </div>
       </div>
-      {/* The reader reaches this as the cup runs dry, so it sends them back
+      {/* The visitor reaches this as the cup runs dry, so it sends them back
           to /posts, where the refill is. Sharing lives here too, off the
           paper. */}
       <div className='content-shell pt-10'>
