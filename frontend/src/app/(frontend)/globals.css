@@ -180,7 +180,7 @@ body {
   padding: 1rem 1rem 2.25rem;
   border: 1px solid hsl(34 30% 78%);
   border-radius: 0.35rem;
-  background: linear-gradient(180deg, hsl(42 35% 96%) 0%, hsl(34 28% 90%) 100%);
+  background: hsl(42 35% 96%);
   box-shadow:
     0 12px 28px hsl(18 18% 20% / 0.14),
     0 3px 8px hsl(18 18% 20% / 0.08);
