@@ -88,7 +88,9 @@ export default async function PostSlug({ params }: PostSlugProps) {
           briefly pin the fixed cup to the row instead of the screen. */}
       <div className='content-shell flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center lg:gap-12'>
         <article className='section-card notebook-page notebook-page--long motion-fade-in readable-prose prose w-full min-w-0 px-6 py-8 text-foreground lg:prose-lg sm:px-8'>
-          <header className='not-prose flex flex-col gap-1'>
+          {/* Whole notebook rows (2rem): two for the title, one for the date, so
+              the ruled part below starts on the sheet's rhythm, as on About. */}
+          <header className='not-prose flex flex-col'>
             <MainHeading
               text={post.title}
               className='text-start font-normal tracking-tight'
