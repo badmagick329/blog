@@ -18,7 +18,7 @@ export const Blog = copyGlobal({
     text('empty', 'No posts found', {
       description: 'Shown while there are no published posts.',
     }),
-    group('coffee', 'Coffee machine', [
+    group('coffee', 'Coffee station', [
       text('title', 'Pour yourself a coffee'),
       text('empty', 'Your cup is empty. Pour one before you settle in.', {
         label: 'Empty cup',
