@@ -58,7 +58,8 @@
       "^@core/(.*)$",
       "^@server/(.*)$",
       "^@ui/(.*)$",
-      "^[./]"
+      "^[./]",
+      "^@/styles/theme\\.css$"
     ],
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,

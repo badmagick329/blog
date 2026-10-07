@@ -5,13 +5,15 @@ import Header from '@/components/header';
 import { Toaster } from '@/components/ui/toaster';
 import { getCopy, isAdmin } from '@/lib/content';
 import { cn } from '@/lib/utils';
-// After globals.css, so the theme wins ties with the base rules.
-import '@/styles/theme.css';
 import localFont from 'next/font/local';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
 
 import './globals.css';
+
+// After globals.css, so the theme wins ties with the base rules. The
+// `importOrder` entry in package.json keeps the import sorter from moving it.
+import '@/styles/theme.css';
 
 // Committed latin-subset variable fonts (from Fontsource; OFL licences beside
 // them), so image builds never depend on reaching Google Fonts.
