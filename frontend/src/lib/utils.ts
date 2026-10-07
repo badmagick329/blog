@@ -14,16 +14,6 @@ export function formatDate(date: string) {
   });
 }
 
-/** `YYYY-MM-DD` for `date` on the London calendar, like `formatDate`. */
-export function isoDay(date: string) {
-  return new Intl.DateTimeFormat('en-CA', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    timeZone: 'Europe/London',
-  }).format(new Date(date));
-}
-
 export async function copyToClipboard(text: string) {
   if (navigator.clipboard && window.isSecureContext) {
     return navigator.clipboard.writeText(text);

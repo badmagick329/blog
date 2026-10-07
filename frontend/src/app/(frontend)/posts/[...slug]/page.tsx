@@ -6,7 +6,7 @@ import RichText from '@/components/rich-text';
 import ShareButtons from '@/components/share-buttons';
 import { getCopy } from '@/lib/content';
 import { coverOf, getPost } from '@/lib/posts';
-import { cn, isoDay } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -95,7 +95,7 @@ export default async function PostSlug({ params }: PostSlugProps) {
               text={post.title}
               className='text-start font-normal tracking-tight'
             />
-            <PostDate date={isoDay(post.publishedAt)} />
+            <PostDate date={formatDate(post.publishedAt)} />
           </header>
           <div className='notebook-lines text-justify'>
             <RichText data={post.body} />
