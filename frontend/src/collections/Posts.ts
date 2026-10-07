@@ -68,7 +68,7 @@ export const Posts: CollectionConfig<'posts'> = {
         position: 'sidebar',
         date: { pickerAppearance: 'dayOnly', displayFormat: 'd MMMM yyyy' },
         description:
-          'Shown as the post date. A future date keeps a published post hidden until that day.',
+          'Shown as the post date. A future date keeps a published post hidden until midday UTC that day.',
       },
     },
     slugField({ position: 'sidebar' }),

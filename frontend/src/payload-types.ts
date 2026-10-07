@@ -168,7 +168,7 @@ export interface Post {
     [k: string]: unknown;
   };
   /**
-   * Shown as the post date. A future date keeps a published post hidden until that day.
+   * Shown as the post date. A future date keeps a published post hidden until midday UTC that day.
    */
   publishedAt: string;
   /**
