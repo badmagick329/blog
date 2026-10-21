@@ -1,4 +1,4 @@
-FROM node:22.13-alpine AS base
+FROM node:22-alpine AS base
 RUN npm install --global pnpm@11.11.0
 
 FROM base AS deps
