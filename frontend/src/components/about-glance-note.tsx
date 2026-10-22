@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 // carry empty alt text; their canvases keep transparent padding, so the boxes
 // below are larger than the visible artwork. They turn with the note, but the
 // note's tilt is too slight to show on the upright cup, so it leans further on
-// its own; the user found the same on the star too much.
+// its own.
 export default function AboutGlanceNote({
   copy,
 }: {
@@ -25,13 +25,6 @@ export default function AboutGlanceNote({
         width={1254}
         height={1254}
         className='pointer-events-none absolute -top-11 left-[calc(50%-1.75rem)] h-[4.5rem] w-[4.5rem] select-none'
-      />
-      <Image
-        src='/images/about/star.webp'
-        alt=''
-        width={1374}
-        height={1145}
-        className='pointer-events-none absolute right-1 top-[5.25rem] h-auto w-14 select-none'
       />
       <h2
         id='glance-title'
