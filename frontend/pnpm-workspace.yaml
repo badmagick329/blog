@@ -1,3 +1,17 @@
 allowBuilds:
   esbuild: true
   sharp: true
+
+# Security floors for transitive dependencies of Payload 3.93.0 that pin or
+# lock vulnerable versions (pnpm audit --prod, KLB-9). Each target is a
+# patch or minor bump on the same major as what its parent asks for, and each selector matches
+# only the vulnerable versions, so an entry goes inert once Payload's own
+# graph moves past it; drop it then.
+overrides:
+  # monaco-editor 0.57.0 (Payload admin code/JSON editor) pins dompurify 3.4.15
+  # exactly; 3.4.17 is its patch-level security release.
+  dompurify@<3.4.17: ^3.4.17
+  # json-schema-to-typescript (payload generate:types) asks for ^4.17.21.
+  lodash@<4.17.24: ^4.18.1
+  # chokidar/anymatch/micromatch under sass and other tooling ask for ^2.
+  picomatch@>=2 <2.3.2: ^2.3.2
