@@ -181,13 +181,22 @@ export interface Post {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Upload photos as they are: they are converted to WebP and resized automatically. Set the focal point so the cover crop keeps the important part.
+ * Upload photos as they are: you crop each one to the site’s landscape shape, and it is converted to WebP and resized automatically.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: number;
+  crop?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   /**
    * Describes the image for people who cannot see it. Covers fall back to the post title.
    */
@@ -387,6 +396,7 @@ export interface PostsSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  crop?: T;
   alt?: T;
   updatedAt?: T;
   createdAt?: T;

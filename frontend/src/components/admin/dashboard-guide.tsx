@@ -21,10 +21,17 @@ export function DashboardGuide() {
           converted for the web automatically.
         </li>
         <li>
-          The cover is cut to a landscape shape. To choose what stays in view,
-          click the pencil next to the photo, then <strong>Edit Image</strong>,
-          and drag the focal point onto the important part, or draw a crop. Then
-          click <strong>Save</strong>.
+          Every photo on the site has the same landscape shape, so a crop
+          window opens as soon as you pick one. Drag the box over the part you
+          want to keep, or drag its corners to zoom in, then click{' '}
+          <strong>Use this crop</strong>. If you close the window, the middle of
+          the photo is kept; <strong>Adjust crop</strong> opens it again until
+          you click <strong>Save</strong>.
+        </li>
+        <li>
+          To put a photo inside the post, type <strong>/</strong> on an empty
+          line of <strong>Body</strong>, choose <strong>Upload</strong>, then{' '}
+          <strong>Create New</strong>. You crop it the same way.
         </li>
         <li>
           Everything saves as a draft while you type, and visitors never see

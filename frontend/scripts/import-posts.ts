@@ -3,7 +3,9 @@
  * API: `content/posts/<slug>.mdx` (frontmatter plus Markdown) and the cover
  * `public/covers/<slug>.webp`. Talking to the API rather than a database
  * means the target's own upload pipeline crops and converts the covers, and
- * the same run works against development and production.
+ * the same run works against development and production. Each cover is sent
+ * with the largest centered 10:7 crop, as the admin's cropper would, since
+ * the site refuses images in any other shape.
  *
  *   IMPORT_URL=http://localhost:5000 IMPORT_EMAIL=… IMPORT_PASSWORD=… \
  *     pnpm payload run scripts/import-posts.ts
@@ -18,7 +20,9 @@ import {
 } from '@payloadcms/richtext-lexical';
 import { readFile, readdir } from 'fs/promises';
 import path from 'path';
+import sharp from 'sharp';
 
+import { centeredCrop, uploadEditsQuery } from '../src/lib/image-ratio';
 import configPromise from '../src/payload.config';
 
 const postsDir = path.resolve('content/posts');
@@ -159,17 +163,19 @@ async function main() {
       await readFile(path.join(postsDir, file), 'utf-8')
     );
 
+    const coverFile = await readFile(path.join(coversDir, `${slug}.webp`));
+    // autoOrient: the size the image is shown at, as the server crops it.
+    const { width, height } = (await sharp(coverFile).metadata()).autoOrient;
     const upload = new FormData();
     upload.append(
       'file',
-      new Blob([await readFile(path.join(coversDir, `${slug}.webp`))], {
-        type: 'image/webp',
-      }),
+      new Blob([coverFile], { type: 'image/webp' }),
       `${slug}.webp`
     );
     // Required by the API even with no fields; alt falls back to the title.
     upload.append('_payload', JSON.stringify({}));
-    const { doc: cover } = await api<{ doc: { id: number } }>('/media', {
+    const crop = uploadEditsQuery(centeredCrop(width, height));
+    const { doc: cover } = await api<{ doc: { id: number } }>(`/media?${crop}`, {
       method: 'POST',
       headers: auth,
       body: upload,

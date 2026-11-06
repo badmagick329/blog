@@ -23,3 +23,75 @@
     margin-top: calc(var(--base) * 0.25);
   }
 }
+
+// The 10:7 cropper on Media uploads (components/admin/image-cropper.tsx).
+.image-cropper__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+  align-items: center;
+
+  p {
+    margin: 0 0 calc(var(--base) * 0.5);
+    max-width: 32rem;
+  }
+}
+
+.image-cropper__preview {
+  position: relative;
+  width: 10rem;
+  aspect-ratio: 10 / 7;
+  overflow: hidden;
+  border-radius: var(--style-radius-s);
+  background: var(--theme-elevation-100);
+
+  img {
+    position: absolute;
+    max-width: none;
+  }
+}
+
+// Above Payload's drawers (--z-modal) and popups (--z-popup).
+.image-cropper__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--base);
+  background: rgb(0 0 0 / 0.6);
+}
+
+.image-cropper__dialog {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.75);
+  width: min(100%, 60rem);
+  max-height: 100%;
+  overflow: auto;
+  padding: var(--base);
+  border-radius: var(--style-radius-m);
+  background: var(--theme-bg);
+
+  h2,
+  p {
+    margin: 0;
+  }
+}
+
+.image-cropper__stage {
+  display: flex;
+  justify-content: center;
+
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 65vh;
+  }
+}
+
+.image-cropper__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: calc(var(--base) * 0.5);
+}
