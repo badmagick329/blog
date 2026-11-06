@@ -13,6 +13,13 @@ export const Users: CollectionConfig = {
     // the account for a while.
     maxLoginAttempts: 5,
     lockTime: 15 * 60 * 1000,
+    // Payload's cookie isn't Secure by default, so a stray http:// request
+    // would carry the admin session in cleartext before nginx redirects it.
+    // Development runs on plain http; browsers accept Secure cookies from
+    // http://localhost, so a local `next start` still works.
+    cookies: {
+      secure: process.env.NODE_ENV === 'production',
+    },
     forgotPassword: {
       generateEmailSubject: () => 'Reset your kristalomu.com admin password',
       // Payload's own email links to `serverURL`, or to a relative path when

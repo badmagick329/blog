@@ -31,6 +31,9 @@ server {
     ssl_certificate_key /etc/nginx/ssl/live/example.com/privkey.pem;
 
     server_tokens off;
+    # Browsers then never send the admin cookie over http. A location with its
+    # own add_header drops this one, so repeat it there.
+    add_header Strict-Transport-Security "max-age=31536000" always;
     proxy_set_header  Host              $http_host;
     proxy_set_header  X-Real-IP         $remote_addr;
     proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
