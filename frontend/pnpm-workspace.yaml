@@ -3,8 +3,9 @@ allowBuilds:
   sharp: true
 
 # Security floors for transitive dependencies of Payload 3.93.0 that pin or
-# lock vulnerable versions (pnpm audit --prod, KLB-9). Each target is a
-# patch or minor bump on the same major as what its parent asks for, and each selector matches
+# lock vulnerable versions (pnpm audit --prod, KLB-9, KLB-12). Each target is a
+# patch or minor bump on the same major as what its parent asks for, unless
+# noted on the entry, and each selector matches
 # only the vulnerable versions, so an entry goes inert once Payload's own
 # graph moves past it; drop it then.
 overrides:
@@ -15,3 +16,8 @@ overrides:
   lodash@<4.17.24: ^4.18.1
   # chokidar/anymatch/micromatch under sass and other tooling ask for ^2.
   picomatch@>=2 <2.3.2: ^2.3.2
+  # @lexical/headless 0.50.0 asks for ^20.9.0 (KLB-12). This floor crosses a
+  # major, which is safe only because nothing loads happy-dom: it backs the
+  # `@lexical/headless/dom` entry point, and Payload imports only the root one.
+  # Recheck that before keeping this override past a Payload upgrade.
+  happy-dom@<21.0.4: ^21.0.4
